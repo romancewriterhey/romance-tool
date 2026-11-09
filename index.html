@@ -84,7 +84,7 @@ button:disabled{opacity:.45;cursor:default}
 <header>
 <h1>💌 現代背景原創OC／CP靈感工具庫</h1>
 <nav id="nav">
-<a href="#welcome">歡迎使用</a><a href="#howto">使用教學</a><a href="#gen">靈感產生器</a><a href="#cards">我的靈感卡</a><a href="#map">角色關係圖</a><a href="#look">外觀產生器</a><a href="#char">認識角色</a><a href="#drill">短文練習題</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿給作者</a><a href="#src">出處資訊</a></span></span>
+<a href="#welcome">歡迎使用</a><a href="#howto">使用教學</a><a href="#gen">人設與關係產生器</a><a href="#cards">我的靈感卡</a><a href="#map">角色關係圖</a><a href="#look">外觀產生器</a><a href="#char">認識角色</a><a href="#drill">短文練習題</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿給作者</a><a href="#src">出處資訊</a></span></span>
 </nav>
 </header>
 <main>
@@ -102,7 +102,7 @@ button:disabled{opacity:.45;cursor:default}
 </details>
 </div>
 <div class="portals">
-<button class="portal" onclick="location.hash='gen'"><b>🎲 靈感產生器</b><span>一鍵骰出角色、關係與劇情走向，可鎖定喜歡的項目再重骰。</span></button>
+<button class="portal" onclick="location.hash='gen'"><b>🎲 人設與關係產生器</b><span>一鍵骰出角色、關係與劇情走向，可鎖定喜歡的項目再重骰。</span></button>
 <button class="portal" onclick="location.hash='cards'"><b>💾 我的靈感卡</b><span>收藏骰到的靈感，可命名、加標籤、搜尋，並下載成圖片。</span></button>
 <button class="portal" onclick="location.hash='map'"><b>🕸️ 角色關係圖</b><span>把角色與關係畫成圖，可拖曳排版並下載成圖片。</span></button>
 <button class="portal" onclick="location.hash='look'"><b>👗 外觀產生器</b><span>抽出臉部、髮型、個人色彩、穿搭、香氛與妝容，組成完整外觀設定。</span></button>
@@ -116,11 +116,11 @@ button:disabled{opacity:.45;cursor:default}
 <h2>使用教學</h2>
 <p><button onclick="document.querySelectorAll('#howto details').forEach(d=>d.open=true)">全部展開</button> <button onclick="document.querySelectorAll('#howto details').forEach(d=>d.open=false)">全部收合</button></p>
 <details class="fold" open><summary>三步驟快速開始</summary><div class="inner">
-<p><b>① 選條件。</b>到「靈感產生器」，最上方可以選配對類型、年齡範圍、國籍範圍；不選就是全部隨機。</p>
+<p><b>① 選條件。</b>到「人設與關係產生器」，最上方可以選配對類型、年齡範圍、國籍範圍；不選就是全部隨機。</p>
 <p><b>② 按重骰。</b>按畫面下方的「🎲 重骰」，一次抽出配對、每位主角的設定，以及題材、背景、套路、相遇和衝突。</p>
 <p><b>③ 鎖住喜歡的。</b>看到喜歡的欄位就按「🔒 鎖住」，再按重骰，只會換掉沒鎖的欄位。想換單一欄位，按那一格的「🎲 重骰」。</p>
-<p><button class="big" onclick="location.hash='gen'">前往靈感產生器</button></p></div></details>
-<details class="fold"><summary>靈感產生器裡的各個區塊</summary><div class="inner">
+<p><button class="big" onclick="location.hash='gen'">前往人設與關係產生器</button></p></div></details>
+<details class="fold"><summary>人設與關係產生器裡的各個區塊</summary><div class="inner">
 <p><b>配對與人物關係：</b>抽出這一組是 BG、BL、GL、Reverse Harem、Polyamory 還是無CP，以及人物之間的關係。</p>
 <p><b>每位主角：</b>一人一個可收合的區塊，有人物屬性、職業、年齡、身高體型、身心狀態、依附類型、生日血型 MBTI、性別與性傾向、國籍。區塊最上方可以直接輸入名字，或選名字類型（華語、英語系、日本、韓國等）後按「🎲 骰名字」，點一下就套用，外語名字還會附上意涵。</p>
 <p><b>故事設定：</b>題材、故事背景、套路、初次相遇、最大衝突線。</p>
@@ -145,7 +145,7 @@ button:disabled{opacity:.45;cursor:default}
 <p><b>長文字：</b>連線上的文字會自動換行；覺得太擠或太小，可以用「連線文字」切換大小，或把兩位角色拖遠一點。</p>
 <p><b>下載圖片：</b>按「下載圖片」存成 PNG，可以貼到企劃或分享給朋友。</p></div></details>
 <details class="fold"><summary>外觀產生器怎麼用</summary><div class="inner">
-<p><b>先選來源：</b>可以選「帶入」某位主角，沿用年齡、身高與體型；或選手動設定，自己指定年齡層與身高。</p>
+<p><b>先選角色：</b>在「角色來源」選一位主角，外觀會直接套用他的年齡、身高與體型（尺碼、鞋碼、髮色、可否出現刺青都會跟著調整）；選「隨機角色」則會當成一位成年角色來抽。</p>
 <p><b>全部重骰與鎖住：</b>按「全部重骰」抽出整組外觀；喜歡的項目按「🔒 鎖住」，再重骰時會保留。</p>
 <p><b>個人色彩連動：</b>四季型個人色彩會連動膚色、眼睛顏色、髮色和慣穿的顏色，並附上配色卡；重骰它，相關項目會一起更新。</p>
 <p><b>穿搭與香氛：</b>穿搭風格有日系、韓系、歐美三種，可在上方選「衣著傾向」（女性化、男性化、中性化）和地區偏好；每個風格附特色與品牌參考，香水附前中後調。</p>
@@ -165,7 +165,7 @@ button:disabled{opacity:.45;cursor:default}
 <p>你存的靈感卡和新增的詞彙，都只存在你自己的瀏覽器，本工具不會蒐集你的資料；換一台裝置或清除瀏覽器資料就會消失，重要的設定建議另外複製保存。</p></div></details>
 </section>
 <section id="gen">
-<h2>靈感統合／產生器</h2>
+<h2>人設與關係產生器</h2>
 <p class="note">按「重骰」一次抽滿；喜歡的欄位可以按「鎖住」，重骰時只會換掉沒鎖的。</p>
 <div class="card" id="ctrl">
 <div class="grid"><label class="lab">配對類型<select id="pairsel"></select></label><label class="lab">國籍範圍<select id="natsel"></select></label><label class="lab">年齡範圍<select id="agesel"><option value="all">隨機（18–45 歲）</option><option value="teen">15–17 歲（高中生，限校園向）</option><option value="young">18–25 歲（校園／NA）</option><option value="main">24–35 歲（職場主流）</option><option value="mature">33–50 歲（成熟）</option></select></label></div>
@@ -205,7 +205,7 @@ button:disabled{opacity:.45;cursor:default}
 
 <section id="cards">
 <h2>我的靈感卡</h2>
-<p class="note">在「靈感產生器」按「💾 存成靈感卡」，就會收在這裡。靈感卡存在你這個瀏覽器裡，最多 60 張；換裝置或清除瀏覽器資料就會消失，重要的建議下載或複製備份。</p>
+<p class="note">在「人設與關係產生器」按「💾 存成靈感卡」，就會收在這裡。靈感卡存在你這個瀏覽器裡，最多 60 張；換裝置或清除瀏覽器資料就會消失，重要的建議下載或複製備份。</p>
 <div class="card"><div class="grid"><input id="cq" placeholder="搜尋名稱、角色、套路、背景…" oninput="renderCards()"><select id="ctag" onchange="renderCards()"></select></div>
 <p><button onclick="allCardsTxt()">下載全部（文字）</button> <button onclick="cardsBackup()">複製備份碼</button> <span id="cmsg" class="note"></span></p>
 <details class="fold sub"><summary>用備份碼還原</summary><div class="inner"><textarea id="cbk" rows="3" placeholder="貼上備份碼"></textarea><p><button onclick="cardsRestore()">還原（會加入現有靈感卡）</button></p></div></details></div>
@@ -232,9 +232,8 @@ button:disabled{opacity:.45;cursor:default}
 <h2>外觀產生器</h2>
 <p class="note">抽出一個角色的外觀：臉部、髮型、膚色與個人色彩、穿搭、香氛、妝容和小特徵。所有項目都不分性別，男生可以留長髮、女生也可以是短髮。「衣著傾向」可以指定要女性化、男性化或中性化的衣服；穿搭與妝容都是建議方向，請依角色調整。</p>
 <div class="card"><div class="grid"><label class="lab">角色來源<select id="lksrc" onchange="lkAll()"></select></label><label class="lab">衣著傾向<select id="lkgw" onchange="lkAll()"><option value="">不限</option><option value="f">女性化衣服</option><option value="m">男性化衣服</option><option value="n">中性化衣服</option></select></label><label class="lab">穿搭地區偏好<select id="lkreg" onchange="lkAll()"><option value="">不限</option><option>日系</option><option>韓系</option><option>歐美</option></select></label></div>
-<div id="lkman" class="grid"><label class="lab">年齡層<select id="lkage" onchange="lkAll()"><option value="15">15–17 歲</option><option value="24" selected>18–29 歲</option><option value="38">30–44 歲</option><option value="52">45–59 歲</option><option value="65">60 歲以上</option></select></label><label class="lab">身高（cm，可留空）<input id="lkht" type="number" min="120" max="230" onchange="lkAll()"></label></div>
 <p><button class="big" onclick="lkAll()">🎲 全部重骰</button> <button onclick="lkCopy()">複製</button> <button onclick="lkImg()">下載圖片</button> <button onclick="lkTxt()">下載文字</button> <span id="lkmsg" class="note"></span></p>
-<p class="note">選「帶入」會使用該位主角的年齡、身高與體型，讓尺碼和鞋碼合理。已鎖住的項目重骰時會保留。</p></div>
+<p class="note">已鎖住的項目重骰時會保留。</p></div>
 <div id="lkout"></div>
 <p class="note">品牌與香水都只是「走向相近的參考」，不是業配，實際商品請以官方為準。</p>
 </section>
@@ -361,24 +360,24 @@ PA.push(...Object.entries({"成人補充（露骨）":S("高潮臉、M 字開腿
 D.trait.push(...S("貪婪的人、自卑的人、嫉妒心強的人、傲慢的人、不忠的人、有暴力傾向的人、虛榮的人、諂媚的人、吝嗇的人、自私的人、多疑的人、易怒的人、冷漠的人、揮霍無度的人、盲目跟風的人、多嘴多舌的人、愛推卸責任的人、故作清高的人、事事抱怨的人、優柔寡斷的人、慣性失約的人、兩面三刀的人、虎頭蛇尾的人、愛添油加醋的人、說謊成性的人、自以為是的人、反覆無常的人"));
 D.trait.push(...S('柔弱溫柔型、學霸乖乖型、理智菁英型、嫵媚性感型、調皮搞怪型、任性千金型、冰山高冷型、迷糊呆呆型、悲觀厭世型、樂觀能量型、邪惡魔女型、直爽豪邁型、潑辣火爆型、反差惡女型、內斂木頭型、霸道型、儒雅型、幽默型、學霸型、某領域大神型、硬漢型、腹黑型、淡漠型、暗黑型（黑道背景）、風流型、悶騷型、忠犬型、弟弟型（年下）、掌權領袖型'));
 const SRC=[
-['靈感產生器參考','愛情小說的女主角這樣寫：16種女主角類型＋人物設定（杏仁瓦片的故事館）','https://cynzenstory.com/2023/09/22/16heroine/'],
-['靈感產生器參考','愛情小說寫作，16種經典「男主角」設定（杏仁瓦片的故事館）','https://cynzenstory.com/2023/09/22/16hero/'],
-['靈感產生器參考','女頻必火的27個大女主人設（知乎）','https://zhuanlan.zhihu.com/p/690682825'],
-['靈感產生器參考','28個男主人設（知乎）','https://zhuanlan.zhihu.com/p/693329942'],
-['靈感產生器參考','[閒聊] 那大家喜歡的套路又是什麼呢？（PTT Romances）','https://www.pttweb.cc/bbs/Romances/M.1634375375.A.A64'],
-['靈感產生器參考','[請益] 求推薦平凡的現代言情（PTT Romances）','https://www.pttweb.cc/bbs/Romances/M.1583965170.A.B7A'],
-['靈感產生器參考','盤點 BG 言情小說情節的八大經典套路（文學城）','https://zh.wenxuecity.com/blog/200909/45966/21397.html'],
-['靈感產生器參考','「花系列」是台灣 1980～1990 年代的經典都會電視劇（Threads）','https://www.threads.com/@beautifuleveryday2038/post/DfGQIcXE0Cq'],
-['靈感產生器參考','「花系列」台灣壞女人製造機（LiTV 痞客邦）','https://litv.pixnet.net/blog/posts/15076315743'],
-['靈感產生器參考','那些年一起走過的「花系列」（聯合新聞網）','https://udn.com/news/story/7482/1013509'],
-['靈感產生器參考','看瓊瑤、談瓊瑤（台灣光華雜誌）','https://www.taiwan-panorama.com/Articles/Details?Guid=e75554eb-66d0-49b9-af88-475af56ff0f4&CatId=8'],
-['靈感產生器參考','盧郁佳專欄：瓊瑤殘穢（Facebook）','https://www.facebook.com/chianghsinching/posts/pfbid02UKQvtnabLzJdrwXg57HUUTrZe6pBSi7SdHfGkKYxV4VTD8Uf35EdRCiHsuzS6Lp4l'],
-['靈感產生器參考','瓊瑤言情小說中的年輕女性戀愛心理分析（方格子）','https://vocus.cc/article/626cae79fd897800018bc8ea'],
-['靈感產生器參考','港臺言情巔峯對話：論亦舒與瓊瑤小說之差別（UDN 部落格）','https://blog.udn.com/bailushuyuan/171718556'],
-['靈感產生器參考','150 Romance novel tropes（Evie Alexander）','https://eviealexanderauthor.com/150-romance-novel-tropes/'],
-['靈感產生器參考','The Romance Tropes Master List: Over 70 Patterns We Love（We Read Smut）','https://wereadsmut.com/f/the-romance-tropes-master-list-over-70-patterns-we-love'],
-['靈感產生器參考','GB 比 BG 難寫的點在於（知乎）','https://zhuanlan.zhihu.com/p/1984541664866505630'],
-['靈感產生器參考','GB／四愛的寫作門檻遠高於 BG／一愛（知乎）','https://zhuanlan.zhihu.com/p/1976313973256237516'],
+['人設與關係產生器參考','愛情小說的女主角這樣寫：16種女主角類型＋人物設定（杏仁瓦片的故事館）','https://cynzenstory.com/2023/09/22/16heroine/'],
+['人設與關係產生器參考','愛情小說寫作，16種經典「男主角」設定（杏仁瓦片的故事館）','https://cynzenstory.com/2023/09/22/16hero/'],
+['人設與關係產生器參考','女頻必火的27個大女主人設（知乎）','https://zhuanlan.zhihu.com/p/690682825'],
+['人設與關係產生器參考','28個男主人設（知乎）','https://zhuanlan.zhihu.com/p/693329942'],
+['人設與關係產生器參考','[閒聊] 那大家喜歡的套路又是什麼呢？（PTT Romances）','https://www.pttweb.cc/bbs/Romances/M.1634375375.A.A64'],
+['人設與關係產生器參考','[請益] 求推薦平凡的現代言情（PTT Romances）','https://www.pttweb.cc/bbs/Romances/M.1583965170.A.B7A'],
+['人設與關係產生器參考','盤點 BG 言情小說情節的八大經典套路（文學城）','https://zh.wenxuecity.com/blog/200909/45966/21397.html'],
+['人設與關係產生器參考','「花系列」是台灣 1980～1990 年代的經典都會電視劇（Threads）','https://www.threads.com/@beautifuleveryday2038/post/DfGQIcXE0Cq'],
+['人設與關係產生器參考','「花系列」台灣壞女人製造機（LiTV 痞客邦）','https://litv.pixnet.net/blog/posts/15076315743'],
+['人設與關係產生器參考','那些年一起走過的「花系列」（聯合新聞網）','https://udn.com/news/story/7482/1013509'],
+['人設與關係產生器參考','看瓊瑤、談瓊瑤（台灣光華雜誌）','https://www.taiwan-panorama.com/Articles/Details?Guid=e75554eb-66d0-49b9-af88-475af56ff0f4&CatId=8'],
+['人設與關係產生器參考','盧郁佳專欄：瓊瑤殘穢（Facebook）','https://www.facebook.com/chianghsinching/posts/pfbid02UKQvtnabLzJdrwXg57HUUTrZe6pBSi7SdHfGkKYxV4VTD8Uf35EdRCiHsuzS6Lp4l'],
+['人設與關係產生器參考','瓊瑤言情小說中的年輕女性戀愛心理分析（方格子）','https://vocus.cc/article/626cae79fd897800018bc8ea'],
+['人設與關係產生器參考','港臺言情巔峯對話：論亦舒與瓊瑤小說之差別（UDN 部落格）','https://blog.udn.com/bailushuyuan/171718556'],
+['人設與關係產生器參考','150 Romance novel tropes（Evie Alexander）','https://eviealexanderauthor.com/150-romance-novel-tropes/'],
+['人設與關係產生器參考','The Romance Tropes Master List: Over 70 Patterns We Love（We Read Smut）','https://wereadsmut.com/f/the-romance-tropes-master-list-over-70-patterns-we-love'],
+['人設與關係產生器參考','GB 比 BG 難寫的點在於（知乎）','https://zhuanlan.zhihu.com/p/1984541664866505630'],
+['人設與關係產生器參考','GB／四愛的寫作門檻遠高於 BG／一愛（知乎）','https://zhuanlan.zhihu.com/p/1976313973256237516'],
 ];
 const PB='心理學三十題|show/9Nbe7lTVutk9IjSaE2Rc、親吻三十題|show/1655736、咖啡館三十題|show/1655748、大熱天三十題|show/1655761、吃貨三十題|show/1655779、學院風六十題|show/EkEctJFRMeCcgcT1ZjqV、地點三十題|show/1655843、時間地點三十題|show/1655829、同居二十題|show/1655847、同居三十題|show/1655851、R18 30題|show/1655897、情趣Play三十題|show/1655905、情趣Play三十題之二|show/1655909、色氣三十題|show/1655931、文藝三十題|show/1655933、文藝場景三十題|show/1655935、戀愛練習三十題|show/1655954、男友力三十題|show/1655941、相戀十年三十題|show/1655943、甜蜜蜜三十題|show/1655937、甜蜜蜜三十題之二|show/1655957、特殊三十題|show/1655960、暗黑三十題|show/1655961、黑暗系三十題|show/1655962、奇怪三十題|show/1655966、初戀二十題|show/1655974、溫暖三十題|show/1655976、精神汙染三十題|show/1655984、關係裂痕三十題|show/1655985、精神病三十題|show/1655999、你已離去三十題|show/1656005、BE向三十題|show/1656010、暗黑崩壞三十題|show/1656019、混亂三十題|show/1656021、負面性格三十題|show/1656020、犯罪三十題|show/1656024、黑幫警匪三十題|show/1656028、雙生三十題|show/1656095、幼馴染三十題|show/1656097、忠犬三十題|show/1656098、季節三十題|show/1656106、季節三十題之二|show/1656108、老年三十題|show/1656109、私奔三十題|show/1656112、回憶三十題|show/1656113、同居三十題（二）|show/1656114、公寓生活十五題|show/1656115、單戀三十題|show/1656116、相愛相殺三十題|show/1656118、分手向三十題|show/1656121、生死相隔三十題|show/1656122、疼痛三十題|show/1656124、如果十五題|show/1656125、巧合三十題|show/1656126、三十題|show/1656130、英文百題挑戰|show/1656132、萌點之人相關二十題|show/1662701、一方死亡三十題|show/1668721、How to Deal With Your Lover|show/zb0UI9vMNeNBUn8IXxFr、畢業二十題|show/oSTLf3971Eo3lOpwkRRp'.split('、');
 PB.forEach(x=>{const [n,p]=x.split('|');SRC.push(['短文練習題庫',n,'https://paste.plurk.com/'+p])});
@@ -587,7 +586,7 @@ function cardNames(g){return g.cast.map((c,i)=>c.nm||role(i)).join('、')}
 function renderCards(){const b=$('#cardsList');if(!b)return;const ts=$('#ctag');if(ts&&!ts.options.length)ts.innerHTML='<option value="">全部標籤</option>'+CTAGS.map(t=>`<option>${t}</option>`).join('')+'<option value="_">未標記</option>';
 const q=(($('#cq')||{}).value||'').trim().toLowerCase(),tg=ts?ts.value:'';
 const rows=CARDS.map((c,i)=>({c,i})).filter(({c})=>{if(tg=='_'&&c.tag)return false;if(tg&&tg!='_'&&c.tag!=tg)return false;if(!q)return true;const hay=((c.name||'')+' '+cardNames(c.g)+' '+c.g.tr+' '+c.g.bg+' '+c.g.th+' '+c.g.mt+' '+c.g.cf+' '+(PAIRS[c.g.pair]?PAIRS[c.g.pair].label:'')).toLowerCase();return hay.includes(q)});
-b.innerHTML=rows.length?rows.map(({c,i})=>`<div class="card"><div class="grid"><input value="${escA(c.name||'')}" placeholder="幫這張靈感卡取個名字" onchange="cardRename(${i},this.value)"><select onchange="cardTag(${i},this.value)"><option value="">未標記</option>${CTAGS.map(t=>`<option${c.tag==t?' selected':''}>${t}</option>`).join('')}</select></div><div class="lab" style="margin-top:6px">${esc(c.ts)}</div><div>${esc(PAIRS[c.g.pair]?PAIRS[c.g.pair].label:'')}｜${esc(cardNames(c.g))}</div><div class="note">${esc(c.g.th||'')}｜${esc(c.g.tr)}｜${esc(c.g.bg)}</div><p><button onclick="loadCard(${i})">載入到產生器</button> <button onclick="cardImg(${i})">下載圖片</button> <button onclick="cardTxt(${i})">下載文字</button> <button onclick="mapImport(${i})">帶入關係圖</button> <button onclick="delCard(${i})">刪除</button></p></div>`).join(''):'<p class="note">'+(CARDS.length?'沒有符合的靈感卡。':'還沒有靈感卡。到「靈感產生器」按「💾 存成靈感卡」就會出現在這裡。')+'</p>'}
+b.innerHTML=rows.length?rows.map(({c,i})=>`<div class="card"><div class="grid"><input value="${escA(c.name||'')}" placeholder="幫這張靈感卡取個名字" onchange="cardRename(${i},this.value)"><select onchange="cardTag(${i},this.value)"><option value="">未標記</option>${CTAGS.map(t=>`<option${c.tag==t?' selected':''}>${t}</option>`).join('')}</select></div><div class="lab" style="margin-top:6px">${esc(c.ts)}</div><div>${esc(PAIRS[c.g.pair]?PAIRS[c.g.pair].label:'')}｜${esc(cardNames(c.g))}</div><div class="note">${esc(c.g.th||'')}｜${esc(c.g.tr)}｜${esc(c.g.bg)}</div><p><button onclick="loadCard(${i})">載入到產生器</button> <button onclick="cardImg(${i})">下載圖片</button> <button onclick="cardTxt(${i})">下載文字</button> <button onclick="mapImport(${i})">帶入關係圖</button> <button onclick="delCard(${i})">刪除</button></p></div>`).join(''):'<p class="note">'+(CARDS.length?'沒有符合的靈感卡。':'還沒有靈感卡。到「人設與關係產生器」按「💾 存成靈感卡」就會出現在這裡。')+'</p>'}
 function cardRename(i,v){CARDS[i].name=v.trim();saveCards()}
 function cardTag(i,v){CARDS[i].tag=v;saveCards();if($('#ctag')&&$('#ctag').value)renderCards()}
 function loadCard(i){const g=CARDS[i].g;G=JSON.parse(JSON.stringify(g));G.rel=G.rel||[];Object.keys(LK).forEach(k=>delete LK[k]);drawGen();toast('已載入');location.hash='gen';window.scrollTo(0,0)}
@@ -746,8 +745,9 @@ const LK_DEP={season:['skin','eyec','hcol','wear','mk']};
 let LOOK={v:{},L:{},src:'m'};
 const lkP=a=>a[Math.random()*a.length|0];
 function lkCtx(){let age,ht,bd='';const s=$('#lksrc')?$('#lksrc').value:'m';
-if(s!='m'&&G.cast[+s]){const c=G.cast[+s];age=c.age;ht=c.ht;bd=c.bd||''}else{const ag=$('#lkage')?$('#lkage').value:'';const R={'15':[15,17],'24':[18,29],'38':[30,44],'52':[45,59],'65':[60,78]}[ag||'24'];age=R[0]+Math.random()*(R[1]-R[0])|0;const h=$('#lkht')?+$('#lkht').value:0;ht=h>=120&&h<=230?h:150+Math.random()*40|0}
+if(s!='m'&&G.cast[+s]){const c=G.cast[+s];age=c.age;ht=c.ht;bd=c.bd||''}else{age=18+Math.random()*12|0;ht=150+Math.random()*40|0}
 const pref=$('#lkreg')?$('#lkreg').value:'',gw=$('#lkgw')?$('#lkgw').value:'';return{age:age||24,ht:ht||170,bd,pref,gw,teen:(age||24)<18,s}}
+function lkSig(){const c=lkCtx();return $('#lksrc').value=='m'?'m':[c.age,c.ht,c.bd].join('|')}
 function lkSeason(){return LOOK.v.season||'春'}
 const LK_R={
 vibe:()=>pick(LK_VIBE,2).join('、'),face:()=>lkP(LK_FACE),eye:()=>lkP(LK_EYE),eyec:()=>lkP(LK_SEA[lkSeason()].eye),brow:()=>lkP(LK_BROW),lash:()=>lkP(LK_LASH),nose:()=>lkP(LK_NOSE),lip:()=>lkP(LK_LIP),ear:()=>lkP(LK_EAR),dimple:()=>lkP(LK_DIMP),mole:()=>lkP(LK_MOLE),teeth:()=>lkP(LK_TEETH),
@@ -781,8 +781,9 @@ function lkCell(k,wide){const lk=LOOK.L[k],d=lkDetail(k);let ex='';
 let body=lkVal(k);if(k=='season'){const S0=LK_SEA[lkSeason()];body+='<div class="pal">'+S0.pal.map(p=>`<span class="swb" style="background:${p[1]}" title="${p[0]}"></span>`).join('')+'</div><div class="note">適合：'+S0.pal.map(p=>p[0]).join('、')+'｜不太適合：'+S0.avoid.map(p=>p[0]).join('、')+'</div>'}
 if(d)body+=`<div class="note" style="margin-top:4px">${esc(d).replace(/\n/g,'<br>')}</div>`;
 return`<div class="cell${wide?' wide':''}"><div class="lab">${LK_LAB[k]}</div><div class="val">${body}</div><div class="btns"><button onclick="lkRoll('${k}')" ${lk?'disabled':''}>🎲 重骰</button>${lockBtn(lk,`lkLock('${k}')`)}${ex}</div></div>`}
-function renderLook(){const b=$('#lkout');if(!b)return;const sel=$('#lksrc');if(sel){const cur=sel.value;sel.innerHTML='<option value="m">手動設定</option>'+G.cast.map((c,i)=>`<option value="${i}">帶入：${esc(c.nm||role(i))}（${c.age} 歲，${c.ht} cm）</option>`).join('');if([...sel.options].some(o=>o.value==cur))sel.value=cur;$('#lkman').style.display=sel.value=='m'?'':'none'}
-if(!Object.keys(LOOK.v).length){lkAll();return}
+function renderLook(){const b=$('#lkout');if(!b)return;const sel=$('#lksrc');if(sel){const cur=sel.value;sel.innerHTML=G.cast.map((c,i)=>`<option value="${i}">${esc(c.nm||role(i))}</option>`).join('')+'<option value="m">隨機角色（成年）</option>';if([...sel.options].some(o=>o.value==cur)&&cur)sel.value=cur;else sel.value='0'}
+if(!Object.keys(LOOK.v).length){LOOK.sig=lkSig();lkAll();return}
+if(LOOK.sig!=lkSig()){LOOK.sig=lkSig();const c=lkCtx();['size','shoe','hcol','marks','scent','mk'].forEach(k=>{if(!LOOK.L[k])lkRollOne(k,c)})}
 const wide=new Set(['sty','scent','mk','wear','season']);
 b.innerHTML=LK_G.map(([id,t,ks])=>fold('lk_'+id,'',t,`<div class="cgrid">${ks.map(k=>lkCell(k,wide.has(k))).join('')}</div>`,id!='extra'&&id!='body')).join('')}
 function lkLines(){const L=[];LK_G.forEach(([id,t,ks])=>{L.push('##'+t);ks.forEach(k=>{if(!LOOK.v[k])return;let v=k=='season'?LK_SEA[LOOK.v[k]].n:lkPlain(LOOK.v[k]);L.push('　'+LK_LAB[k]+'：'+v);const d=lkDetail(k);if(d&&k!='season')d.split('\n').forEach(x=>L.push('　　'+x));if(k=='season'){const S0=LK_SEA[LOOK.v[k]];L.push('　　適合的顏色：'+S0.pal.map(p=>p[0]).join('、'));L.push('　　不太適合：'+S0.avoid.map(p=>p[0]).join('、'))}})});return L}
