@@ -138,6 +138,7 @@ button:disabled{opacity:.45;cursor:default}
 <p><b>放入角色：</b>輸入名字按「新增角色」，或按「從目前的產生器帶入角色與關係」。</p>
 <p><b>連線：</b>在「新增連線」選兩位角色、關係與方向（單向、雙向、無箭頭）；關係可以選常用詞，也能自訂。</p>
 <p><b>排版：</b>用滑鼠或手指拖曳角色，改變位置。角色與連線可以在下方清單改名、改顏色或刪除。</p>
+<p><b>長文字：</b>連線上的文字會自動換行；覺得太擠或太小，可以用「連線文字」切換大小，或把兩位角色拖遠一點。</p>
 <p><b>下載圖片：</b>按「下載圖片」存成 PNG，可以貼到企劃或分享給朋友。</p></div></details>
 <details class="fold"><summary>認識角色頁怎麼用</summary><div class="inner">
 <p><b>抽問題：</b>每次隨機出五題，按「🎲 重抽」換一批；喜歡的題目可以鎖住，重抽時會保留。</p>
@@ -205,7 +206,7 @@ button:disabled{opacity:.45;cursor:default}
 <h2>角色關係圖</h2>
 <p class="note">把角色放進圖裡，用連線標出彼此的關係。可以拖曳角色調整位置，完成後下載成圖片。內容存在你這個瀏覽器裡。</p>
 <div class="card">
-<p><button onclick="mapImport()">從目前的產生器帶入角色與關係</button> <button onclick="mapImg()">下載圖片</button> <button onclick="mapClear()">清空</button> <span id="mapmsg" class="note"></span></p>
+<p><button onclick="mapImport()">從目前的產生器帶入角色與關係</button> <button onclick="mapImg()">下載圖片</button> <button onclick="mapClear()">清空</button> <label class="lab" style="display:inline">連線文字 <select id="mfs" onchange="MAP.fs=+this.value;saveMap();renderMap(2)"><option value="12">小</option><option value="15">中</option><option value="18">大</option><option value="22">特大</option></select></label> <span id="mapmsg" class="note"></span></p>
 <div class="grid"><input id="mnn" placeholder="新角色名字"><button onclick="mapAddNode()">新增角色</button></div>
 </div>
 <div class="card" style="padding:6px"><svg id="mapsvg" viewBox="0 0 800 520" style="width:100%;height:auto;touch-action:none;user-select:none;-webkit-user-select:none;background:#fff;border-radius:10px;display:block"></svg></div>
@@ -580,7 +581,12 @@ const MAPREL=['暗戀','單戀','互相喜歡','交往中','前任','曖昧','�
 const MCOL=['#E7D5F7','#F7D5E3','#D5E8F7','#D5F7E0','#F7EFD5','#F7DDD5'];
 let MAP={nodes:[],edges:[],seq:1};try{const m=JSON.parse(localStorage.getItem('rwt_map')||'null');if(m&&Array.isArray(m.nodes)&&Array.isArray(m.edges))MAP=m}catch(e){}
 const saveMap=()=>{try{localStorage.setItem('rwt_map',JSON.stringify(MAP))}catch(e){}};
-const MR=38;
+const mR=n=>n.n.length<=4?38:n.n.length<=8?46:54;
+const wrapT=(t,w,mx)=>{const a=[];for(let i=0;i<t.length&&a.length<mx;i+=w)a.push(t.slice(i,i+w));if(t.length>w*mx)a[mx-1]=a[mx-1].slice(0,-1)+'…';return a};
+const nodeFs=n=>n.n.length<=4?17:n.n.length<=8?14:12;
+const nodeLines=n=>wrapT(n.n,n.n.length<=8?4:6,3);
+const edgeFs=()=>MAP.fs||15;
+const edgeLines=t=>wrapT(t,Math.max(6,Math.round(135/edgeFs())),4);
 function mapNode(id){return MAP.nodes.find(n=>n.id==id)}
 function mapPlace(){const k=MAP.nodes.length,ang=k*2.399-1.57,r=k==0?0:Math.min(200,110+k*14);return{x:Math.round(400+r*1.45*Math.cos(ang)),y:Math.round(260+r*Math.sin(ang))}}
 function mapAddN(name,col){const pl=mapPlace();const n={id:MAP.seq++,n:name,x:pl.x,y:pl.y,c:col||MCOL[MAP.nodes.length%MCOL.length]};MAP.nodes.push(n);return n}
@@ -596,31 +602,30 @@ function mapGeo(){const cnt={};MAP.edges.forEach(e=>{const k=Math.min(e.a,e.b)+'
 MAP.edges.forEach(e=>{const A=mapNode(e.a),B=mapNode(e.b);if(!A||!B)return;const k=Math.min(e.a,e.b)+'-'+Math.max(e.a,e.b),arr=cnt[k],idx=arr.indexOf(e),m=arr.length;
 let dx=B.x-A.x,dy=B.y-A.y;const L=Math.hypot(dx,dy)||1;dx/=L;dy/=L;const sg=e.a<e.b?1:-1;const off=(idx-(m-1)/2)*60*sg;const nx=-dy,ny=dx;
 const C={x:(A.x+B.x)/2+nx*off*2,y:(A.y+B.y)/2+ny*off*2};const un=(P,Q)=>{const l=Math.hypot(Q.x-P.x,Q.y-P.y)||1;return{x:(Q.x-P.x)/l,y:(Q.y-P.y)/l}};
-const u1=un(A,C),u2=un(B,C);const S={x:A.x+u1.x*MR,y:A.y+u1.y*MR},E={x:B.x+u2.x*MR,y:B.y+u2.y*MR};
+const u1=un(A,C),u2=un(B,C);const S={x:A.x+u1.x*mR(A),y:A.y+u1.y*mR(A)},E={x:B.x+u2.x*mR(B),y:B.y+u2.y*mR(B)};
 const M={x:.25*S.x+.5*C.x+.25*E.x,y:.25*S.y+.5*C.y+.25*E.y};out.push({e,S,E,C,M,tS:{x:S.x-C.x,y:S.y-C.y},tE:{x:E.x-C.x,y:E.y-C.y}})});return out}
 function arrowPts(T,v){const l=Math.hypot(v.x,v.y)||1,ux=v.x/l,uy=v.y/l,px=-uy,py=ux;return[[T.x,T.y],[T.x-ux*16+px*7,T.y-uy*16+py*7],[T.x-ux*16-px*7,T.y-uy*16-py*7]]}
-const mshort=t=>t.length>7?t.slice(0,6)+'…':t;
-function renderMap(keep){const sv=$('#mapsvg');if(!sv)return;const ns=MAP.nodes;
+function renderMap(keep){const sv=$('#mapsvg');if(!sv)return;const ns=MAP.nodes;const sf=$('#mfs');if(sf)sf.value=String(MAP.fs||15);
 const opt=ns.map(n=>`<option value="${n.id}">${esc(n.n)}</option>`).join('');const fa=$('#mfa'),fb=$('#mfb');if(fa&&!keep){const va=fa.value,vb=fb.value;fa.innerHTML=opt;fb.innerHTML=opt;if(va)fa.value=va;if(vb)fb.value=vb;if(ns.length>1&&fa.value==fb.value)fb.value=ns.find(n=>n.id!=fa.value).id}
 const rl=$('#mrl');if(rl&&!rl.options.length)rl.innerHTML=MAPREL.map(t=>`<option>${t}</option>`).join('')+'<option>自訂</option>';
 const geo=mapGeo();let h='';
-geo.forEach(g=>{const e=g.e;h+=`<path d="M${g.S.x},${g.S.y} Q${g.C.x},${g.C.y} ${g.E.x},${g.E.y}" fill="none" stroke="#7b4fa8" stroke-width="2.4"/>`;if(e.d==1||e.d==2)h+=`<polygon points="${arrowPts(g.E,{x:g.E.x-g.C.x,y:g.E.y-g.C.y}).map(p=>p.join(',')).join(' ')}" fill="#7b4fa8"/>`;if(e.d==2)h+=`<polygon points="${arrowPts(g.S,{x:g.S.x-g.C.x,y:g.S.y-g.C.y}).map(p=>p.join(',')).join(' ')}" fill="#7b4fa8"/>`;h+=`<text x="${g.M.x}" y="${g.M.y}" text-anchor="middle" dominant-baseline="middle" font-size="15" fill="#3a2a4d" stroke="#fff" stroke-width="5" paint-order="stroke" stroke-linejoin="round">${esc(mshort(e.t))}</text>`});
-ns.forEach(n=>{const fs=n.n.length<=4?17:n.n.length<=6?13:11;h+=`<g data-id="${n.id}" style="cursor:grab"><circle cx="${n.x}" cy="${n.y}" r="${MR}" fill="${n.c}" stroke="#7b4fa8" stroke-width="2.4"/><text x="${n.x}" y="${n.y}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" font-weight="700" fill="#3a2a4d" pointer-events="none">${esc(n.n.length>8?n.n.slice(0,7)+'…':n.n)}</text></g>`});
+geo.forEach(g=>{const e=g.e;h+=`<path d="M${g.S.x},${g.S.y} Q${g.C.x},${g.C.y} ${g.E.x},${g.E.y}" fill="none" stroke="#7b4fa8" stroke-width="2.4"/>`;if(e.d==1||e.d==2)h+=`<polygon points="${arrowPts(g.E,{x:g.E.x-g.C.x,y:g.E.y-g.C.y}).map(p=>p.join(',')).join(' ')}" fill="#7b4fa8"/>`;if(e.d==2)h+=`<polygon points="${arrowPts(g.S,{x:g.S.x-g.C.x,y:g.S.y-g.C.y}).map(p=>p.join(',')).join(' ')}" fill="#7b4fa8"/>`;{const ls=edgeLines(e.t),fs=edgeFs(),lh=fs*1.25;ls.forEach((l,k)=>{h+=`<text x="${g.M.x}" y="${g.M.y+(k-(ls.length-1)/2)*lh}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" fill="#3a2a4d" stroke="#fff" stroke-width="5" paint-order="stroke" stroke-linejoin="round">${esc(l)}</text>`})}});
+ns.forEach(n=>{const fs=nodeFs(n),ls=nodeLines(n),lh=fs*1.2;h+=`<g data-id="${n.id}" style="cursor:grab"><circle cx="${n.x}" cy="${n.y}" r="${mR(n)}" fill="${n.c}" stroke="#7b4fa8" stroke-width="2.4"/>${ls.map((l,k)=>`<text x="${n.x}" y="${n.y+(k-(ls.length-1)/2)*lh}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" font-weight="700" fill="#3a2a4d" pointer-events="none">${esc(l)}</text>`).join('')}</g>`});
 if(!ns.length)h+='<text x="400" y="260" text-anchor="middle" font-size="18" fill="#9a8aad">還沒有角色。新增角色，或從產生器帶入。</text>';
 sv.innerHTML=h;
 if(!keep||1){const L=$('#maplist');if(L&&!(keep==2))L.innerHTML=(ns.length?ns.map(n=>`<div class="grid" style="margin:4px 0"><input value="${escA(n.n)}" onchange="mapRename(${n.id},this.value)"><span><input type="color" value="${n.c}" onchange="mapColor(${n.id},this.value)" style="width:44px;padding:0"> <button onclick="mapDelNode(${n.id})">刪除</button></span></div>`).join(''):'<p class="note">還沒有角色。</p>')+(MAP.edges.length?'<hr>'+MAP.edges.map(e=>{const A=mapNode(e.a),B=mapNode(e.b);return A&&B?`<div style="margin:4px 0">${esc(A.n)} ${e.d==2?'↔':e.d==1?'→':'—'} ${esc(B.n)}：${esc(e.t)} <button onclick="mapDelEdge(${e.id})" style="padding:1px 8px">刪除</button></div>`:''}).join(''):'')}}
 let MD=null;
 (function(){const sv=document.getElementById('mapsvg');if(!sv)return;const pt=ev=>{const r=sv.getBoundingClientRect();return{x:(ev.clientX-r.left)*800/r.width,y:(ev.clientY-r.top)*520/r.height}};
 sv.addEventListener('pointerdown',ev=>{const g=ev.target.closest('g[data-id]');if(!g)return;const n=mapNode(g.dataset.id);if(!n)return;const p=pt(ev);MD={n,dx:n.x-p.x,dy:n.y-p.y};sv.setPointerCapture(ev.pointerId);ev.preventDefault()});
-sv.addEventListener('pointermove',ev=>{if(!MD)return;const p=pt(ev);MD.n.x=Math.max(MR,Math.min(800-MR,Math.round(p.x+MD.dx)));MD.n.y=Math.max(MR,Math.min(520-MR,Math.round(p.y+MD.dy)));renderMap(2)});
+sv.addEventListener('pointermove',ev=>{if(!MD)return;const p=pt(ev);MD.n.x=Math.max(mR(MD.n),Math.min(800-mR(MD.n),Math.round(p.x+MD.dx)));MD.n.y=Math.max(mR(MD.n),Math.min(520-mR(MD.n),Math.round(p.y+MD.dy)));renderMap(2)});
 const up=()=>{if(MD){MD=null;saveMap()}};sv.addEventListener('pointerup',up);sv.addEventListener('pointercancel',up)})();
 function mapImg(){if(!MAP.nodes.length){toast('還沒有角色');return}const S=2,W=800*S,T=150,H=520*S+T+90,F='"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif';const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
 x.fillStyle='#FBF8FE';x.fillRect(0,0,W,H);x.fillStyle='#E7D5F7';x.fillRect(0,0,W,T);x.fillStyle='#3a2a4d';x.font=`700 54px ${F}`;x.textBaseline='middle';x.textAlign='left';x.fillText('角色關係圖',60,T/2);
 x.fillStyle='#fff';x.fillRect(30,T+20,W-60,520*S-40+30);x.save();x.translate(0,T+20);x.scale(S,S);x.translate(0,-10);
 const geo=mapGeo();const tri=(T0,v)=>{const p=arrowPts(T0,v);x.beginPath();x.moveTo(p[0][0],p[0][1]);x.lineTo(p[1][0],p[1][1]);x.lineTo(p[2][0],p[2][1]);x.closePath();x.fillStyle='#7b4fa8';x.fill()};
 x.lineWidth=2.4;x.strokeStyle='#7b4fa8';geo.forEach(g=>{x.beginPath();x.moveTo(g.S.x,g.S.y);x.quadraticCurveTo(g.C.x,g.C.y,g.E.x,g.E.y);x.stroke();if(g.e.d==1||g.e.d==2)tri(g.E,g.tE);if(g.e.d==2)tri(g.S,g.tS);});
-x.textAlign='center';geo.forEach(g=>{x.font=`15px ${F}`;x.lineWidth=5;x.strokeStyle='#fff';x.lineJoin='round';x.strokeText(mshort(g.e.t),g.M.x,g.M.y);x.fillStyle='#3a2a4d';x.fillText(mshort(g.e.t),g.M.x,g.M.y)});
-MAP.nodes.forEach(n=>{x.beginPath();x.arc(n.x,n.y,MR,0,7);x.fillStyle=n.c;x.fill();x.lineWidth=2.4;x.strokeStyle='#7b4fa8';x.stroke();const fs=n.n.length<=4?17:n.n.length<=6?13:11;x.font=`700 ${fs}px ${F}`;x.fillStyle='#3a2a4d';x.fillText(n.n.length>8?n.n.slice(0,7)+'…':n.n,n.x,n.y)});
+x.textAlign='center';geo.forEach(g=>{const fs=edgeFs(),lh=fs*1.25,ls=edgeLines(g.e.t);x.font=`${fs}px ${F}`;ls.forEach((l,k)=>{const yy=g.M.y+(k-(ls.length-1)/2)*lh;x.lineWidth=5;x.strokeStyle='#fff';x.lineJoin='round';x.strokeText(l,g.M.x,yy);x.fillStyle='#3a2a4d';x.fillText(l,g.M.x,yy)})});
+MAP.nodes.forEach(n=>{x.beginPath();x.arc(n.x,n.y,mR(n),0,7);x.fillStyle=n.c;x.fill();x.lineWidth=2.4;x.strokeStyle='#7b4fa8';x.stroke();const fs=nodeFs(n),ls=nodeLines(n),lh=fs*1.2;x.font=`700 ${fs}px ${F}`;x.fillStyle='#3a2a4d';ls.forEach((l,k)=>x.fillText(l,n.x,n.y+(k-(ls.length-1)/2)*lh))});
 x.restore();x.textAlign='left';x.fillStyle='#7b4fa8';x.font=`26px ${F}`;x.fillText('現代背景原創OC／CP靈感工具庫',60,H-45);
 c.toBlob(b=>saveFile('角色關係圖.png',b),'image/png')}
 /* ---- 分享 ---- */
