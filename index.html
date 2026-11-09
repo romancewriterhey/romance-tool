@@ -17,6 +17,17 @@ header h1{margin:0 0 6px;font-size:1.05rem;color:#3a2a4d}
 nav{display:flex;gap:6px;flex-wrap:wrap}
 nav a{padding:5px 12px;border-radius:99px;background:#ffffffaa;color:#3a2a4d;text-decoration:none;font-size:.9rem}
 nav a.on{background:#7b4fa8;color:#fff}
+nav .more{position:relative}
+nav .more>button{padding:5px 12px;border-radius:99px;background:#ffffffaa;color:#3a2a4d;border:0;font-size:.9rem;cursor:pointer}
+nav .more>button.on{background:#7b4fa8;color:#fff}
+#moremenu{display:none;position:absolute;right:0;top:110%;background:#fff;border-radius:12px;box-shadow:0 4px 16px #0003;padding:6px;z-index:50;min-width:150px}
+#moremenu.open{display:block}
+#moremenu a{display:block;background:none;border-radius:8px;padding:8px 12px;white-space:nowrap}
+#moremenu a.on{background:#7b4fa8;color:#fff}
+.portals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
+.portal{display:block;text-align:left;background:#fff;border:1px solid #d9c5ee;border-radius:14px;padding:12px;cursor:pointer;font:inherit;color:#3a2a4d}
+.portal b{display:block;font-size:1rem;margin-bottom:4px}
+.portal span{font-size:.85rem;color:#6a5a7d}
 main{max-width:760px;margin:0 auto;padding:18px 14px 60px}
 section{display:none}section.on{display:block}
 h2{color:var(--deep);margin-top:.2em}
@@ -70,24 +81,62 @@ button:disabled{opacity:.45;cursor:default}
 <header>
 <h1>💌 現代背景原創OC／CP靈感工具庫</h1>
 <nav id="nav">
-<a href="#welcome">使用指南</a><a href="#gen">靈感產生器</a><a href="#drill">短文練習題</a><a href="#char">認識角色</a><a href="#src">出處資訊</a>
+<a href="#welcome">歡迎使用</a><a href="#howto">使用教學</a><a href="#gen">靈感產生器</a><a href="#drill">短文練習題</a><a href="#char">認識角色</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿與自訂詞彙</a><a href="#src">出處資訊</a></span></span>
 </nav>
 </header>
 <main>
 
 <section id="welcome">
-<h2>使用指南／規則</h2>
+<h2>歡迎使用</h2>
 <div class="card">
 <p>這是由一位小說創作者個人所製作的免費工具，無任何營利。</p>
 <p>主打提供創作現代背景、側重 OC 與原創 CP 感情線發展的創作者使用。</p>
 <p>靈感統合／產生器的詞彙與題庫內容，來自網路資源、難以考證作者的 30 題／50 題寫作練習……等，以及工具作者本人所提供，並由 Claude 做統整分析後得出的結果。</p>
 <p>創作者可以自由運用靈感統合／產生器，抽（骰）到的內容都可以用於您作品的創作基礎、腦力激盪，若您想要擴寫也沒有問題；但如果可以的話，請連結回這個工具庫網址，方便更多人認識和使用。</p>
+<details class="fold"><summary>資料來源說明與聯絡方式</summary>
 <p>關於資料來源：本工具在製作時，參考了許多創作者分享的文章與整理（詳見「出處資訊」）。除了既有作品的劇情梗（例如九〇年代台灣連續劇「花系列」）有另外查證之外，其餘多是感情線創作裡大家熟悉的人物設定與劇情元素，這裡只是把它們整理成容易抽取的詞條，內容皆經過重新整理與改寫，並非直接複製貼上他人的文字。謝謝所有曾經公開分享創作經驗、整理資料的作者們。</p>
 <p>若有任何問題與建議，請洽 <a href="https://www.plurk.com/romancewritertool" target="_blank" rel="noopener">https://www.plurk.com/romancewritertool</a>。</p>
+</details>
 </div>
-<p><button class="big" onclick="location.hash='gen'">開始骰靈感</button></p>
+<div class="portals">
+<button class="portal" onclick="location.hash='gen'"><b>🎲 靈感產生器</b><span>一鍵骰出角色、關係與劇情走向，可鎖定喜歡的項目再重骰。</span></button>
+<button class="portal" onclick="location.hash='drill'"><b>✍️ 短文練習題</b><span>隨機抽三題短文題目，挑一題來寫就好，適合暖手或卡文時使用。</span></button>
+<button class="portal" onclick="location.hash='char'"><b>🧩 認識角色</b><span>用問題集一步步深入了解你的角色，補齊個性與背景。</span></button>
+</div>
+<p><button class="big" onclick="location.hash='gen'">開始骰靈感</button> <button onclick="location.hash='howto'">先看使用教學</button></p>
 </section>
 
+<section id="howto">
+<h2>使用教學</h2>
+<div class="card"><h3 style="margin-top:0">三步驟快速開始</h3>
+<p><b>① 選條件。</b>到「靈感產生器」，最上方可以選配對類型、年齡範圍、國籍範圍；不選就是全部隨機。</p>
+<p><b>② 按重骰。</b>按畫面下方的「🎲 重骰」，一次抽出配對、每位主角的設定，以及題材、背景、套路、相遇和衝突。</p>
+<p><b>③ 鎖住喜歡的。</b>看到喜歡的欄位就按「🔒 鎖住」，再按重骰，只會換掉沒鎖的欄位。想換單一欄位，按那一格的「🎲 重骰」。</p>
+<p><button class="big" onclick="location.hash='gen'">前往靈感產生器</button></p></div>
+<div class="card" id="demo"><h3 style="margin-top:0">試玩看看</h3>
+<p class="note">這是迷你示範：按每格的「重骰」換一個，按「鎖住」保留它；再按下面的大按鈕，鎖住的格子不會變。</p>
+<div class="cgrid" id="demoGrid"></div>
+<p><button class="big" onclick="demoAll()">🎲 全部重骰（鎖住的保留）</button></p></div>
+<div class="card"><h3 style="margin-top:0">靈感產生器裡的各個區塊</h3>
+<p><b>配對與人物關係：</b>抽出這一組是 BG、BL、GL、Reverse Harem、Polyamory 還是無CP，以及人物之間的關係。</p>
+<p><b>每位主角：</b>一人一個可收合的區塊，有人物屬性、職業、年齡、身高體型、身心狀態、依附類型、生日血型 MBTI、性別與性傾向、國籍。區塊最上方可以直接輸入名字，或選名字類型（華語、英語系、日本、韓國等）後按「🎲 骰名字」，點一下就套用，外語名字還會附上意涵。</p>
+<p><b>故事設定：</b>題材、故事背景、套路、初次相遇、最大衝突線。</p>
+<p><b>關係走向骨架：</b>把相遇、靠近、衝突、低谷、和解排成五個階段，每個階段下方可以寫下自己的想法。</p>
+<p><b>更多設定：</b>最上方的「⚙️ 更多設定」可以開關欄位、設定華語名的年代與風格、篩選題材與套路的類別，以及調整機率。</p></div>
+<div class="card"><h3 style="margin-top:0">抽完之後可以做什麼</h3>
+<p><b>存成靈感卡：</b>存在你自己的瀏覽器裡，可以隨時回來看，也能下載文字或圖片。</p>
+<p><b>複製結果／下載圖片：</b>把整組設定貼到筆記或傳給朋友。</p>
+<p><b>分享連結或分享碼：</b>把這一組傳給別人，對方打開就能看到一樣的內容。</p>
+<p><b>角色設定表：</b>在「認識角色」頁，可以把抽到的角色帶進去，再回答問題集，寫成完整的角色檔案。</p></div>
+<div class="card"><h3 style="margin-top:0">其他頁面</h3>
+<p><b>短文練習題：</b>抽題目寫短文，可以鎖題、重骰；成人向和較沉重的題目需要自己勾選才會出現。</p>
+<p><b>認識角色：</b>問題集和角色設定表，幫你把角色想得更立體。</p>
+<p><b>投稿給作者：</b>想讓你的詞彙被收進公開題庫，可以在這裡投稿。</p>
+<p><b>出處資訊：</b>列出製作時閱讀過的參考資料，以及聯絡方式。</p></div>
+<div class="card"><h3 style="margin-top:0">小提醒</h3>
+<p>隨機結果只是靈感，不一定處處合理，歡迎自己改寫、挑選或重骰；不想看到的欄位，可以在「更多設定」裡關掉。</p>
+<p>你存的靈感卡和新增的詞彙，都只存在你自己的瀏覽器，本工具不會蒐集你的資料；換一台裝置或清除瀏覽器資料就會消失，重要的設定建議另外複製保存。</p></div>
+</section>
 <section id="gen">
 <h2>靈感統合／產生器</h2>
 <p class="note">按「重骰」一次抽滿；喜歡的欄位可以按「鎖住」，重骰時只會換掉沒鎖的。</p>
@@ -119,17 +168,6 @@ button:disabled{opacity:.45;cursor:default}
 <p class="note">若連結在你的環境無法直接開啟，請把「分享碼」傳給對方，並請對方貼在下方載入。</p>
 <div class="grid"><input id="shin" placeholder="貼上分享碼或分享連結"><button onclick="loadShareBox()">載入</button></div></div>
 <div class="card"><h3 style="margin-top:0">我的靈感卡</h3><p><button onclick="allCardsTxt()">下載全部（文字）</button> <span class="note">靈感卡存在你這個瀏覽器裡。</span></p><div id="cardsList"></div></div>
-<div class="card">
-<h3 style="margin-top:0">我也來加詞彙</h3>
-<p class="note">新增的詞彙會存在你自己的瀏覽器，並立刻加入你的抽籤池。想讓更多人用到，請按「複製我的新增內容」，再傳到作者的噗浪。</p>
-<div class="grid"><select id="addcat"></select><input id="addtxt" placeholder="輸入關鍵詞（可用頓號或換行一次加多個）"></div>
-<p><button onclick="addWords()">加入</button> <button onclick="copyMine()">複製我的新增內容</button> <button onclick="clearMine()">清空我的新增</button> <span id="addmsg" class="note"></span></p>
-<div id="stat" class="note"></div>
-</div>
-<div class="card"><h3 style="margin-top:0">投稿給作者</h3>
-<p class="note">想讓你的詞彙被收進公開題庫嗎？寫在下面，按按鈕會複製內容並開啟作者噗浪，貼在留言就可以。作者會審核後加入。</p>
-<div class="grid"><select id="sbcat"></select><input id="sbtxt" placeholder="詞彙或題目（可用頓號分隔多個）"></div>
-<p><a class="btnlike" href="https://www.plurk.com/romancewritertool" target="_blank" rel="noopener" onclick="copySubmit()">複製並前往作者噗浪</a> <span id="sbmsg" class="note"></span></p></div>
 </section>
 
 <section id="drill">
@@ -153,6 +191,21 @@ button:disabled{opacity:.45;cursor:default}
 \1（每行一題），會併入抽題池</label><textarea id="qadd" rows="3"></textarea><p><button onclick="addList('q','qadd','qmsg')">加入題庫</button> <span id="qmsg" class="note"></span></p></div>
 </section>
 
+<section id="submit">
+<h2>投稿與自訂詞彙</h2>
+<p class="note">這一頁有兩件事：「投稿給作者」讓你的詞彙有機會被收進公開題庫；「我也來加詞彙」只存在你自己的瀏覽器，立刻加入你的抽籤池。</p>
+<h3>投稿給作者</h3>
+<div class="card"><p class="note">想讓你的詞彙被收進公開題庫嗎？寫在下面，按按鈕會複製內容並開啟作者噗浪，貼在留言就可以。作者會審核後加入。</p>
+<div class="grid"><select id="sbcat"></select><input id="sbtxt" placeholder="詞彙或題目（可用頓號分隔多個）"></div>
+<p><a class="btnlike" href="https://www.plurk.com/romancewritertool" target="_blank" rel="noopener" onclick="copySubmit()">複製並前往作者噗浪</a> <span id="sbmsg" class="note"></span></p></div>
+<h3>我也來加詞彙</h3>
+<div class="card">
+<p class="note">新增的詞彙會存在你自己的瀏覽器，並立刻加入你的抽籤池。想讓更多人用到，請按「複製我的新增內容」，再傳到作者的噗浪。</p>
+<div class="grid"><select id="addcat"></select><input id="addtxt" placeholder="輸入關鍵詞（可用頓號或換行一次加多個）"></div>
+<p><button onclick="addWords()">加入</button> <button onclick="copyMine()">複製我的新增內容</button> <button onclick="clearMine()">清空我的新增</button> <span id="addmsg" class="note"></span></p>
+<div id="stat" class="note"></div>
+</div>
+</section>
 <section id="src">
 <h2>出處資訊</h2>
 <p class="note">以下為本工具製作期間，製作者閱讀過的參考資料。</p>
@@ -436,10 +489,10 @@ const ttl=esc(role(i))+(c.nm?'｜'+esc(c.nm.split('（')[0]):'')+(c.age?'｜'+c.
 const inner=`<div class="nmbar"><input value="${escA(c.nm)}" oninput="G.cast[${i}].nm=this.value;G.cast[${i}].nmn=''" placeholder="姓名（可自填，或用名字產生器）"><select onchange="NMCU[${i}]=this.value" title="名字類型">${NMCO.replace('value="'+(NMCU[i]||'zh')+'"','value="'+(NMCU[i]||'zh')+'" selected')}</select><button onclick="rollCharNames(${i})">🎲 骰名字</button></div>`+(c.nmn?`<div class="note" style="margin:0 0 6px">名字意涵：${esc(c.nmn)}</div>`:'')+(cands?`<div style="margin:4px 0 8px">${cands}<div class="note">點一下名字即可套用。</div></div>`:'')+`<div class="cgrid">`+cell('c'+i+'.t','人物屬性',c.t,1)+cell('c'+i+'.j','職業',c.job)+cell('c'+i+'.a','年齡',c.age?c.age+' 歲':'')+cell('c'+i+'.b','身高與體型',c.ht?c.ht+' cm｜'+c.bd:'')+(hlOn()?cell('c'+i+'.h','身心狀態（請尊重書寫）',c.hl):'')+(atOn()?cell('c'+i+'.at','依附類型',c.at):'')+(xOn()?cell('c'+i+'.x','生日／血型／MBTI',xText(c)):'')+(showId()?cell('c'+i+'.id','性別與性傾向',idText(c)):'')+(showNat()?cell('c'+i+'.n','國籍',c.nat):'')+'</div>';
 h+=fold('c'+i,'cast',ttl,inner,true)});
 h+=fold('story','','故事設定',`<div class="cgrid">`+cell('th','隨機題材',G.th)+cell('bg','故事背景',G.bg)+cell('tr','套路／Trope',noSrc(G.tr),1)+cell('mt','初次相遇',G.mt,1)+cell('cf','最大衝突線',G.cf,1)+'</div>',true);
-let hb='<p class="note">相遇與衝突取自上面抽到的結果，其餘三拍可重骰、鎖住；下方欄位可自己寫下想法。</p>';
+let hb='<p class="note">相遇與衝突取自上面抽到的結果，其餘三個階段可重骰、鎖住；下方欄位可自己寫下想法。</p>';
 const bs=[G.mt,G.bt[1],G.cf,G.bt[3],G.bt[4]],keys=[null,'bt1',null,'bt3','bt4'];
 bs.forEach((t,i)=>{hb+=`<div class="beat"><div class="row"><div><span class="tag">${i+1}　${BEATN[i]}</span>${esc(t||'—')}</div>${keys[i]?`<div class="btns"><button onclick="rollKey('${keys[i]}')" ${LK[keys[i]]?'disabled':''}>重骰</button>${lockBtn(LK[keys[i]],`tog('${keys[i]}')`)}</div>`:''}</div><textarea rows="2" placeholder="我的想法……" oninput="G.notes[${i}]=this.value">${esc(G.notes[i]||'')}</textarea></div>`});
-h+=fold('beats','','關係走向骨架（五拍）',hb,false);$('#slots').innerHTML=h;csRefresh()}
+h+=fold('beats','','關係走向骨架（五個階段）',hb,false);$('#slots').innerHTML=h;csRefresh()}
 function genLines(g,withNotes){g=g||G;const L=['##配對類型','　'+PAIRS[g.pair].label,'##角色'];
 g.cast.forEach((c,i)=>{L.push(role(i)+'：'+(c.nm?c.nm+'　':'')+c.t);if(c.nmn)L.push('　名字意涵：'+c.nmn);if(c.job)L.push('　職業：'+c.job);if(c.age)L.push('　年齡：'+c.age+' 歲');if(c.ht)L.push('　身高與體型：'+c.ht+' cm｜'+c.bd);if(c.hl)L.push('　身心狀態：'+c.hl);if(c.at&&atOn())L.push('　依附類型：'+c.at);if(xText(c))L.push('　生日／血型／MBTI：'+xText(c));if(showId())L.push('　'+idText(c));if(showNat())L.push('　國籍：'+c.nat)});
 {const ag=g.cast.map(c=>c.age).filter(Boolean);if(ag.length>1){L.push('　年齡差：'+(Math.max(...ag)-Math.min(...ag))+' 歲')}}
@@ -800,9 +853,15 @@ function rollQ(){const old=qD.slice();fillLocked(qD,qL,pool('q'));qD.forEach((x,
 function drawQ(){$('#qs').innerHTML=qD.map((x,i)=>{const j=x.indexOf('|');const c=j>0?x.slice(0,j):'自訂',t=j>0?x.slice(j+1):x;return `<div class="card row"><div><span class="tag">${esc(c)}</span>${esc(t)}<textarea rows="2" placeholder="我的回答（可不填）" oninput="qA[${i}]=this.value">${esc(qA[i])}</textarea></div>${lockBtn(qL[i],`togQ(${i})`)}</div>`}).join('')}
 function togQ(i){qL[i]=!qL[i];drawQ()}
 function drawSrc(){const g={};SRC.forEach(([c,t,u])=>(g[c]=g[c]||[]).push([t,u]));$('#srcs').innerHTML=Object.entries(g).map(([c,a])=>`<div class="card"><b>${c}</b>${c=='短文練習題庫'?'<p class="note">為噗浪旅人／匿名偷偷說上各方彙整的資料庫，大多原始來源已不可考或未曾附上。</p>':''}<ul class="src">${a.map(([t,u])=>`<li>${esc(t)}<br><a href="${u}" target="_blank" rel="noopener">${u}</a></li>`).join('')}</ul></div>`).join('')}
-function route(){const raw=(location.hash||'#welcome').slice(1),pp=raw.split('~'),hh=pp[0];const id=['welcome','gen','drill','char','src'].includes(hh)?hh:'welcome';document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+id));if(pp[1]&&!route.d){route.d=1;loadShare(pp[1])}if(id=='char')csRefresh();window.scrollTo(0,0)}
+const DMI=[['人物屬性',()=>traitFor('',28)],['職業',()=>pick(pool('job'),1)[0]],['初次相遇',()=>pick(pool('meet'),1)[0]],['最大衝突線',()=>pick(pool('conflict'),1)[0]]],DMV=[],DML=[];
+function demoDraw(){const g=$('#demoGrid');if(!g)return;g.innerHTML=DMI.map((d,i)=>`<div class="cell${i%3==0?' wide':''}"><div class="lab">${d[0]}</div><div class="val">${esc(DMV[i]||'—')}</div><div class="btns"><button onclick="demoRoll(${i})" ${DML[i]?'disabled':''}>🎲 重骰</button>${lockBtn(DML[i],`demoLock(${i})`)}</div></div>`).join('')}
+function demoRoll(i){DMV[i]=DMI[i][1]();demoDraw()}
+function demoLock(i){DML[i]=!DML[i];demoDraw()}
+function demoAll(){DMI.forEach((d,i)=>{if(!DML[i])DMV[i]=d[1]()});demoDraw()}
+function route(){const raw=(location.hash||'#welcome').slice(1),pp=raw.split('~'),hh=pp[0];const id=['welcome','howto','gen','drill','char','submit','src'].includes(hh)?hh:'welcome';document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+id));{const mb=document.getElementById('morebtn');if(mb){mb.classList.toggle('on',id=='submit'||id=='src');mb.setAttribute('aria-expanded','false')}const mm=document.getElementById('moremenu');if(mm)mm.classList.remove('open')}if(pp[1]&&!route.d){route.d=1;loadShare(pp[1])}if(id=='char')csRefresh();window.scrollTo(0,0)}
 $('#addcat').innerHTML=Object.entries(CAT).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
 initGen();rollDrill();rollQ();drawSrc();stat();
+demoAll();(function(){const mb=document.getElementById('morebtn'),mm=document.getElementById('moremenu');mb.addEventListener('click',e=>{e.stopPropagation();const o=mm.classList.toggle('open');mb.setAttribute('aria-expanded',o)});document.addEventListener('click',e=>{if(!mm.contains(e.target)){mm.classList.remove('open');mb.setAttribute('aria-expanded','false')}})})();
 window.addEventListener('hashchange',route);route();
 </script>
 </body>
