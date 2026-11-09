@@ -76,10 +76,10 @@ button:disabled{opacity:.45;cursor:default}
 <p class="note">按「重骰」一次抽滿；喜歡的欄位可以按「鎖住」，重骰時只會換掉沒鎖的。</p>
 <div class="card" id="ctrl">
 <div class="grid"><label class="lab">配對類型<select id="pairsel"></select></label><label class="lab">國籍範圍<select id="natsel"></select></label><label class="lab">年齡範圍<select id="agesel"><option value="all">隨機（18–45 歲）</option><option value="teen">15–17 歲（高中生，限校園向）</option><option value="young">18–25 歲（校園／NA）</option><option value="main">24–35 歲（職場主流）</option><option value="mature">33–50 歲（成熟）</option></select></label></div>
-<div class="grid" style="margin-top:10px"><label class="lab">身心狀態設定（主角）<select id="hlsel" onchange="hlRefresh()"><option value="off">不加入（預設）</option><option value="low">偶爾出現（約兩成有設定，其餘為健全者）</option><option value="half">經常出現（約五成有設定）</option></select></label><label class="lab">依附類型<span style="display:block;margin-top:6px"><label class="chip"><input type="checkbox" id="showat" checked style="width:auto" onchange="drawGen()"> 顯示依附類型</label></span></label></div>
+<div class="grid" style="margin-top:10px"><label class="lab">身心狀態設定（主角）<select id="hlsel" onchange="hlRefresh()"><option value="off">不加入（預設）</option><option value="low">偶爾出現（約兩成有設定，其餘為健全者）</option><option value="half">經常出現（約五成有設定）</option></select></label><label class="lab">依附類型<span style="display:block;margin-top:6px"><label class="chip"><input type="checkbox" id="showat" checked style="width:auto" onchange="drawGen()"> 顯示依附類型</label> <label class="chip"><input type="checkbox" id="showbd" checked style="width:auto" onchange="drawGen()"> 生日／星座</label> <label class="chip"><input type="checkbox" id="showbl" checked style="width:auto" onchange="drawGen()"> 血型</label> <label class="chip"><input type="checkbox" id="showmb" checked style="width:auto" onchange="drawGen()"> MBTI</label></span></label></div>
 <p class="lab" style="margin:10px 0 4px">題材類型（可複選；全不選＝全部混抽）</p><div id="thkts"></div><p class="lab" style="margin:10px 0 4px">故事背景來源（可複選；全不選＝全部混抽）</p><div id="cbkts"></div><p class="lab" style="margin:10px 0 4px">初次相遇類型（可複選；全不選＝全部混抽）</p><div id="mbkts"></div><p class="lab" style="margin:10px 0 4px">套路來源（可複選；全不選＝全部混抽）</p><div id="bkts"></div>
 <p style="margin:8px 0 0"><label class="chip"><input type="checkbox" id="evenw" style="width:auto"> 配對類型用完全平均的機率</label> <label class="chip"><input type="checkbox" id="showid" checked style="width:auto" onchange="drawGen()"> 顯示性別認同與性傾向</label> <label class="chip"><input type="checkbox" id="shownat" checked style="width:auto" onchange="drawGen()"> 顯示國籍</label></p>
-<p class="note">身心狀態（身心障礙、精神疾病、慢性病等）只是靈感提示，不代表角色的全部；請避免把疾病當噱頭、反派標籤或「被愛治好」的情節，建議查閱可靠資料，或請當事人或相關專業者協助審稿。依附類型是常見的人際互動傾向，同樣僅供參考。</p>
+<p class="note">身心狀態（身心障礙、精神疾病、慢性病等）只是靈感提示，不代表角色的全部；請避免把疾病當噱頭、反派標籤或「被愛治好」的情節，建議查閱可靠資料，或請當事人或相關專業者協助審稿。依附類型是常見的人際互動傾向，同樣僅供參考。MBTI 會依抽到的個性大致對應（內向或外向、思考或感受、計畫或隨性），但有些個性本身就帶有反差，仍可能與型別有出入，只當作參考即可，不需要的話可以取消勾選。</p>
 <p class="note">性別認同與性傾向、國籍都是隨機的靈感提示，可以自由改寫；多人配對（Reverse Harem、Harem、Polyamory）會自動多出主角三、四、五。選擇「15–17 歲」時，主角皆為高中生，會抽雙人配對或 Reverse Harem，並使用校園向的設定（不含婚姻、職場、成人情節）。</p>
 </div>
 <div id="slots"></div>
@@ -334,7 +334,16 @@ const hlMode=()=>($('#hlsel')||{}).value||'off',hlOn=()=>hlMode()!='off',atOn=()
 function rollHl(job){const m=hlMode();if(m=='off')return'';if(Math.random()>=(m=='low'?.2:.5))return'健全者（無特別設定）';let a=HL;if(isTeen())a=a.filter(x=>!HL_TEEN_BAD.test(x));a=a.filter(x=>hlJobOK(x,job));return pick(a,1)[0]}
 const rollAt=()=>pick(ATT,1)[0];
 function hlRefresh(){G.cast.forEach((c,i)=>{if(!hlOn())c.hl='';else if(!LK['c'+i+'.h']||!c.hl)c.hl=rollHl(c.job)});drawGen()}
-function newChar(){return{nm:'',t:'',sex:'',gid:'',ori:'',nat:'',age:0,job:'',ht:0,bd:'',hl:'',at:'',nmn:''}}
+const ZOD=[[1,20,'水瓶座'],[2,19,'雙魚座'],[3,21,'牡羊座'],[4,20,'金牛座'],[5,21,'雙子座'],[6,21,'巨蟹座'],[7,23,'獅子座'],[8,23,'處女座'],[9,23,'天秤座'],[10,23,'天蠍座'],[11,22,'射手座'],[12,22,'摩羯座']],DIM=[31,29,31,30,31,30,31,31,30,31,30,31];
+function rollBday(){const m=1+Math.floor(Math.random()*12),d=1+Math.floor(Math.random()*DIM[m-1]);let z='摩羯座';ZOD.forEach(([zm,zd,n])=>{if(m>zm||(m==zm&&d>=zd))z=n});return m+'月'+d+'日（'+z+'）'}
+const rollBlood=()=>wpick([['A 型',30],['B 型',25],['O 型',35],['AB 型',10]]);
+function mbFor(t){const sg=String(t||'').split('、').map(sigT),sm=i=>sg.reduce((a,v)=>a+(v[i]||0),0),r=()=>Math.random()<.5;
+const e=sm(0),j=sm(1)||sm(4),f=sm(2);
+return (e>0?'E':e<0?'I':r()?'E':'I')+(r()?'S':'N')+(f>0?'F':f<0?'T':r()?'T':'F')+(j>0?'J':j<0?'P':r()?'J':'P')}
+const showBd=()=>!$('#showbd')||$('#showbd').checked,showBl=()=>!$('#showbl')||$('#showbl').checked,showMb=()=>!$('#showmb')||$('#showmb').checked;
+const xOn=()=>showBd()||showBl()||showMb();
+function xText(c){const a=[];if(showBd()&&c.bday)a.push(c.bday);if(showBl()&&c.blood)a.push(c.blood);if(showMb()&&c.mb)a.push(c.mb);return a.join('｜')}
+function newChar(){return{bday:'',blood:'',mb:'',nm:'',t:'',sex:'',gid:'',ori:'',nat:'',age:0,job:'',ht:0,bd:'',hl:'',at:'',nmn:''}}
 function rollAge(){if(isTeen())return 15+Math.floor(Math.random()*3);const s=($('#agesel')||{}).value||'all',r={all:[18,45],young:[18,25],main:[24,35],mature:[33,50]}[s]||[18,45];return r[0]+Math.floor(Math.random()*(r[1]-r[0]+1))}
 function rollJob(a){if(isTeen())return pick(TEEN_JOB,1)[0];if(a<=22&&Math.random()<.6)return pick(S('大學生、大學生（兼職打工）、研究所學生、剛畢業的社會新鮮人、實習生'),1)[0];const jp=pool('job').filter(j=>jobOK(j,a));return pick(jp.length?jp:pool('job'),1)[0]}
 function rollHt(sex){const t=isTeen(),r=sex=='男'?(t?[160,185]:[166,190]):(t?[148,172]:[143,176]);return Math.round(r[0]+(Math.random()+Math.random())/2*(r[1]-r[0]))}
@@ -343,31 +352,31 @@ function applyPair(){G.cast.length>G.n&&(G.cast.length=G.n);while(G.cast.length<
 G.sx=sexesFor(G.pair,G.n);
 G.cast.forEach((c,i)=>{if(!LK['c'+i+'.id']){c.sex=G.sx[i];c.gid=wpick(GIDS)}if(!LK['c'+i+'.b']){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}});
 G.cast.forEach((c,i)=>{if(!LK['c'+i+'.id'])c.ori=rollOri(i)});
-G.cast.forEach((c,i)=>{if(!c.age)c.age=rollAge();if(!c.job)c.job=rollJob(c.age);if(!c.t)c.t=traitFor(c.sex,c.age);if(!c.nat)c.nat=rollNat();if(!c.ht)c.ht=rollHt(c.sex);if(!c.bd)c.bd=rollBd(c.ht,c.sex);if(!c.hl&&hlOn())c.hl=rollHl(c.job);if(!c.at)c.at=rollAt()})}
+G.cast.forEach((c,i)=>{if(!c.age)c.age=rollAge();if(!c.job)c.job=rollJob(c.age);if(!c.t)c.t=traitFor(c.sex,c.age);if(!c.nat)c.nat=rollNat();if(!c.ht)c.ht=rollHt(c.sex);if(!c.bd)c.bd=rollBd(c.ht,c.sex);if(!c.hl&&hlOn())c.hl=rollHl(c.job);if(!c.at)c.at=rollAt();if(!c.bday)c.bday=rollBday();if(!c.blood)c.blood=rollBlood();if(!c.mb)c.mb=mbFor(c.t)})}
 function rollAll(){if(!LK.pair){G.pair=genPair();G.n=nFor(G.pair)}applyPair();
-G.cast.forEach((c,i)=>{const L=k=>LK['c'+i+'.'+k];if(!L('a'))c.age=rollAge();if(!L('j'))c.job=rollJob(c.age);if(!L('t'))c.t=traitFor(c.sex,c.age);if(!L('n'))c.nat=rollNat();if(!L('b')){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}if(!L('h'))c.hl=rollHl(c.job);if(!L('at'))c.at=rollAt()});
+G.cast.forEach((c,i)=>{const L=k=>LK['c'+i+'.'+k];if(!L('a'))c.age=rollAge();if(!L('j'))c.job=rollJob(c.age);if(!L('t'))c.t=traitFor(c.sex,c.age);if(!L('n'))c.nat=rollNat();if(!L('b')){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}if(!L('h'))c.hl=rollHl(c.job);if(!L('at'))c.at=rollAt();if(!L('x')){c.bday=rollBday();c.blood=rollBlood();c.mb=mbFor(c.t)}});
 if(!LK.rel)G.rel=genRel();if(!LK.th)G.th=pick(poolTh(),1)[0];if(!LK.bg)G.bg=pick(poolC(),1)[0];if(!LK.tr)G.tr=noSrc(pick(poolT(),1)[0]);if(!LK.mt)G.mt=pick(poolM(),1)[0];if(!LK.cf)G.cf=pick(cfPool(),1)[0];
 if(!LK.bt1)G.bt[1]=pick(BT1,1)[0];if(!LK.bt3)G.bt[3]=pick(BT3,1)[0];if(!LK.bt4)G.bt[4]=pick(BT4,1)[0];drawGen()}
 function rollKey(k){if(LK[k])return;
 if(k=='pair'){G.pair=genPair();G.n=nFor(G.pair);applyPair();if(!LK.rel)G.rel=genRel()}else if(k=='rel')G.rel=genRel();
 else if(k=='th')G.th=pick(poolTh(),1)[0];else if(k=='bg')G.bg=pick(poolC(),1)[0];else if(k=='tr')G.tr=noSrc(pick(poolT(),1)[0]);else if(k=='mt')G.mt=pick(poolM(),1)[0];else if(k=='cf')G.cf=pick(cfPool(),1)[0];
 else if(k=='bt1')G.bt[1]=pick(BT1,1)[0];else if(k=='bt3')G.bt[3]=pick(BT3,1)[0];else if(k=='bt4')G.bt[4]=pick(BT4,1)[0];
-else{const m=/^c(\d+)\.(t|id|n|a|j|b|h|at)$/.exec(k);if(m){const i=+m[1],c=G.cast[i];if(!c)return;
-if(m[2]=='t')c.t=traitFor(c.sex,c.age);else if(m[2]=='n')c.nat=rollNat();else if(m[2]=='a'){c.age=rollAge();const L=k=>LK['c'+i+'.'+k];if(!L('j')&&!jobOK(c.job,c.age))c.job=rollJob(c.age);if(!L('t')&&!c.t.split('、').every(x=>traitOK(x,c.age)))c.t=traitFor(c.sex,c.age)}else if(m[2]=='j'){c.job=rollJob(c.age);if(!LK['c'+i+'.h']&&!hlJobOK(c.hl,c.job))c.hl=rollHl(c.job)}else if(m[2]=='b'){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}else if(m[2]=='h')c.hl=rollHl(c.job);else if(m[2]=='at')c.at=rollAt();else{c.sex=G.sx[i]||c.sex;c.gid=wpick(GIDS);c.ori=rollOri(i);if(!LK['c'+i+'.b']){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}}}}
+else{const m=/^c(\d+)\.(t|id|n|a|j|b|h|at|x)$/.exec(k);if(m){const i=+m[1],c=G.cast[i];if(!c)return;
+if(m[2]=='t'){c.t=traitFor(c.sex,c.age);if(!LK['c'+i+'.x'])c.mb=mbFor(c.t)}else if(m[2]=='x'){c.bday=rollBday();c.blood=rollBlood();c.mb=mbFor(c.t)}else if(m[2]=='n')c.nat=rollNat();else if(m[2]=='a'){c.age=rollAge();const L=k=>LK['c'+i+'.'+k];if(!L('j')&&!jobOK(c.job,c.age))c.job=rollJob(c.age);if(!L('t')&&!c.t.split('、').every(x=>traitOK(x,c.age)))c.t=traitFor(c.sex,c.age);if(!L('x'))c.mb=mbFor(c.t)}else if(m[2]=='j'){c.job=rollJob(c.age);if(!LK['c'+i+'.h']&&!hlJobOK(c.hl,c.job))c.hl=rollHl(c.job)}else if(m[2]=='b'){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}else if(m[2]=='h')c.hl=rollHl(c.job);else if(m[2]=='at')c.at=rollAt();else{c.sex=G.sx[i]||c.sex;c.gid=wpick(GIDS);c.ori=rollOri(i);if(!LK['c'+i+'.b']){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}}}}
 drawGen()}
 function tog(k){LK[k]=!LK[k];drawGen()}
 const showId=()=>!$('#showid')||$('#showid').checked,showNat=()=>!$('#shownat')||$('#shownat').checked;
 function idText(c){return'生理'+c.sex+'｜'+c.gid+'｜'+c.ori}
 function row(key,label,val){return`<div class="card row"><div><div class="lab">${label}</div><div class="val">${esc(val||'—')}</div></div><div class="btns"><button onclick="rollKey('${key}')" ${LK[key]?'disabled':''}>重骰</button>${lockBtn(LK[key],`tog('${key}')`)}</div></div>`}
 function drawGen(){let h=row('pair','配對類型',PAIRS[G.pair].label);
-G.cast.forEach((c,i)=>{h+=`<div class="castbox"><label class="lab">${role(i)}　姓名（可自填，或用名字產生器）<input value="${escA(c.nm)}" oninput="G.cast[${i}].nm=this.value;G.cast[${i}].nmn=''" placeholder="尚未命名"></label>`+(c.nmn?`<div class="note" style="margin:0 0 6px">名字意涵：${esc(c.nmn)}</div>`:'')+row('c'+i+'.t','人物屬性',c.t)+row('c'+i+'.j','職業',c.job)+row('c'+i+'.a','年齡',c.age?c.age+' 歲':'')+row('c'+i+'.b','身高與體型',c.ht?c.ht+' cm｜'+c.bd:'')+(hlOn()?row('c'+i+'.h','身心狀態（請尊重書寫）',c.hl):'')+(atOn()?row('c'+i+'.at','依附類型',c.at):'')+(showId()?row('c'+i+'.id','性別與性傾向',idText(c)):'')+(showNat()?row('c'+i+'.n','國籍',c.nat):'')+'</div>'});
+G.cast.forEach((c,i)=>{h+=`<div class="castbox"><label class="lab">${role(i)}　姓名（可自填，或用名字產生器）<input value="${escA(c.nm)}" oninput="G.cast[${i}].nm=this.value;G.cast[${i}].nmn=''" placeholder="尚未命名"></label>`+(c.nmn?`<div class="note" style="margin:0 0 6px">名字意涵：${esc(c.nmn)}</div>`:'')+row('c'+i+'.t','人物屬性',c.t)+row('c'+i+'.j','職業',c.job)+row('c'+i+'.a','年齡',c.age?c.age+' 歲':'')+row('c'+i+'.b','身高與體型',c.ht?c.ht+' cm｜'+c.bd:'')+(hlOn()?row('c'+i+'.h','身心狀態（請尊重書寫）',c.hl):'')+(atOn()?row('c'+i+'.at','依附類型',c.at):'')+(xOn()?row('c'+i+'.x','生日／血型／MBTI',xText(c)):'')+(showId()?row('c'+i+'.id','性別與性傾向',idText(c)):'')+(showNat()?row('c'+i+'.n','國籍',c.nat):'')+'</div>'});
 h+=relBlock();h+=row('th','隨機題材',G.th)+row('bg','故事背景',G.bg)+row('tr','套路／Trope',noSrc(G.tr))+row('mt','初次相遇',G.mt)+row('cf','最大衝突線',G.cf);
 h+='<div class="card"><b>關係走向骨架</b><p class="note">相遇與衝突取自上面抽到的結果，其餘三拍可重骰、鎖住；下方欄位可自己寫下想法。</p>';
 const bs=[G.mt,G.bt[1],G.cf,G.bt[3],G.bt[4]],keys=[null,'bt1',null,'bt3','bt4'];
 bs.forEach((t,i)=>{h+=`<div class="beat"><div class="row"><div><span class="tag">${i+1}　${BEATN[i]}</span>${esc(t||'—')}</div>${keys[i]?`<div class="btns"><button onclick="rollKey('${keys[i]}')" ${LK[keys[i]]?'disabled':''}>重骰</button>${lockBtn(LK[keys[i]],`tog('${keys[i]}')`)}</div>`:''}</div><textarea rows="2" placeholder="我的想法……" oninput="G.notes[${i}]=this.value">${esc(G.notes[i]||'')}</textarea></div>`});
 h+='</div>';$('#slots').innerHTML=h;csRefresh()}
 function genLines(g,withNotes){g=g||G;const L=['##配對類型','　'+PAIRS[g.pair].label,'##角色'];
-g.cast.forEach((c,i)=>{L.push(role(i)+'：'+(c.nm?c.nm+'　':'')+c.t);if(c.nmn)L.push('　名字意涵：'+c.nmn);if(c.job)L.push('　職業：'+c.job);if(c.age)L.push('　年齡：'+c.age+' 歲');if(c.ht)L.push('　身高與體型：'+c.ht+' cm｜'+c.bd);if(c.hl)L.push('　身心狀態：'+c.hl);if(c.at&&atOn())L.push('　依附類型：'+c.at);if(showId())L.push('　'+idText(c));if(showNat())L.push('　國籍：'+c.nat)});
+g.cast.forEach((c,i)=>{L.push(role(i)+'：'+(c.nm?c.nm+'　':'')+c.t);if(c.nmn)L.push('　名字意涵：'+c.nmn);if(c.job)L.push('　職業：'+c.job);if(c.age)L.push('　年齡：'+c.age+' 歲');if(c.ht)L.push('　身高與體型：'+c.ht+' cm｜'+c.bd);if(c.hl)L.push('　身心狀態：'+c.hl);if(c.at&&atOn())L.push('　依附類型：'+c.at);if(xText(c))L.push('　生日／血型／MBTI：'+xText(c));if(showId())L.push('　'+idText(c));if(showNat())L.push('　國籍：'+c.nat)});
 {const ag=g.cast.map(c=>c.age).filter(Boolean);if(ag.length>1){L.push('　年齡差：'+(Math.max(...ag)-Math.min(...ag))+' 歲')}}
 {const rl=relList(g);if(rl.length){L.push('##人物關係');rl.forEach(x=>L.push(edgeText(x)))}}
 L.push('##故事設定',...(g.th?['題材：'+g.th]:[]),'背景：'+g.bg,'套路：'+noSrc(g.tr),'初次相遇：'+g.mt,'最大衝突線：'+g.cf,'##關係走向骨架');
@@ -404,11 +413,11 @@ function allCardsTxt(){if(!CARDS.length){toast('還沒有靈感卡');return}save
 /* ---- 分享 ---- */
 const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 const b64d=s=>decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))));
-function shareCode(){return b64e(JSON.stringify({p:G.pair,c:G.cast.map(c=>[c.nm,c.sex,c.gid,c.ori,c.nat,c.t,c.age,c.job,c.ht,c.bd,c.hl||'',c.at||'',c.nmn||'']),th:G.th,b:[G.bg,G.tr,G.mt,G.cf,G.bt[1],G.bt[3],G.bt[4]],n:G.notes,r:G.rel.map(e=>[e.a,e.b,e.r,e.s])}))}
+function shareCode(){return b64e(JSON.stringify({p:G.pair,c:G.cast.map(c=>[c.nm,c.sex,c.gid,c.ori,c.nat,c.t,c.age,c.job,c.ht,c.bd,c.hl||'',c.at||'',c.nmn||'',c.bday||'',c.blood||'',c.mb||'']),th:G.th,b:[G.bg,G.tr,G.mt,G.cf,G.bt[1],G.bt[3],G.bt[4]],n:G.notes,r:G.rel.map(e=>[e.a,e.b,e.r,e.s])}))}
 function shareLink(){const base=/^https?:/.test(location.protocol)?location.href.split('#')[0]:'';return base+'#gen~'+shareCode()}
 function loadShare(code){try{code=String(code).trim();const m=code.indexOf('~');if(m>=0)code=code.slice(m+1);const o=JSON.parse(b64d(code));if(!PAIRS[o.p]||!Array.isArray(o.c)||o.c.length<2||o.c.length>6)throw 0;
 const s=x=>String(x==null?'':x).slice(0,300);
-G={pair:o.p,n:o.c.length,sx:[],rel:Array.isArray(o.r)?o.r.slice(0,20).map(a=>({a:+a[0]||0,b:+a[1]||0,r:s(a[2]),s:s(a[3])})):[],cast:o.c.map(a=>({nm:s(a[0]),sex:s(a[1]),gid:s(a[2]),ori:s(a[3]),nat:s(a[4]),t:s(a[5]),age:+a[6]||0,job:s(a[7]),ht:+a[8]||0,bd:s(a[9]),hl:s(a[10]),at:s(a[11]),nmn:s(a[12])})),th:s(o.th),bg:s(o.b[0]),tr:noSrc(s(o.b[1])),mt:s(o.b[2]),cf:s(o.b[3]),bt:{1:s(o.b[4]),3:s(o.b[5]),4:s(o.b[6])},notes:(o.n||[]).slice(0,5).map(s)};
+G={pair:o.p,n:o.c.length,sx:[],rel:Array.isArray(o.r)?o.r.slice(0,20).map(a=>({a:+a[0]||0,b:+a[1]||0,r:s(a[2]),s:s(a[3])})):[],cast:o.c.map(a=>({nm:s(a[0]),sex:s(a[1]),gid:s(a[2]),ori:s(a[3]),nat:s(a[4]),t:s(a[5]),age:+a[6]||0,job:s(a[7]),ht:+a[8]||0,bd:s(a[9]),hl:s(a[10]),at:s(a[11]),nmn:s(a[12]),bday:s(a[13]),blood:s(a[14]),mb:s(a[15])})),th:s(o.th),bg:s(o.b[0]),tr:noSrc(s(o.b[1])),mt:s(o.b[2]),cf:s(o.b[3]),bt:{1:s(o.b[4]),3:s(o.b[5]),4:s(o.b[6])},notes:(o.n||[]).slice(0,5).map(s)};
 while(G.notes.length<5)G.notes.push('');G.sx=G.cast.map(c=>c.sex);Object.keys(LK).forEach(k=>delete LK[k]);if(G.cast.some(c=>c.hl)&&!hlOn())$('#hlsel').value='half';if(G.cast.some(c=>c.at)&&$('#showat'))$('#showat').checked=true;drawGen();toast('已載入分享內容');return true}catch(e){toast('分享碼無法讀取，請確認是否完整貼上');return false}}
 function copyShare(kind){copyTxt(kind=='code'?shareCode():shareLink(),'#shmsg','已複製')}
 function loadShareBox(){if(loadShare($('#shin').value))$('#shin').value=''}
@@ -694,7 +703,7 @@ function nmTargets(){const s=$('#nmto');if(!s)return;const v=s.value;s.innerHTML
 /* ---- 角色設定表 ---- */
 const qA=['','','','',''];
 function csRefresh(){nmTargets();const s=$('#csWho');if(!s)return;const v=s.value;s.innerHTML='<option value="-1">手動輸入</option>'+G.cast.map((c,i)=>`<option value="${i}">${role(i)}${c.nm?'（'+esc(c.nm)+'）':''}</option>`).join('');if(v&&s.querySelector(`[value="${v}"]`))s.value=v}
-function csFill(){const i=+$('#csWho').value,c=G.cast[i];if(!c)return;$('#csName').value=c.nm||'';$('#csInfo').value=(c.nmn?['名字意涵：'+c.nmn]:[]).concat(['人物屬性：'+c.t].concat(c.job?['職業：'+c.job]:[],c.age?['年齡：'+c.age+' 歲']:[],c.ht?['身高與體型：'+c.ht+' cm｜'+c.bd]:[],c.hl?['身心狀態：'+c.hl]:[],c.at&&atOn()?['依附類型：'+c.at]:[],showId()?[idText(c)]:[],showNat()?['國籍：'+c.nat]:[])).join('\n')}
+function csFill(){const i=+$('#csWho').value,c=G.cast[i];if(!c)return;$('#csName').value=c.nm||'';$('#csInfo').value=(c.nmn?['名字意涵：'+c.nmn]:[]).concat(['人物屬性：'+c.t].concat(c.job?['職業：'+c.job]:[],c.age?['年齡：'+c.age+' 歲']:[],c.ht?['身高與體型：'+c.ht+' cm｜'+c.bd]:[],c.hl?['身心狀態：'+c.hl]:[],c.at&&atOn()?['依附類型：'+c.at]:[],xText(c)?['生日／血型／MBTI：'+xText(c)]:[],showId()?[idText(c)]:[],showNat()?['國籍：'+c.nat]:[])).join('\n')}
 function csLines(){const L=['##'+($('#csName').value||'未命名角色')+'　角色設定表'];const info=$('#csInfo').value.trim();if(info){L.push('##基本資料');info.split('\n').forEach(x=>L.push(x))}
 L.push('##深入認識');qD.forEach((x,i)=>{const j=x.indexOf('|');L.push('Q：'+(j>0?x.slice(j+1):x));L.push('A：'+(qA[i]||'（尚未填寫）'))});return L}
 function csCopy(){copyTxt(lines2text(csLines()),'#csmsg','已複製角色設定表')}
