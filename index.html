@@ -179,10 +179,10 @@ const CFR=[[/年齡差|輩分/,g=>ageGap(g)>=8],[/文化|宗教|簽證|居留|�
 function ageGap(g){const a=g.cast.map(c=>c.age).filter(Boolean);return a.length>1?Math.max(...a)-Math.min(...a):0}
 function natDiff(g){return new Set(g.cast.map(c=>c.nat)).size>1}
 function cfOK(t){return CFR.every(([r,f])=>!r.test(t)||f(G))}
-function cfPool(){let p=pool('conflict').filter(cfOK);if(isTeen())p=p.filter(x=>!TEEN_CF.test(x));if(G.cast.length>=3){let m=MULTI_CF;if(isTeen())m=m.filter(x=>!TEEN_CF.test(x));p=p.concat(m)}return p.length?p:pool('conflict')}
+function cfPool(){if(nr()){let q=NR_CF;if(isTeen())q=q.filter(x=>!TEEN_CF.test(x)&&!/職|創業|公司|婚/.test(x));return q.length?q:NR_CF}let p=pool('conflict').filter(cfOK);if(isTeen())p=p.filter(x=>!TEEN_CF.test(x));if(G.cast.length>=3){let m=MULTI_CF;if(isTeen())m=m.filter(x=>!TEEN_CF.test(x));p=p.concat(m)}return p.length?p:pool('conflict')}
 const TEEN_JOB=S('高中生、高中生（社團幹部）、高中生（學生會成員）、資優班學生、體育班學生、美術班學生、音樂班學生、補習班學生、兼職打工的高中生、轉學生');
 const TEEN_RP=S('情敵、好友、同班同學、社團夥伴、鄰居、競爭對手、同校不同班、國中同學、因為主角一才認識、彼此看不順眼、互不相識');
-const TEEN_REL=S('青梅竹馬、同班同學、學長學妹、社團夥伴、鄰居、補習班同學、同校不同班、國中同學、學生會同事、競爭對手、轉學後的新同學');
+const TEEN_REL=S('青梅竹馬、同班同學、學長學妹、社團夥伴、鄰居、補習班同學、同校不同班、國中同學、學生會夥伴、競爭對手、轉學後的新同學');
 const TEEN_BAD=/離婚|不婚|留學歸國|單親|半工半讀|中年|主夫|總裁|大叔|拜金|剛失戀/;
 const TEEN_CF=/年齡差|輩分|婚|孩子|懷孕|外遇|職場|事業|上下屬|契約|債務|簽證|居留|媒體|專案|同居|病痛|家族|遺產|第三者/;
 const TEEN_TR=/暗戀|青梅竹馬|友情|慢熱|歡喜冤家|校園|誤會|重逢|冤家|初戀|轉學|社團|畢業|競爭|friends to lovers|enemies to lovers|slow burn|pining|rivals|opposites|grumpy|small town|road trip|he falls first|fake dating|first love/i;
@@ -194,7 +194,8 @@ function bucketOf(t,defs){for(const [k,r] of defs)if(r.test(t))return k;return d
 function poolB(key,defs,id){const all=pool(key),sel=chipSel(id);if(!sel.length)return all;const mine=new Set(U[key]||[]);const r=all.filter(t=>mine.has(t)||sel.includes(bucketOf(t,defs)));return r.length?r:all}
 const poolC=()=>{if(isTeen()){const a=pool('city').filter(x=>!TEEN_CITY_BAD.test(x));return a.length?a:pool('city')}return poolB('city',CITY_B,'cbkts')},poolM=()=>{if(isTeen()){const a=pool('meet').filter(x=>TEEN_MEET.test(x)&&!TEEN_CF.test(x));return a.length?a:pool('meet')}return poolB('meet',MEET_B,'mbkts')};
 function genRel(){const n=G.cast.length,k=G.pair,e=[],RC=isTeen()?TEEN_REL:REL_C;
-if(n==2){e.push({a:0,b:1,r:pick(RC,1)[0],s:pick(k=='ACE'?STF:ST2,1)[0]});return e}
+if(nr()){const bad=/同事|上司|下屬|房東|職|公司|婚|合夥|辦案|業務|教授|研究生|創業|主管|老闆|工作室|專案|成年/;let rp=NR_REL[k]||NR_REL.ACE;if(isTeen()){const f=rp.filter(x=>!bad.test(x));rp=f.length?f:NR_REL.ACE.filter(x=>!bad.test(x))}for(let i=0;i<n;i++)for(let j=i+1;j<n;j++)e.push({a:i,b:j,r:pick(rp,1)[0],s:pick(NR_ST[k]||NR_ST.ACE,1)[0]});return e}
+if(n==2){e.push({a:0,b:1,r:pick(RC,1)[0],s:pick(ST2,1)[0]});return e}
 const center=(k[0]=='R'&&k[1]=='H')||k=='HAREM';
 if(center){for(let j=1;j<n;j++)e.push({a:0,b:j,r:pick(RC,1)[0],s:pick(STC,1)[0].replace(/\{A\}/g,role(0)).replace(/\{B\}/g,role(j))});
 for(let i=1;i<n;i++)for(let j=i+1;j<n;j++)e.push({a:i,b:j,r:pick(isTeen()?TEEN_RP:REL_P,1)[0],s:''})}
@@ -261,16 +262,52 @@ const escA=s=>esc(String(s==null?'':s)).replace(/"/g,'&quot;');
 const wpick=a=>{let t=a.reduce((s,x)=>s+x[1],0),r=Math.random()*t;for(const [v,w] of a){if((r-=w)<0)return v}return a[0][0]};
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const PAIRS={
-BG:{label:'BG（男女）',n:2,w:24},
-GB:{label:'GB（女主導／女性第一性）',n:2,w:10},
-BL:{label:'BL（男男）',n:2,w:14},
-GL:{label:'GL（女女）',n:2,w:12},
-RH3:{label:'Reverse Harem MFM（一女二男）',n:3,w:6},
-RH4:{label:'Reverse Harem MFMM（一女三男）',n:4,w:4},
-RH5:{label:'Reverse Harem MFMMM（一女四男）',n:5,w:3},
-HAREM:{label:'Harem MFF（一男二女）',n:3,w:4},
-POLY:{label:'Polyamory（多重伴侶關係）',n:0,w:6},
-ACE:{label:'無CP／友情向',n:2,w:5}};
+BG:{g:'男女向（BG／GB）',label:'BG（男女）',n:2,w:24},
+GB:{g:'男女向（BG／GB）',label:'GB（女主導／女性第一性）',n:2,w:10},
+RH3:{g:'男女向（BG／GB）',label:'Reverse Harem MFM（一女二男）',n:3,w:5},
+RH4:{g:'男女向（BG／GB）',label:'Reverse Harem MFMM（一女三男）',n:4,w:3},
+RH5:{g:'男女向（BG／GB）',label:'Reverse Harem MFMMM（一女四男）',n:5,w:2},
+HAREM:{g:'男女向（BG／GB）',label:'Harem MFF（一男二女）',n:3,w:3},
+BL:{g:'BL（男男向）',label:'BL（男男）',n:2,w:14},
+MMM:{g:'BL（男男向）',label:'BL 多人 MMM（三男）',n:3,w:2,sx:'MMM'},
+MMF:{g:'BL（男男向）',label:'BL 多人 MMF（二男一女）',n:3,w:3,sx:'MMF'},
+MMMF:{g:'BL（男男向）',label:'BL 多人 MMMF（三男一女）',n:4,w:2,sx:'MMMF'},
+BLP:{g:'BL（男男向）',label:'BL Polyamory（男性為主的多重伴侶）',n:0,w:2},
+GL:{g:'GL（女女向）',label:'GL（女女）',n:2,w:12},
+FFF:{g:'GL（女女向）',label:'GL 多人 FFF（三女）',n:3,w:2,sx:'FFF'},
+FFM:{g:'GL（女女向）',label:'GL 多人 FFM（二女一男）',n:3,w:3,sx:'FFM'},
+FFFM:{g:'GL（女女向）',label:'GL 多人 FFFM（三女一男）',n:4,w:2,sx:'FFFM'},
+GLP:{g:'GL（女女向）',label:'GL Polyamory（女性為主的多重伴侶）',n:0,w:2},
+POLY:{g:'多重伴侶',label:'Polyamory（性別不限的多重伴侶關係）',n:0,w:4},
+ACE:{g:'無CP／非戀愛',label:'無CP：友情向',n:2,w:2,nocp:1},
+FAM:{g:'無CP／非戀愛',label:'無CP：家人／親人（無浪漫無性戀）',n:2,w:2,nocp:1},
+RMT:{g:'無CP／非戀愛',label:'無CP：室友／同居',n:2,w:2,nocp:1},
+MENT:{g:'無CP／非戀愛',label:'無CP：亦師亦友',n:2,w:2,nocp:1},
+PART:{g:'無CP／非戀愛',label:'無CP：搭檔／夥伴',n:2,w:2,nocp:1},
+RIV:{g:'無CP／非戀愛',label:'無CP：宿敵／競爭對手',n:2,w:2,nocp:1},
+GRP:{g:'無CP／非戀愛',label:'無CP：友情群像（三至四人）',n:0,w:2,nocp:1}};
+const nr=()=>!!(PAIRS[G.pair]&&PAIRS[G.pair].nocp);
+const NR_REL={
+ACE:S('青梅竹馬、大學同學、國高中同學、網友、鄰居、社團夥伴、兒時玩伴、同一個興趣圈的朋友、前同事、旅途中認識的人、同一支隊伍的隊友、在同一家店打工的夥伴、朋友的朋友、病友、同一個讀書會的成員'),
+FAM:S('親手足、同母異父或同父異母的手足、堂表親、雙胞胎、領養家庭的手足、寄養家庭一起長大的手足、結拜成家人的摯友、互相當作家人的老朋友、一起長大的鄰居、長年同住的親戚、選擇彼此當家人的朋友'),
+RMT:S('合租的室友、大學宿舍的室友、為了分攤房租而同住的朋友、同住多年的老室友、房東與房客、同一層樓的鄰居兼室友、因故暫時借住的朋友、共同照顧一隻寵物的室友'),
+MENT:S('師徒、前輩與後輩、大學教授與研究生、導師與學生（已成年）、教練與選手、樂團前輩與新人、公司主管與新人、學長姊與學弟妹、補習班老師與成年學生、手藝傳承的師傅與學徒'),
+PART:S('共同創業的夥伴、辦案搭檔、工作室的合夥人、研究團隊的搭檔、雙人表演搭檔、運動雙打搭檔、樂團團員、旅行同伴、一起經營小店的夥伴、同一個專案的負責人、遊戲裡的固定隊友'),
+RIV:S('同業的競爭對手、從小比到大的對手、升遷時的對手、競賽的宿敵、曾是好友的對手、被迫合作的對手、同一個領域的前輩與後起之秀、同屆的同學兼對手'),
+GRP:S('青梅竹馬、大學同學、室友、社團夥伴、樂團團員、同一個工作坊的成員、同班同學、網友、鄰居、朋友的朋友')};
+const NR_ST={
+ACE:S('摯友、損友、戰友、亦敵亦友、相識多年的老朋友、剛認識的新朋友、互相競爭的夥伴'),
+FAM:S('感情很好但嘴上不說、長年疏離後重新聯絡、互相扶持的家人、表面不和其實很在乎、因某件事冷戰中、剛開始一起生活'),
+RMT:S('剛開始同住、已經同住好幾年、彼此保持界線、默契得像家人、為了房租勉強同住、因生活習慣常起摩擦'),
+MENT:S('前輩帶著新人、徒弟逐漸超越老師、亦師亦友的默契、因理念不同產生分歧、剛開始建立信任、多年後重逢'),
+PART:S('默契十足的搭檔、剛配對還在磨合、互相吐槽的黃金拍檔、其中一人想結束合作、共同經歷過難關'),
+RIV:S('從小比到大、表面敵對暗中欣賞、因競賽重新對上、正在化敵為友、互相看不順眼'),
+GRP:S('感情很好、偶爾鬥嘴、剛認識還不熟、互相競爭、其中一人準備離開、曾經吵翻後和解、彼此都有沒說出口的祕密')};
+const NR_TR=S('找到的家人（found family）、搭檔辦案、亦師亦友的傳承、從對手變成夥伴、一起長大的陪伴、友情裂痕與修復、決裂後重逢、並肩完成一個目標、為朋友挺身而出、互相拯救、離鄉背井互相依靠、一起走過失去、手足之間的競爭與和解、合力經營一間小店、共同照顧一個人或一隻寵物、老朋友的重逢聚會、被迫同住的室友、生活習慣南轅北轍的室友、一起創業失敗再重來、出走後歸來、家人間藏了多年的祕密、為對方保守祕密、一起完成一趟旅行、從點頭之交到無話不談、被迫組隊的任務、隊友不合到默契滿分、導師的最後一堂課、替彼此撐腰、陪對方走出低潮、互相介紹對象的好友、一起度過人生轉折、繼承家業的手足、一起應付難纏的家人、共享一個祕密基地、兒時約定的實現、各自成家後仍保持聯絡、在異地互相陪伴、一起面對共同的敵人、拯救彼此的職涯、一起準備一場重要的比賽或考試、友情與事業的兩難');
+const NR_CF=S('價值觀的分歧、其中一人要搬走或出國、祕密被說出口、金錢借貸的糾紛、被迫選邊站、家人期待與自我意願的衝突、事業上的競爭、合作理念不合、一方有了新的伴侶而漸漸疏遠、生活習慣差異、長期單方面付出而感到失衡、曾經的背叛、過度保護引發的反感、照顧責任分配不均、繼承或財產問題、一方失業另一方卻成功的落差、嫉妒、說謊被拆穿、疏遠後重新靠近的尷尬、立場相反的公開事件、被外人誤會成情侶、被捲入對方的家務事');
+const NR_BT1=S('被迫一起完成一件事、第一次看見對方不設防的一面、一個只有兩人知道的小祕密、深夜長談、默默為對方做了一件沒說出口的事、一起面對外來的麻煩、發現彼此意外地相似、在對方最糟的時候陪著他、一起吃了一頓很久沒有的好好的飯、為對方擋下一個麻煩');
+const NR_BT3=S('其中一人選擇離開、祕密被揭穿、說出了無法收回的話、發現對方一直有所隱瞞、外界壓力逼到極限、被最信任的人背叛、一場激烈的爭吵後冷戰、對方在最需要時缺席、舊傷復發、誤會越滾越大');
+const NR_BT4=S('其中一人主動走向對方、一場遲來的道歉、用具體行動證明在乎、在初遇的地方重逢、一起面對曾經逃避的問題、家人或朋友的推一把、把話說開後的沉默與擁抱、重新約定一件小事、並肩完成一件事');
 const ROLE=['主角一','主角二','主角三','主角四','主角五'];
 const GIDS=[['順性別',72],['非二元性別',9],['跨性別',12],['性別流動',7]];
 const NAT={
@@ -292,12 +329,12 @@ return a.length?a:Object.values(THEMES).join('、').split('、')}
 
 const LK={};
 function role(i){return ROLE[i]||('主角'+(i+1))}
-function genPair(){let m=($('#pairsel')||{}).value||'all';const teen=isTeen(),okT=k=>PAIRS[k].n==2||(k[0]=='R'&&k[1]=='H');if(teen&&PAIRS[m]&&!okT(m))m='all';if(PAIRS[m])return m;let ks=Object.keys(PAIRS);if(teen)ks=ks.filter(okT);if(m=='duo')ks=ks.filter(k=>PAIRS[k].n==2);if(m=='multi')ks=ks.filter(k=>PAIRS[k].n!=2);const ev=$('#evenw')&&$('#evenw').checked;return wpick(ks.map(k=>[k,ev?1:PAIRS[k].w]))}
+function genPair(){let m=($('#pairsel')||{}).value||'all';const teen=isTeen(),okT=k=>!/^(POLY|HAREM|BLP|GLP)$/.test(k);if(teen&&PAIRS[m]&&!okT(m))m='all';if(PAIRS[m])return m;let ks=Object.keys(PAIRS);if(teen)ks=ks.filter(okT);if(m=='duo')ks=ks.filter(k=>PAIRS[k].n==2);if(m=='multi')ks=ks.filter(k=>PAIRS[k].n!=2);if(m=='rom')ks=ks.filter(k=>!PAIRS[k].nocp);if(m=='nocp')ks=ks.filter(k=>PAIRS[k].nocp);const ev=$('#evenw')&&$('#evenw').checked;return wpick(ks.map(k=>[k,ev?1:PAIRS[k].w]))}
 function nFor(k){const n=PAIRS[k].n;return n||(Math.random()<.45?4:3)}
-function sexesFor(k,n){if(k=='BG')return shuf(['女','男']);if(k=='GB')return['女','男'];if(k=='BL')return['男','男'];if(k=='GL')return['女','女'];if(k[0]=='R'&&k[1]=='H')return['女'].concat(Array(n-1).fill('男'));if(k=='HAREM')return['男','女','女'];return Array.from({length:n},()=>Math.random()<.5?'女':'男')}
+function sexesFor(k,n){const P=PAIRS[k];if(P&&P.sx)return shuf(P.sx.split('').map(c=>c=='M'?'男':'女'));if(k=='BLP'||k=='GLP'){const a=k=='BLP'?'男':'女';return shuf(Array.from({length:n},(_,i)=>i<2?a:Math.random()<.5?'女':'男'))}if(P&&P.nocp)return Array.from({length:n},()=>Math.random()<.5?'女':'男');if(k=='BG')return shuf(['女','男']);if(k=='GB')return['女','男'];if(k=='BL')return['男','男'];if(k=='GL')return['女','女'];if(k[0]=='R'&&k[1]=='H')return['女'].concat(Array(n-1).fill('男'));if(k=='HAREM')return['男','女','女'];return Array.from({length:n},()=>Math.random()<.5?'女':'男')}
 function rollOri(i){const me=G.cast[i].sex,o=G.cast.filter((_,j)=>j!=i).map(c=>c.sex);
 const eq=a=>wpick(a.map(x=>[x,1]));
-if(G.pair=='ACE')return eq(['異性戀','同性戀','雙性戀','泛性戀','有浪漫無性戀','無浪漫無性戀']);
+if(nr())return eq(['異性戀','同性戀','雙性戀','泛性戀','有浪漫無性戀','無浪漫無性戀']);
 const opp=o.some(s=>s!=me),same=o.some(s=>s==me);
 if(opp&&same)return eq(['異性戀','同性戀','雙性戀','泛性戀','有浪漫無性戀']);
 if(opp)return eq(['異性戀','雙性戀','泛性戀','有浪漫無性戀']);
@@ -309,7 +346,9 @@ if(sc=='asia')return r<.5?'台灣':r<.58?dual():pick(NAT.asia,1)[0];
 if(sc=='west')return pick(NAT.west,1)[0];
 if(sc=='global')return pick(NAT.asia.concat(NAT.west,NAT.other),1)[0];
 if(r<.34)return'台灣';if(r<.42)return dual();return pick(NAT.asia.concat(NAT.west,NAT.other),1)[0]}
-function poolT(){if(isTeen()){const a=pool('trope'),t=a.filter(x=>/^【YA／New Adult】/.test(x)||TEEN_TR.test(x));return t.length?t:a}const sel=[...document.querySelectorAll('#bkts input:checked')].map(x=>x.value);const gs=new Set([].concat(...sel.map(k=>BKT[k]||[])));
+function trPool(){if(!nr())return poolT();let a=NR_TR;if(isTeen())a=a.filter(x=>!/辦案|創業|職涯|繼承家業|小店/.test(x));return a}
+function mtPool(){const a=poolM();if(!nr())return a;const b=a.filter(x=>!/相親|告白|約會|婚|戀|曖昧|一見鍾情|心動/.test(x));return b.length?b:a}
+function poolT(){if(isTeen()){const a=pool('trope'),t=a.filter(x=>(/^【YA／New Adult】/.test(x)||TEEN_TR.test(x))&&!/職場|婚|總裁|辦公室|上司|同居|孩子|懷孕|外遇/.test(x));return t.length?t:a}const sel=[...document.querySelectorAll('#bkts input:checked')].map(x=>x.value);const gs=new Set([].concat(...sel.map(k=>BKT[k]||[])));
 const all=pool('trope');if(!sel.length)return all;
 const r=all.filter(t=>{const m=/^【(.+?)】/.exec(t);return !m||gs.has(m[1])});return r.length?r:all}
 const AXES=[[/陽光開朗|元氣|自由奔放|熱情|愛碎念|話多|愛撒嬌|開朗/,/社恐|沉默|內向|冷面|孤僻|守口如瓶|神祕|陰沉|清冷|害羞|慢熱/],[/工作狂|拚命|過度負責|完美主義|嚴謹|自律|務實/,/懶散|佛系|躺平|慵懶|散漫|怕麻煩|擺爛/],[/溫柔|暖男|善良|體貼|心軟|老好人/,/冷面|冷漠|涼薄|毒舌|霸道|狂妄|惡女|邪惡|冷血|暴力|傲慢|貪婪|嫉妒|薄情/],[/硬漢|王者|掌權|殺伐|霸道|狂妄|強勢|堅強|武力/,/柔弱|病弱|蒼白|嬌弱|膽小|軟弱|怯|不會拒絕/],[/細膩|嚴謹|完美主義|心細|謹慎/,/神經大條|迷糊|天然呆|笨拙|粗心|散漫/],[/單純|天然呆|直率|一根筋|老實|無憂無慮/,/城府|心機|腹黑|表裡不一|深不可測|惡女|魔女/],[/真誠|直球|忠誠|專一|老實/,/不忠|風流|說謊|虛偽|花心/],[/溫吞|穩重|沉著|冷靜|成熟穩重|儒雅/,/暴躁|易怒|衝動|狂妄|任性/],[/成熟穩重|大叔|沉穩/,/年下|幼稚|孩子氣|弟弟/]],COMPOUND=/表面|看似|看起來|人前|實則|其實|內心|骨子裡|私下|卻|反差|外.內|嘴.心|但|扮豬吃老虎|起初|外表/;
@@ -350,12 +389,12 @@ G.cast.forEach((c,i)=>{if(!LK['c'+i+'.id'])c.ori=rollOri(i)});
 G.cast.forEach((c,i)=>{if(!c.age)c.age=rollAge();if(!c.job)c.job=rollJob(c.age);if(!c.t)c.t=traitFor(c.sex,c.age);if(!c.nat)c.nat=rollNat();if(!c.ht)c.ht=rollHt(c.sex);if(!c.bd)c.bd=rollBd(c.ht,c.sex);if(!c.hl&&hlOn())c.hl=rollHl(c.job);if(!c.at)c.at=rollAt();if(!c.bday)c.bday=rollBday();if(!c.blood)c.blood=rollBlood();if(!c.mb)c.mb=mbFor(c.t)})}
 function rollAll(){if(!LK.pair){G.pair=genPair();G.n=nFor(G.pair)}applyPair();
 G.cast.forEach((c,i)=>{const L=k=>LK['c'+i+'.'+k];if(!L('a'))c.age=rollAge();if(!L('j'))c.job=rollJob(c.age);if(!L('t'))c.t=traitFor(c.sex,c.age);if(!L('n'))c.nat=rollNat();if(!L('b')){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}if(!L('h'))c.hl=rollHl(c.job);if(!L('at'))c.at=rollAt();if(!L('x')){c.bday=rollBday();c.blood=rollBlood();c.mb=mbFor(c.t)}});
-if(!LK.rel)G.rel=genRel();if(!LK.th)G.th=pick(poolTh(),1)[0];if(!LK.bg)G.bg=pick(poolC(),1)[0];if(!LK.tr)G.tr=noSrc(pick(poolT(),1)[0]);if(!LK.mt)G.mt=pick(poolM(),1)[0];if(!LK.cf)G.cf=pick(cfPool(),1)[0];
-if(!LK.bt1)G.bt[1]=pick(BT1,1)[0];if(!LK.bt3)G.bt[3]=pick(BT3,1)[0];if(!LK.bt4)G.bt[4]=pick(BT4,1)[0];drawGen()}
+if(!LK.rel)G.rel=genRel();if(!LK.th)G.th=pick(poolTh(),1)[0];if(!LK.bg)G.bg=pick(poolC(),1)[0];if(!LK.tr)G.tr=noSrc(pick(trPool(),1)[0]);if(!LK.mt)G.mt=pick(mtPool(),1)[0];if(!LK.cf)G.cf=pick(cfPool(),1)[0];
+if(!LK.bt1)G.bt[1]=pick(nr()?NR_BT1:BT1,1)[0];if(!LK.bt3)G.bt[3]=pick(nr()?NR_BT3:BT3,1)[0];if(!LK.bt4)G.bt[4]=pick(nr()?NR_BT4:BT4,1)[0];drawGen()}
 function rollKey(k){if(LK[k])return;
 if(k=='pair'){G.pair=genPair();G.n=nFor(G.pair);applyPair();if(!LK.rel)G.rel=genRel()}else if(k=='rel')G.rel=genRel();
-else if(k=='th')G.th=pick(poolTh(),1)[0];else if(k=='bg')G.bg=pick(poolC(),1)[0];else if(k=='tr')G.tr=noSrc(pick(poolT(),1)[0]);else if(k=='mt')G.mt=pick(poolM(),1)[0];else if(k=='cf')G.cf=pick(cfPool(),1)[0];
-else if(k=='bt1')G.bt[1]=pick(BT1,1)[0];else if(k=='bt3')G.bt[3]=pick(BT3,1)[0];else if(k=='bt4')G.bt[4]=pick(BT4,1)[0];
+else if(k=='th')G.th=pick(poolTh(),1)[0];else if(k=='bg')G.bg=pick(poolC(),1)[0];else if(k=='tr')G.tr=noSrc(pick(trPool(),1)[0]);else if(k=='mt')G.mt=pick(mtPool(),1)[0];else if(k=='cf')G.cf=pick(cfPool(),1)[0];
+else if(k=='bt1')G.bt[1]=pick(nr()?NR_BT1:BT1,1)[0];else if(k=='bt3')G.bt[3]=pick(nr()?NR_BT3:BT3,1)[0];else if(k=='bt4')G.bt[4]=pick(nr()?NR_BT4:BT4,1)[0];
 else{const m=/^c(\d+)\.(t|id|n|a|j|b|h|at|x)$/.exec(k);if(m){const i=+m[1],c=G.cast[i];if(!c)return;
 if(m[2]=='t'){c.t=traitFor(c.sex,c.age);if(!LK['c'+i+'.x'])c.mb=mbFor(c.t)}else if(m[2]=='x'){c.bday=rollBday();c.blood=rollBlood();c.mb=mbFor(c.t)}else if(m[2]=='n')c.nat=rollNat();else if(m[2]=='a'){c.age=rollAge();const L=k=>LK['c'+i+'.'+k];if(!L('j')&&!jobOK(c.job,c.age))c.job=rollJob(c.age);if(!L('t')&&!c.t.split('、').every(x=>traitOK(x,c.age)))c.t=traitFor(c.sex,c.age);if(!L('x'))c.mb=mbFor(c.t)}else if(m[2]=='j'){c.job=rollJob(c.age);if(!LK['c'+i+'.h']&&!hlJobOK(c.hl,c.job))c.hl=rollHl(c.job)}else if(m[2]=='b'){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}else if(m[2]=='h')c.hl=rollHl(c.job);else if(m[2]=='at')c.at=rollAt();else{c.sex=G.sx[i]||c.sex;c.gid=wpick(GIDS);c.ori=rollOri(i);if(!LK['c'+i+'.b']){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}}}}
 drawGen()}
@@ -706,7 +745,7 @@ async function csImg(){const L=csLines();const t=L[0].slice(2);const b=await car
 /* ---- 投稿 ---- */
 function copySubmit(){const t=$('#sbtxt').value.trim();if(!t)return;const c=$('#sbcat').selectedOptions[0].textContent;copyTxt('【投稿｜'+c+'】'+t,'#sbmsg','已複製，請貼到作者噗浪的留言')}
 function initGen(){
-$('#pairsel').innerHTML='<option value="all">隨機（全部類型）</option><option value="duo">隨機（僅雙人）</option><option value="multi">隨機（僅多人）</option>'+Object.entries(PAIRS).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('');
+{const gs={};Object.entries(PAIRS).forEach(([k,v])=>{(gs[v.g]=gs[v.g]||[]).push(`<option value="${k}">${v.label}</option>`)});$('#pairsel').innerHTML='<optgroup label="隨機"><option value="all">隨機（全部類型）</option><option value="rom">隨機（僅戀愛向）</option><option value="nocp">隨機（僅無CP／非戀愛）</option><option value="duo">隨機（僅雙人）</option><option value="multi">隨機（僅多人）</option></optgroup>'+Object.entries(gs).map(([g,a])=>`<optgroup label="${g}">${a.join('')}</optgroup>`).join('')}
 $('#natsel').innerHTML='<option value="all">隨機（全世界，台灣機率較高）</option><option value="tw">僅台灣</option><option value="asia">台灣為主＋亞洲</option><option value="west">歐美與大洋洲</option><option value="global">不含台灣</option>';
 $('#thkts').innerHTML=Object.keys(THEMES).map(k=>`<label class="chip"><input type="checkbox" value="${escA(k)}" style="width:auto"> ${esc(k)}</label>`).join(' ');
 $('#bkts').innerHTML=Object.keys(BKT).map(k=>`<label class="chip"><input type="checkbox" value="${escA(k)}" style="width:auto"> ${esc(k)}</label>`).join(' ');
