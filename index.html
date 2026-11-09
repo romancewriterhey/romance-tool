@@ -81,7 +81,7 @@ button:disabled{opacity:.45;cursor:default}
 <header>
 <h1>💌 現代背景原創OC／CP靈感工具庫</h1>
 <nav id="nav">
-<a href="#welcome">歡迎使用</a><a href="#howto">使用教學</a><a href="#gen">靈感產生器</a><a href="#drill">短文練習題</a><a href="#char">認識角色</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿與自訂詞彙</a><a href="#src">出處資訊</a></span></span>
+<a href="#welcome">歡迎使用</a><a href="#howto">靈感產生器使用教學</a><a href="#gen">靈感產生器</a><a href="#char">認識角色</a><a href="#drill">短文練習題</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿與自訂詞彙</a><a href="#src">出處資訊</a></span></span>
 </nav>
 </header>
 <main>
@@ -100,23 +100,19 @@ button:disabled{opacity:.45;cursor:default}
 </div>
 <div class="portals">
 <button class="portal" onclick="location.hash='gen'"><b>🎲 靈感產生器</b><span>一鍵骰出角色、關係與劇情走向，可鎖定喜歡的項目再重骰。</span></button>
-<button class="portal" onclick="location.hash='drill'"><b>✍️ 短文練習題</b><span>隨機抽三題短文題目，挑一題來寫就好，適合暖手或卡文時使用。</span></button>
 <button class="portal" onclick="location.hash='char'"><b>🧩 認識角色</b><span>用問題集一步步深入了解你的角色，補齊個性與背景。</span></button>
+<button class="portal" onclick="location.hash='drill'"><b>✍️ 短文練習題</b><span>隨機抽三題短文題目，挑一題來寫就好，適合暖手或卡文時使用。</span></button>
 </div>
-<p><button class="big" onclick="location.hash='gen'">開始骰靈感</button> <button onclick="location.hash='howto'">先看使用教學</button></p>
+<p><button class="big" onclick="location.hash='gen'">開始骰靈感</button> <button onclick="location.hash='howto'">先看靈感產生器使用教學</button></p>
 </section>
 
 <section id="howto">
-<h2>使用教學</h2>
+<h2>靈感產生器使用教學</h2>
 <div class="card"><h3 style="margin-top:0">三步驟快速開始</h3>
 <p><b>① 選條件。</b>到「靈感產生器」，最上方可以選配對類型、年齡範圍、國籍範圍；不選就是全部隨機。</p>
 <p><b>② 按重骰。</b>按畫面下方的「🎲 重骰」，一次抽出配對、每位主角的設定，以及題材、背景、套路、相遇和衝突。</p>
 <p><b>③ 鎖住喜歡的。</b>看到喜歡的欄位就按「🔒 鎖住」，再按重骰，只會換掉沒鎖的欄位。想換單一欄位，按那一格的「🎲 重骰」。</p>
 <p><button class="big" onclick="location.hash='gen'">前往靈感產生器</button></p></div>
-<div class="card" id="demo"><h3 style="margin-top:0">試玩看看</h3>
-<p class="note">這是迷你示範：按每格的「重骰」換一個，按「鎖住」保留它；再按下面的大按鈕，鎖住的格子不會變。</p>
-<div class="cgrid" id="demoGrid"></div>
-<p><button class="big" onclick="demoAll()">🎲 全部重骰（鎖住的保留）</button></p></div>
 <div class="card"><h3 style="margin-top:0">靈感產生器裡的各個區塊</h3>
 <p><b>配對與人物關係：</b>抽出這一組是 BG、BL、GL、Reverse Harem、Polyamory 還是無CP，以及人物之間的關係。</p>
 <p><b>每位主角：</b>一人一個可收合的區塊，有人物屬性、職業、年齡、身高體型、身心狀態、依附類型、生日血型 MBTI、性別與性傾向、國籍。區塊最上方可以直接輸入名字，或選名字類型（華語、英語系、日本、韓國等）後按「🎲 骰名字」，點一下就套用，外語名字還會附上意涵。</p>
@@ -128,11 +124,16 @@ button:disabled{opacity:.45;cursor:default}
 <p><b>複製結果／下載圖片：</b>把整組設定貼到筆記或傳給朋友。</p>
 <p><b>分享連結或分享碼：</b>把這一組傳給別人，對方打開就能看到一樣的內容。</p>
 <p><b>角色設定表：</b>在「認識角色」頁，可以把抽到的角色帶進去，再回答問題集，寫成完整的角色檔案。</p></div>
+<div class="card"><h3 style="margin-top:0">認識角色頁怎麼用</h3>
+<p><b>抽問題：</b>每次隨機出五題，按「🎲 重抽」換一批；喜歡的題目可以鎖住，重抽時會保留。</p>
+<p><b>想一想就好：</b>答案不一定要寫進正文，也不一定要全部回答，只是幫你把角色想得更立體。</p>
+<p><b>角色設定表：</b>往下捲到「角色設定表」，在「帶入產生器的角色」選一位，會自動帶入姓名和基本資料；你也可以自己改寫，再按「複製角色設定表」或「下載圖片」。</p>
+<p><b>自己加題目：</b>頁面最下方可以輸入自己的題目（每行一題），加入後會併入抽題池。</p></div>
 <div class="card"><h3 style="margin-top:0">其他頁面</h3>
+<p><b>認識角色：</b>問題集和角色設定表，用法見上一個區塊。</p>
 <p><b>短文練習題：</b>抽題目寫短文，可以鎖題、重骰；成人向和較沉重的題目需要自己勾選才會出現。</p>
-<p><b>認識角色：</b>問題集和角色設定表，幫你把角色想得更立體。</p>
-<p><b>投稿給作者：</b>想讓你的詞彙被收進公開題庫，可以在這裡投稿。</p>
-<p><b>出處資訊：</b>列出製作時閱讀過的參考資料，以及聯絡方式。</p></div>
+<p><b>更多 → 投稿與自訂詞彙：</b>投稿詞彙給作者，或把自己的詞彙加進自己的抽籤池。</p>
+<p><b>更多 → 出處資訊：</b>列出製作時閱讀過的參考資料，以及聯絡方式。</p></div>
 <div class="card"><h3 style="margin-top:0">小提醒</h3>
 <p>隨機結果只是靈感，不一定處處合理，歡迎自己改寫、挑選或重骰；不想看到的欄位，可以在「更多設定」裡關掉。</p>
 <p>你存的靈感卡和新增的詞彙，都只存在你自己的瀏覽器，本工具不會蒐集你的資料；換一台裝置或清除瀏覽器資料就會消失，重要的設定建議另外複製保存。</p></div>
