@@ -24,6 +24,9 @@ nav .more>button.on{background:#7b4fa8;color:#fff}
 #moremenu.open{display:block}
 #moremenu a{display:block;background:none;border-radius:8px;padding:8px 12px;white-space:nowrap}
 #moremenu a.on{background:#7b4fa8;color:#fff}
+.sw{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid #0003;vertical-align:-2px;margin:0 3px 0 4px}
+.swb{display:inline-block;width:34px;height:34px;border-radius:8px;border:1px solid #0003;margin:2px 4px 2px 0}
+.pal{margin-top:6px}
 .portals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
 .portal{display:block;text-align:left;background:#fff;border:1px solid #d9c5ee;border-radius:14px;padding:12px;cursor:pointer;font:inherit;color:#3a2a4d}
 .portal b{display:block;font-size:1rem;margin-bottom:4px}
@@ -81,7 +84,7 @@ button:disabled{opacity:.45;cursor:default}
 <header>
 <h1>💌 現代背景原創OC／CP靈感工具庫</h1>
 <nav id="nav">
-<a href="#welcome">歡迎使用</a><a href="#howto">使用教學</a><a href="#gen">靈感產生器</a><a href="#cards">我的靈感卡</a><a href="#map">角色關係圖</a><a href="#char">認識角色</a><a href="#drill">短文練習題</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿給作者</a><a href="#src">出處資訊</a></span></span>
+<a href="#welcome">歡迎使用</a><a href="#howto">使用教學</a><a href="#gen">靈感產生器</a><a href="#cards">我的靈感卡</a><a href="#map">角色關係圖</a><a href="#look">外觀產生器</a><a href="#char">認識角色</a><a href="#drill">短文練習題</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿給作者</a><a href="#src">出處資訊</a></span></span>
 </nav>
 </header>
 <main>
@@ -102,6 +105,7 @@ button:disabled{opacity:.45;cursor:default}
 <button class="portal" onclick="location.hash='gen'"><b>🎲 靈感產生器</b><span>一鍵骰出角色、關係與劇情走向，可鎖定喜歡的項目再重骰。</span></button>
 <button class="portal" onclick="location.hash='cards'"><b>💾 我的靈感卡</b><span>收藏骰到的靈感，可命名、加標籤、搜尋，並下載成圖片。</span></button>
 <button class="portal" onclick="location.hash='map'"><b>🕸️ 角色關係圖</b><span>把角色與關係畫成圖，可拖曳排版並下載成圖片。</span></button>
+<button class="portal" onclick="location.hash='look'"><b>👗 外觀產生器</b><span>抽出臉部、髮型、個人色彩、穿搭、香氛與妝容，組成完整外觀設定。</span></button>
 <button class="portal" onclick="location.hash='char'"><b>🧩 認識角色</b><span>用問題集一步步深入了解你的角色，補齊個性與背景。</span></button>
 <button class="portal" onclick="location.hash='drill'"><b>✍️ 短文練習題</b><span>隨機抽三題短文題目，挑一題來寫就好，適合暖手或卡文時使用。</span></button>
 </div>
@@ -140,13 +144,19 @@ button:disabled{opacity:.45;cursor:default}
 <p><b>排版：</b>用滑鼠或手指拖曳角色，改變位置。角色與連線可以在下方清單改名、改顏色或刪除。</p>
 <p><b>長文字：</b>連線上的文字會自動換行；覺得太擠或太小，可以用「連線文字」切換大小，或把兩位角色拖遠一點。</p>
 <p><b>下載圖片：</b>按「下載圖片」存成 PNG，可以貼到企劃或分享給朋友。</p></div></details>
+<details class="fold"><summary>外觀產生器怎麼用</summary><div class="inner">
+<p><b>先選來源：</b>可以選「帶入」某位主角，沿用年齡、身高與體型；或選手動設定，自己指定年齡層與身高。</p>
+<p><b>全部重骰與鎖住：</b>按「全部重骰」抽出整組外觀；喜歡的項目按「🔒 鎖住」，再重骰時會保留。</p>
+<p><b>個人色彩連動：</b>四季型個人色彩會連動膚色、眼睛顏色、髮色和慣穿的顏色，並附上配色卡；重骰它，相關項目會一起更新。</p>
+<p><b>穿搭與香氛：</b>穿搭風格有日系、韓系、歐美三種，可在上方選「衣著傾向」（女性化、男性化、中性化）和地區偏好；每個風格附特色與品牌參考，香水附前中後調。</p>
+<p><b>輸出：</b>可以複製、下載文字，或下載成圖片。</p></div></details>
 <details class="fold"><summary>認識角色頁怎麼用</summary><div class="inner">
 <p><b>抽問題：</b>每次隨機出五題，按「🎲 重抽」換一批；喜歡的題目可以鎖住，重抽時會保留。</p>
 <p><b>想一想就好：</b>答案不一定要寫進正文，也不一定要全部回答，只是幫你把角色想得更立體。</p>
 <p><b>角色設定表：</b>往下捲到「角色設定表」，在「帶入產生器的角色」選一位，會自動帶入姓名和基本資料；你也可以自己改寫，再按「複製角色設定表」或「下載圖片」。</p>
 <p><b>自己加題目：</b>頁面最下方可以輸入自己的題目（每行一題），加入後會併入抽題池。</p></div></details>
 <details class="fold"><summary>其他頁面</summary><div class="inner">
-<p><b>我的靈感卡、角色關係圖、認識角色：</b>用法見上面各區塊。</p>
+<p><b>我的靈感卡、角色關係圖、外觀產生器、認識角色：</b>用法見上面各區塊。</p>
 <p><b>短文練習題：</b>抽題目寫短文，可以鎖題、重骰；成人向和較沉重的題目需要自己勾選才會出現。</p>
 <p><b>更多 → 投稿給作者：</b>想讓你的詞彙被收進公開題庫，可以在這裡投稿。</p>
 <p><b>更多 → 出處資訊：</b>列出製作時閱讀過的參考資料，以及聯絡方式。</p></div></details>
@@ -216,6 +226,17 @@ button:disabled{opacity:.45;cursor:default}
 <input id="mrc" placeholder="自訂關係文字" style="display:none;margin-top:6px">
 <p><button onclick="mapAddEdge()">加入連線</button></p></div>
 <div class="card"><b>角色與連線</b><div id="maplist"></div></div>
+</section>
+
+<section id="look">
+<h2>外觀產生器</h2>
+<p class="note">抽出一個角色的外觀：臉部、髮型、膚色與個人色彩、穿搭、香氛、妝容和小特徵。所有項目都不分性別，男生可以留長髮、女生也可以是短髮。「衣著傾向」可以指定要女性化、男性化或中性化的衣服；穿搭與妝容都是建議方向，請依角色調整。</p>
+<div class="card"><div class="grid"><label class="lab">角色來源<select id="lksrc" onchange="lkAll()"></select></label><label class="lab">衣著傾向<select id="lkgw" onchange="lkAll()"><option value="">不限</option><option value="f">女性化衣服</option><option value="m">男性化衣服</option><option value="n">中性化衣服</option></select></label><label class="lab">穿搭地區偏好<select id="lkreg" onchange="lkAll()"><option value="">不限</option><option>日系</option><option>韓系</option><option>歐美</option></select></label></div>
+<div id="lkman" class="grid"><label class="lab">年齡層<select id="lkage" onchange="lkAll()"><option value="15">15–17 歲</option><option value="24" selected>18–29 歲</option><option value="38">30–44 歲</option><option value="52">45–59 歲</option><option value="65">60 歲以上</option></select></label><label class="lab">身高（cm，可留空）<input id="lkht" type="number" min="120" max="230" onchange="lkAll()"></label></div>
+<p><button class="big" onclick="lkAll()">🎲 全部重骰</button> <button onclick="lkCopy()">複製</button> <button onclick="lkImg()">下載圖片</button> <button onclick="lkTxt()">下載文字</button> <span id="lkmsg" class="note"></span></p>
+<p class="note">選「帶入」會使用該位主角的年齡、身高與體型，讓尺碼和鞋碼合理。已鎖住的項目重骰時會保留。</p></div>
+<div id="lkout"></div>
+<p class="note">品牌與香水都只是「走向相近的參考」，不是業配，實際商品請以官方為準。</p>
 </section>
 
 <section id="drill">
@@ -628,6 +649,147 @@ x.textAlign='center';geo.forEach(g=>{const fs=edgeFs(),lh=fs*1.25,ls=edgeLines(g
 MAP.nodes.forEach(n=>{x.beginPath();x.arc(n.x,n.y,mR(n),0,7);x.fillStyle=n.c;x.fill();x.lineWidth=2.4;x.strokeStyle='#7b4fa8';x.stroke();const fs=nodeFs(n),ls=nodeLines(n),lh=fs*1.2;x.font=`700 ${fs}px ${F}`;x.fillStyle='#3a2a4d';ls.forEach((l,k)=>x.fillText(l,n.x,n.y+(k-(ls.length-1)/2)*lh))});
 x.restore();x.textAlign='left';x.fillStyle='#7b4fa8';x.font=`26px ${F}`;x.fillText('現代背景原創OC／CP靈感工具庫',60,H-45);
 c.toBlob(b=>saveFile('角色關係圖.png',b),'image/png')}
+/* ---- 外觀產生器 ---- */
+const LK_FACE=S("鵝蛋臉、圓臉、方臉（下頷線條明顯）、長臉、心形臉（額寬下巴尖）、菱形臉（顴骨明顯）、瓜子臉、娃娃臉（輪廓柔和偏圓）、窄長臉、輪廓立體偏深邃");
+const LK_EYE=S("杏眼、丹鳳眼（眼尾上挑）、圓眼、下垂眼（眼尾微垂）、貓眼（眼尾上揚偏窄）、單眼皮、內雙、雙眼皮明顯、細長眼、深邃大眼（眼窩較深）、桃花眼（眼尾微彎帶笑意）、三白眼（黑眼珠偏上）");
+const LK_BROW=S("平直眉、彎眉、挑眉、粗濃眉、細淡眉、眉尾下垂（面相溫和）、眉峰明顯、一字眉、自然略雜亂的眉");
+const LK_LASH=S("睫毛纖長捲翹、睫毛濃密、睫毛短而直、睫毛淺淡、睫毛長而下垂");
+const LK_NOSE=S("鼻梁高挺、鼻梁平緩小巧、鼻頭圓潤、鼻頭微翹、鼻梁筆直、鼻翼偏窄、山根偏低、鼻梁微有弧度、鼻尖略尖");
+const LK_LIP=S("薄唇、厚唇、唇峰明顯（M 形）、下唇偏豐滿、嘴角天生微上揚、嘴角微下垂（表情偏冷）、唇色偏淡、唇形小巧、唇形偏寬");
+const LK_EAR=S("耳廓小巧貼臉、耳朵微微外翹、耳垂圓厚、耳垂偏小、耳廓偏大、耳尖微尖、耳垂分離明顯、耳廓偏長");
+const LK_DIMP=['沒有酒窩','沒有酒窩','沒有酒窩','左頰有酒窩','右頰有酒窩','兩頰都有酒窩','下巴有淺淺的凹陷（下巴窩）','只有笑得很開心時才會出現酒窩'];
+const LK_MOLE=['沒有明顯的痣','沒有明顯的痣','沒有明顯的痣','左眼下方有一顆淚痣','右眼下方有一顆淚痣','嘴角旁有一顆小痣','下唇下方有一顆痣','鼻翼旁有一顆小痣','鎖骨附近有一顆痣','後頸有一顆痣','手腕內側有一顆痣','左耳垂有一顆痣','右眉尾有一顆痣','頸側有兩三顆小痣'];
+const LK_TEETH=S("牙齒整齊、有明顯的虎牙、門牙微微外暴、笑起來牙齦微露、牙縫稍明顯、戴過牙套但現在排列整齊、牙齒潔白（有定期保養）");
+const LK_HAIR={'短髮':S("寸頭、極短平頭、碎蓋、俐落短髮、耳下短鮑伯、精靈短髮、層次短髮、削薄的狼尾短版、復古側分油頭、長瀏海的中短髮"),
+'中長髮':S("鎖骨髮、及肩中長髮、層次中長髮、長鮑伯、半長捲髮、慵懶的中長髮、中分及肩髮、狼尾中長髮、低綁的小馬尾"),
+'長髮':S("過肩長直髮、低馬尾、高馬尾、微捲長髮、公主切、黑長直、側邊編髮、半紮髮、鬆鬆的丸子頭"),
+'超長髮':S("及腰長直髮、及腰大波浪、長度到腰際的麻花辮、垂到肩胛骨下方的長髮")};
+const LK_BANG=['','','，有空氣瀏海','，露出額頭','，側分瀏海','，八字瀏海','，沒有瀏海'];
+const LK_HTEX=S("直髮且髮質偏細軟、自然捲、髮尾自然外翹、髮量豐厚蓬鬆、髮質粗硬容易翹、天生微捲、髮量偏少但柔順、髮質偏乾有點毛躁、柔順有光澤");
+const LK_SEA={
+'春':{n:'春季型（暖調・明亮）',skin:['白皙偏暖，臉頰容易透出珊瑚粉','自然偏暖的明亮米色','小麥偏暖，氣色透亮'],eye:['淺棕','琥珀棕','蜂蜜色','淡褐','偏暖的深棕'],nat:['偏暖的黑棕','淺棕色','栗棕色'],dye:['奶茶金棕','蜜糖棕','淡琥珀棕','杏仁棕'],lip:'珊瑚粉、蜜桃橘',
+pal:[['珊瑚橘','#FF7F6B'],['奶油黃','#FFD76A'],['嫩綠','#9BD770'],['蜜桃','#FFB38A'],['駝色','#D9A66C']],avoid:[['純黑','#111111'],['灰藍','#6B7A99']]},
+'夏':{n:'夏季型（冷調・柔和）',skin:['冷白皮，偏粉調','白皙偏粉，容易泛紅','自然偏冷的粉米色','自然偏灰調的柔和膚色'],eye:['灰棕','偏冷的深棕','淡灰','藍灰','柔和的黑'],nat:['柔和的黑色','灰棕色','深灰棕'],dye:['霧灰棕','亞麻灰','灰紫','玫瑰棕'],lip:'玫瑰粉、莓果粉',
+pal:[['玫瑰粉','#E8A0B4'],['薰衣草紫','#B7A6E0'],['粉藍','#9CC3E6'],['灰紫','#9A8CA8'],['薄荷綠','#A8D8C8']],avoid:[['橘色','#E8742A'],['土黃','#C9A227']]},
+'秋':{n:'秋季型（暖調・深沉）',skin:['自然偏黃的暖膚色','小麥色偏金黃','蜂蜜色','深小麥帶橄欖調','深褐偏暖'],eye:['深棕','琥珀','咖啡棕','橄欖棕','焦糖棕'],nat:['深棕色','栗棕色','暖調的黑棕'],dye:['焦糖棕','紅褐色','栗子棕','橄欖棕'],lip:'磚紅、焦糖棕',
+pal:[['芥末黃','#C9A227'],['磚紅','#A8432D'],['橄欖綠','#6B7B3A'],['焦糖','#B5703A'],['深棕','#5B3A29']],avoid:[['螢光粉','#FF4FA3'],['冰藍','#BFE3F5']]},
+'冬':{n:'冬季型（冷調・深濃）',skin:['冷白皮，對比強烈','白皙偏青調','自然偏冷偏深','偏深的冷褐色（青調）','橄欖偏冷灰調'],eye:['漆黑','深黑棕','冷灰','深藍灰','深褐'],nat:['漆黑','深黑棕','藍調的黑'],dye:['藍黑','酒紅黑','冷銀灰','深紫黑'],lip:'正紅、莓果紫紅',
+pal:[['正紅','#C8102E'],['寶藍','#1F3FBF'],['純黑','#111111'],['純白','#FFFFFF'],['葡萄紫','#6A1B6F']],avoid:[['駝色','#C8A27A'],['土橘','#D9823B']]}};
+const LK_HAND=S("修長的手指、骨節分明且骨感、手掌厚實、手小而圓潤、手指偏短但靈活、手背青筋明顯、指尖常常偏涼、手上有薄繭（筆繭，琴繭或工作繭）、手指纖細且關節突出");
+const LK_NAIL=S("指甲修得短而乾淨、指甲偏長有做保養、指甲偶爾會咬、塗透明護甲油、簡約美甲（裸色或法式）、指甲偏圓、指甲偏方");
+const LK_STAN=S("站姿挺拔、習慣微駝背、站著時重心放在一隻腳、走路很輕、步伐大而快、走路慢悠悠、坐姿端正、坐沒坐相常翹腳、習慣雙手插口袋、走路時常低頭看地面");
+const LK_VOICE=S("低沉溫和、清亮偏高、沙啞慵懶、聲音偏軟、聲線冷淡平穩、語速快但咬字清楚、說話輕聲細語、笑聲爽朗、聲音帶一點鼻音、乾淨有磁性");
+const LK_ACC=S("平常不戴飾品、細框眼鏡、黑框眼鏡、隱形眼鏡（偶爾戴眼鏡）、耳骨釘或耳環、簡單的項鍊（有紀念意義）、手錶（機械錶或簡約錶）、戒指（食指或拇指）、手腕上掛著髮圈、帽子或毛帽是標誌、常背帆布包（裝著書）、耳機總是掛在脖子上");
+const LK_VIBE=S("清爽少年感、溫柔鄰家感、冷冽疏離、慵懶隨性、乾淨斯文、陽光爽朗、神祕沉靜、精緻漂亮、強勢有氣場、可愛軟萌、成熟穩重、帶點痞氣、書卷氣、藝術家氣質、清冷難以靠近、外冷內熱的反差感");
+const LK_MARK=[['沒有特別的標記'],['沒有特別的標記'],['沒有特別的標記'],['臉上有淡淡的雀斑'],['手臂上有舊疤'],['膝蓋有小時候留下的疤'],['眉尾有一道小疤'],['背上有胎記'],['頸側有胎記'],['右耳有多個耳洞'],['左手腕有小刺青',1],['肩膀有刺青',1]];
+const LK_STY=[
+{n:'地雷系',r:'日系',d:'黑粉配色、蕾絲與蝴蝶結、厚底鞋，帶一點病嬌甜美感',b:'Ank Rouge、Secret Honey、Rojita'},
+{n:'量產型',r:'日系',d:'粉嫩蕾絲、蝴蝶結、洋裝與襪子，乖巧又有點偶像感',b:'Rojita、RETRO GIRL、WEGO'},
+{n:'森林系',r:'日系',d:'棉麻材質、大地色、寬鬆層次，溫柔自然',b:'Samansa Mos2、Nest Robe、無印良品'},
+{n:'辣妹風',r:'日系',d:'短版上衣、迷你裙或修身單品，亮眼有存在感',b:'MOUSSY、SLY、rienda、MURUA'},
+{n:'清楚系',r:'日系',d:'簡單乾淨的基本款，剪裁俐落，給人清爽的好感',b:'UNIQLO、GU、coen、earth music&ecology'},
+{n:'日系古著',r:'日系',d:'二手古著混搭，帶懷舊味道，常有一兩件很有故事的單品',b:'各地古著店與二手市集、Levi\'s 古著、Ralph Lauren 舊款'},
+{n:'浪漫 girly',r:'日系',d:'荷葉邊、碎花、柔和色彩，甜美又浪漫',b:'Maison de FLEUR、LIZ LISA、Swankiss、Honey mi Honey'},
+{n:'日系簡約',r:'日系',d:'素色、無圖案、材質舒服，重視剪裁與比例',b:'UNIQLO、無印良品、coen、niko and ...'},
+{n:'飄逸寬鬆中性風',r:'日系',d:'寬大的版型、垂墜感布料、不分性別，像 Hare 那樣的鬆鬆氛圍',b:'Hare、niko and ...、GLOBAL WORK'},
+{n:'原宿街頭風',r:'日系',d:'色彩大膽、潮牌與配件疊搭，個性鮮明',b:'WEGO、BEAMS、A BATHING APE'},
+{n:'美式復古（Ametora）',r:'日系',d:'丹寧、牛津襯衫、工裝靴，日式詮釋的美式經典',b:'EDWIN、Orslow、BEAMS'},
+{n:'機能山系',r:'日系',d:'防風外套、機能面料、戶外配件，實用耐穿',b:'Snow Peak、and wander、Goldwin、THE NORTH FACE'},
+{n:'韓系簡約通勤',r:'韓系',d:'中性色系、俐落版型，乾淨又有質感',b:'Matin Kim、Mardi Mercredi、Andersson Bell、Musinsa Standard'},
+{n:'韓系 Clean Fit',r:'韓系',d:'白、灰、米色為主，講究剪裁與合身度',b:'Musinsa Standard、8seconds、SPAO'},
+{n:'韓系街頭',r:'韓系',d:'寬鬆 T 恤、工裝褲、帽 T，輕鬆有個性',b:'thisisneverthat、Covernat、ADER error'},
+{n:'韓系學院風',r:'韓系',d:'針織背心、襯衫、百褶裙或西裝褲，乾淨的學院感',b:'8seconds、SPAO、Mardi Mercredi'},
+{n:'韓系甜美風',r:'韓系',d:'柔和色彩、蝴蝶結與荷葉邊，可愛又乾淨',b:'Stylenanda、SPAO、Mardi Mercredi'},
+{n:'老錢風（Old Money）',r:'歐美',d:'針織衫、開襟外套、卡其褲，低調內斂的世家感',b:'Ralph Lauren、Brooks Brothers、J.Crew、Barbour'},
+{n:'低調奢華（Quiet Luxury）',r:'歐美',d:'極簡、無明顯 logo、材質很好，剪裁優雅',b:'Loro Piana、Brunello Cucinelli、The Row、Max Mara'},
+{n:'美式街頭',r:'歐美',d:'大 logo、運動鞋、寬版外套，輕鬆有街頭感',b:'Supreme、Carhartt WIP、Stüssy、Nike'},
+{n:'學院預科風（Preppy）',r:'歐美',d:'POLO 衫、針織衫、格紋裙或卡其褲，青春而整齊',b:'Ralph Lauren、Tommy Hilfiger、Lacoste、J.Crew'},
+{n:'Y2K 千禧風',r:'歐美',d:'低腰、亮片與亮色，帶一點懷舊的千禧年味道',b:'Diesel、Juicy Couture、Miu Miu'},
+{n:'Grunge 龐克搖滾',r:'歐美',d:'黑色、皮革、破損丹寧與馬汀靴，叛逆不羈',b:'Dr. Martens、Levi\'s、Vans、Converse'},
+{n:'法式優雅',r:'歐美',d:'條紋、風衣、襯衫，不費力的隨性氣質',b:'Sézane、Maje、Sandro、A.P.C.'},
+{n:'北歐簡約',r:'歐美',d:'中性色、俐落線條、實穿好搭',b:'COS、ARKET、& Other Stories、Acne Studios'},
+{n:'工裝風',r:'歐美',d:'耐磨工作褲、帆布外套、靴子，粗獷而實用',b:'Carhartt、Dickies、Red Wing、Levi\'s'},
+{n:'暗黑學院風（Dark Academia）',r:'歐美',d:'深色針織、西裝外套、格紋與皮鞋，文學氣息濃厚',b:'Ralph Lauren、Dr. Martens、Barbour、二手古著針織衫'},
+{n:'波西米亞風',r:'歐美',d:'流蘇、印花、層次疊穿，自由隨興',b:'Free People、Anthropologie'},
+{n:'運動休閒風',r:'歐美',d:'運動外套、機能褲與球鞋，舒適又有活力',b:'Nike、Adidas、Lululemon、New Balance'}];
+const LK_GW={'地雷系':'f','量產型':'f','森林系':'fn','辣妹風':'f','飄逸寬鬆中性風':'n','美式復古（Ametora）':'mn','機能山系':'mn','韓系甜美風':'f','Y2K 千禧風':'fn','法式優雅':'fn','工裝風':'mn','波西米亞風':'fn','浪漫 girly':'f'};
+LK_STY.forEach(x=>{x.g=LK_GW[x.n]||'fmn'});
+const LK_SC=[
+{n:'乾淨皂感',t:'佛手柑、檸檬',m:'茉莉、白茶',b:'白麝香、雪松',r:'平價：SHIRO、無印良品｜專櫃：Jo Malone、Maison Margiela｜小眾：Byredo'},
+{n:'陽光柑橘',t:'葡萄柚、橙花',m:'薑、綠葉',b:'檀木、琥珀',r:'平價：Zara、Bath & Body Works｜專櫃：Jo Malone、Hermès｜小眾：Atelier Cologne'},
+{n:'花果甜香',t:'蜜桃、梨',m:'玫瑰、牡丹',b:'香草、麝香',r:'平價：SHIRO、Zara｜專櫃：YSL、Dior、Chloé｜小眾：Diptyque'},
+{n:'木質沉穩',t:'黑胡椒、佛手柑',m:'雪松、鳶尾',b:'檀香、廣藿香',r:'專櫃：Tom Ford、Hermès、Dior｜小眾：Le Labo、Byredo、Diptyque',a:1},
+{n:'菸草皮革（成熟感）',t:'肉桂、辛香料',m:'菸草、皮革',b:'香草、琥珀',r:'專櫃：Tom Ford、Dior、YSL｜小眾：Le Labo、Frederic Malle',a:1},
+{n:'海洋清爽',t:'海鹽、柑橘',m:'海風、水生調',b:'木質、麝香',r:'平價：Calvin Klein、Issey Miyake｜專櫃：Giorgio Armani'},
+{n:'茶香',t:'綠茶、檸檬',m:'白茶、茉莉',b:'麝香',r:'平價：無印良品、SHIRO｜專櫃：Bvlgari、Jo Malone'},
+{n:'甜點暖香',t:'焦糖、橘子',m:'咖啡、杏仁',b:'香草、零陵香豆',r:'平價：Bath & Body Works｜專櫃：YSL、Mugler、Lancôme'},
+{n:'青草森林',t:'青草、薄荷',m:'針葉、苔蘚',b:'雪松、橡木苔',r:'平價：SHIRO｜小眾：Diptyque、Le Labo'},
+{n:'優雅花香',t:'鈴蘭、梨',m:'白玫瑰、牡丹',b:'白麝香、檀香',r:'專櫃：Chanel、Dior、Jo Malone'},
+{n:'剛洗完澡的皂香',t:'棉花、白花',m:'皂香、鈴蘭',b:'白麝香',r:'平價：無印良品、SHIRO｜專櫃：Maison Margiela'},
+{n:'冷調微甜',t:'黑醋栗、冷杉',m:'鳶尾、紫羅蘭',b:'麝香、檀香',r:'專櫃：Chanel、Dior｜小眾：Byredo、Diptyque'},
+{n:'韓系乾淨香',t:'白梨、橙',m:'白花、麝香',b:'檀香',r:'韓系：Tamburins、Nonfiction｜平價：Zara'},
+{n:'日系淡雅和香',t:'柚子、青橘',m:'櫻花、茶',b:'檜木、白麝香',r:'日系：SHIRO、資生堂、Issey Miyake'}];
+const LK_SCH=S("只在手腕和頸側噴一下、噴在空氣中再穿過去、味道很淡要靠很近才聞得到、不用香水只有洗衣精的味道、習慣在外套內側噴一點");
+const LK_MK=[
+{n:'完全素顏，只擦防曬與護唇膏',t:1,k:'防曬、保濕乳液、護唇膏',r:'開架：Biore、Nivea、Canmake｜專櫃：Shiseido'},
+{n:'日常淡妝',t:1,k:'氣墊粉餅或 BB 霜、眉粉、潤色護唇膏',r:'開架：Canmake、CEZANNE、Maybelline、Etude｜專櫃：Shiseido、Dior、YSL'},
+{n:'日系自然妝',t:1,k:'大地色眼影、淡腮紅、霧面唇彩',r:'開架：Canmake、CEZANNE、KATE｜專櫃：Shiseido、Cosme Decorte'},
+{n:'韓系水光妝',t:0,k:'水光氣墊、腮紅、玻璃唇',r:'韓系：3CE、rom&nd、Etude、Hera、Laneige'},
+{n:'歐美立體輪廓妝',t:0,k:'粉底液、修容、深色唇',r:'MAC、NARS、Maybelline、Fenty Beauty'},
+{n:'煙燻眼妝',t:0,k:'眼線、大地色或黑色眼影、睫毛膏',r:'MAC、NARS、Urban Decay、Maybelline'},
+{n:'低調修飾型（BB 霜、修眉、潤唇膏）',t:1,k:'BB 霜、眉筆、潤唇膏',r:'韓系：Innisfree、Missha、Etude｜開架：Nivea、Maybelline'},
+{n:'只畫眼線與睫毛',t:1,k:'眼線筆、睫毛膏',r:'開架：Canmake、Maybelline、KISS ME'},
+{n:'平常不化妝，只有特殊場合才化濃妝',t:1,k:'平常只保養；重要場合才用完整底妝、眼影、口紅',r:'開架：Maybelline、Canmake｜專櫃：MAC、Dior'}];
+const LK_G=[['face','基本與臉部',['vibe','face','eye','eyec','brow','lash','nose','lip','ear','dimple','mole','teeth']],['hair','頭髮',['hair','htex','hcol']],['color','膚色與個人色彩',['season','skin','wear']],['body','身體與動作',['hand','nail','size','shoe','stance','voice']],['style','穿搭與配件',['sty','acc']],['scent','香氛與妝容',['scent','mk']],['extra','其他特徵',['marks']]];
+const LK_LAB={vibe:'氣質關鍵字',face:'臉型',eye:'眼型',eyec:'眼睛顏色',brow:'眉形',lash:'睫毛',nose:'鼻形',lip:'脣形',ear:'耳朵形狀',dimple:'酒窩',mole:'痣',teeth:'牙齒',hair:'髮型',htex:'髮質',hcol:'髮色',season:'四季型個人色彩',skin:'膚色',wear:'慣穿的顏色',hand:'手與手指',nail:'指甲',size:'衣服尺碼',shoe:'鞋子尺寸',stance:'站姿與走路',voice:'聲音',sty:'穿搭風格',acc:'配件與習慣',scent:'香水',mk:'化妝習慣',marks:'其他標記'};
+const LK_DEP={season:['skin','eyec','hcol','wear','mk']};
+let LOOK={v:{},L:{},src:'m'};
+const lkP=a=>a[Math.random()*a.length|0];
+function lkCtx(){let age,ht,bd='';const s=$('#lksrc')?$('#lksrc').value:'m';
+if(s!='m'&&G.cast[+s]){const c=G.cast[+s];age=c.age;ht=c.ht;bd=c.bd||''}else{const ag=$('#lkage')?$('#lkage').value:'';const R={'15':[15,17],'24':[18,29],'38':[30,44],'52':[45,59],'65':[60,78]}[ag||'24'];age=R[0]+Math.random()*(R[1]-R[0])|0;const h=$('#lkht')?+$('#lkht').value:0;ht=h>=120&&h<=230?h:150+Math.random()*40|0}
+const pref=$('#lkreg')?$('#lkreg').value:'',gw=$('#lkgw')?$('#lkgw').value:'';return{age:age||24,ht:ht||170,bd,pref,gw,teen:(age||24)<18,s}}
+function lkSeason(){return LOOK.v.season||'春'}
+const LK_R={
+vibe:()=>pick(LK_VIBE,2).join('、'),face:()=>lkP(LK_FACE),eye:()=>lkP(LK_EYE),eyec:()=>lkP(LK_SEA[lkSeason()].eye),brow:()=>lkP(LK_BROW),lash:()=>lkP(LK_LASH),nose:()=>lkP(LK_NOSE),lip:()=>lkP(LK_LIP),ear:()=>lkP(LK_EAR),dimple:()=>lkP(LK_DIMP),mole:()=>lkP(LK_MOLE),teeth:()=>lkP(LK_TEETH),
+hair:()=>{const k=lkP(Object.keys(LK_HAIR));const st=lkP(LK_HAIR[k]);return k+'・'+st+(/寸頭|平頭|碎蓋|馬尾|丸子|麻花|編髮|紮髮|精靈|油頭/.test(st)?'':lkP(LK_BANG))},
+htex:()=>lkP(LK_HTEX),
+hcol:c=>{const S0=LK_SEA[lkSeason()];if(c.age>=60&&Math.random()<.6)return lkP(['銀白色','灰白相間','花白']);if(c.age>=45&&Math.random()<.3)return lkP(['黑髮夾雜少許白髮','灰黑相間']);const dye=Math.random()<(c.teen?.04:.2);return dye?lkP(S0.dye)+'（染髮）':lkP(S0.nat)+'（天生）'},
+season:()=>lkP(Object.keys(LK_SEA)),skin:()=>lkP(LK_SEA[lkSeason()].skin),
+wear:()=>{const S0=LK_SEA[lkSeason()];const a=pick(S0.pal,3),b=lkP(S0.avoid);return a.map(x=>x[0]+' '+x[1]).join('、')+'；偶爾會穿：'+b[0]+' '+b[1]},
+hand:()=>lkP(LK_HAND),nail:()=>lkP(LK_NAIL),
+size:c=>{let i=c.ht<155?0:c.ht<163?1:c.ht<171?2:c.ht<179?3:c.ht<186?4:5;if(/纖|瘦|苗條|清瘦|嬌小/.test(c.bd))i--;else if(/壯|豐腴|圓潤|微胖|肌肉|骨架大|厚實/.test(c.bd))i++;else i+=lkP([-1,0,0,1]);i=Math.max(0,Math.min(5,i));return '亞洲版型約 '+['XS','S','M','L','XL','2XL'][i]+'（歐美品牌通常要選小一號：'+['XXS','XS','S','M','L','XL'][i]+'）'},
+shoe:c=>{const f=Math.round((c.ht*.15+(Math.random()-.5)*1.2)*2)/2;const eu=Math.round((f+1.5)*1.5*2)/2;return '腳長約 '+f+' cm（台灣尺寸），約 EU '+eu},
+stance:()=>lkP(LK_STAN),voice:()=>lkP(LK_VOICE),
+sty:c=>{let a=LK_STY;if(c.pref)a=a.filter(x=>x.r==c.pref);if(c.gw){const b=a.filter(x=>x.g.includes(c.gw));if(b.length)a=b}return lkP(a).n},
+acc:()=>pick(LK_ACC,2).join('、'),
+scent:c=>{const a=LK_SC.filter(x=>!(c.teen&&x.a));const x=lkP(a);return x.n+'｜'+lkP(LK_SCH)},
+mk:c=>{const a=LK_MK.filter(x=>!c.teen||x.t);return lkP(a).n},
+marks:c=>{const a=LK_MARK.filter(x=>!(x[1]&&c.teen));return lkP(a)[0]}};
+function lkRollOne(k,c){LOOK.v[k]=LK_R[k](c)}
+function lkRoll(k){const c=lkCtx();if(LOOK.L[k])return;lkRollOne(k,c);(LK_DEP[k]||[]).forEach(d=>{if(!LOOK.L[d])lkRollOne(d,c)});renderLook()}
+function lkLock(k){LOOK.L[k]=!LOOK.L[k];renderLook()}
+function lkAll(){const c=lkCtx();const ord=['season','vibe','face','eye','eyec','brow','lash','nose','lip','ear','dimple','mole','teeth','hair','htex','hcol','skin','wear','hand','nail','size','shoe','stance','voice','sty','acc','scent','mk','marks'];ord.forEach(k=>{if(!LOOK.L[k])lkRollOne(k,c)});renderLook()}
+const lkChips=t=>esc(t).replace(/([^、；：\s]+)\s(#[0-9A-Fa-f]{6})/g,(m,n,h)=>`<span class="sw" style="background:${h}"></span>${n}`);
+const lkPlain=t=>(t||'').replace(/\s#[0-9A-Fa-f]{6}/g,'');
+function lkDetail(k){const v=LOOK.v[k];if(!v)return'';
+if(k=='sty'){const x=LK_STY.find(s=>s.n==v);return x?`${x.r}｜${x.d}\n品牌參考：${x.b}`:''}
+if(k=='scent'){const x=LK_SC.find(s=>s.n==v.split('｜')[0]);return x?`前調：${x.t}\n中調：${x.m}\n後調：${x.b}\n品牌參考（走向相近）：${x.r}`:''}
+if(k=='mk'){const x=LK_MK.find(s=>s.n==v);const S0=LK_SEA[lkSeason()];return x?`重點：${x.k}\n唇色建議（依個人色彩）：${S0.lip}\n品牌參考：${x.r}`:''}
+return''}
+function lkVal(k){const v=LOOK.v[k];if(!v)return'—';if(k=='season')return esc(LK_SEA[v].n);return lkChips(v)}
+function lkCell(k,wide){const lk=LOOK.L[k],d=lkDetail(k);let ex='';
+let body=lkVal(k);if(k=='season'){const S0=LK_SEA[lkSeason()];body+='<div class="pal">'+S0.pal.map(p=>`<span class="swb" style="background:${p[1]}" title="${p[0]}"></span>`).join('')+'</div><div class="note">適合：'+S0.pal.map(p=>p[0]).join('、')+'｜不太適合：'+S0.avoid.map(p=>p[0]).join('、')+'</div>'}
+if(d)body+=`<div class="note" style="margin-top:4px">${esc(d).replace(/\n/g,'<br>')}</div>`;
+return`<div class="cell${wide?' wide':''}"><div class="lab">${LK_LAB[k]}</div><div class="val">${body}</div><div class="btns"><button onclick="lkRoll('${k}')" ${lk?'disabled':''}>🎲 重骰</button>${lockBtn(lk,`lkLock('${k}')`)}${ex}</div></div>`}
+function renderLook(){const b=$('#lkout');if(!b)return;const sel=$('#lksrc');if(sel){const cur=sel.value;sel.innerHTML='<option value="m">手動設定</option>'+G.cast.map((c,i)=>`<option value="${i}">帶入：${esc(c.nm||role(i))}（${c.age} 歲，${c.ht} cm）</option>`).join('');if([...sel.options].some(o=>o.value==cur))sel.value=cur;$('#lkman').style.display=sel.value=='m'?'':'none'}
+if(!Object.keys(LOOK.v).length){lkAll();return}
+const wide=new Set(['sty','scent','mk','wear','season']);
+b.innerHTML=LK_G.map(([id,t,ks])=>fold('lk_'+id,'',t,`<div class="cgrid">${ks.map(k=>lkCell(k,wide.has(k))).join('')}</div>`,id!='extra'&&id!='body')).join('')}
+function lkLines(){const L=[];LK_G.forEach(([id,t,ks])=>{L.push('##'+t);ks.forEach(k=>{if(!LOOK.v[k])return;let v=k=='season'?LK_SEA[LOOK.v[k]].n:lkPlain(LOOK.v[k]);L.push('　'+LK_LAB[k]+'：'+v);const d=lkDetail(k);if(d&&k!='season')d.split('\n').forEach(x=>L.push('　　'+x));if(k=='season'){const S0=LK_SEA[LOOK.v[k]];L.push('　　適合的顏色：'+S0.pal.map(p=>p[0]).join('、'));L.push('　　不太適合：'+S0.avoid.map(p=>p[0]).join('、'))}})});return L}
+function lkCopy(){copyTxt(lines2text(lkLines()),'#lkmsg','已複製外觀設定')}
+async function lkImg(){const b=await cardPng('外觀設定',lkLines());saveFile('外觀設定.png',b)}
+function lkTxt(){saveFile('外觀設定.txt',lines2text(lkLines()))}
+
 /* ---- 分享 ---- */
 const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 const b64d=s=>decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))));
@@ -958,7 +1120,7 @@ function demoDraw(){const g=$('#demoGrid');if(!g)return;g.innerHTML=DMI.map((d,i
 function demoRoll(i){DMV[i]=DMI[i][1]();demoDraw()}
 function demoLock(i){DML[i]=!DML[i];demoDraw()}
 function demoAll(){DMI.forEach((d,i)=>{if(!DML[i])DMV[i]=d[1]()});demoDraw()}
-function route(){const raw=(location.hash||'#welcome').slice(1),pp=raw.split('~'),hh=pp[0];const id=['welcome','howto','gen','cards','map','drill','char','submit','src'].includes(hh)?hh:'welcome';document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+id));if(id=='cards')renderCards();if(id=='map')renderMap();{const mb=document.getElementById('morebtn');if(mb){mb.classList.toggle('on',id=='submit'||id=='src');mb.setAttribute('aria-expanded','false')}const mm=document.getElementById('moremenu');if(mm)mm.classList.remove('open')}if(pp[1]&&!route.d){route.d=1;loadShare(pp[1])}if(id=='char')csRefresh();window.scrollTo(0,0)}
+function route(){const raw=(location.hash||'#welcome').slice(1),pp=raw.split('~'),hh=pp[0];const id=['welcome','howto','gen','cards','map','look','drill','char','submit','src'].includes(hh)?hh:'welcome';document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+id));if(id=='cards')renderCards();if(id=='map')renderMap();if(id=='look')renderLook();{const mb=document.getElementById('morebtn');if(mb){mb.classList.toggle('on',id=='submit'||id=='src');mb.setAttribute('aria-expanded','false')}const mm=document.getElementById('moremenu');if(mm)mm.classList.remove('open')}if(pp[1]&&!route.d){route.d=1;loadShare(pp[1])}if(id=='char')csRefresh();window.scrollTo(0,0)}
 $('#addcat').innerHTML=Object.entries(CAT).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
 initGen();rollDrill();rollQ();drawSrc();stat();
 demoAll();(function(){const mb=document.getElementById('morebtn'),mm=document.getElementById('moremenu');mb.addEventListener('click',e=>{e.stopPropagation();const o=mm.classList.toggle('open');mb.setAttribute('aria-expanded',o)});document.addEventListener('click',e=>{if(!mm.contains(e.target)){mm.classList.remove('open');mb.setAttribute('aria-expanded','false')}})})();
