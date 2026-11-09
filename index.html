@@ -14,11 +14,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 "Noto Sans TC"
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--main);z-index:10}
 header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--main);z-index:9;padding:10px 12px;border-bottom:1px solid var(--line)}
 header h1{margin:0 0 6px;font-size:1.05rem;color:#3a2a4d}
-nav{display:flex;gap:6px;flex-wrap:wrap}
-nav a{padding:5px 12px;border-radius:99px;background:#ffffffaa;color:#3a2a4d;text-decoration:none;font-size:.9rem}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:4px 10px;border-radius:99px;background:#ffffffaa;color:#3a2a4d;text-decoration:none;font-size:.84rem}
 nav a.on{background:#7b4fa8;color:#fff}
 nav .more{position:relative}
-nav .more>button{padding:5px 12px;border-radius:99px;background:#ffffffaa;color:#3a2a4d;border:0;font-size:.9rem;cursor:pointer}
+nav .more>button{padding:4px 10px;border-radius:99px;background:#ffffffaa;color:#3a2a4d;border:0;font-size:.84rem;cursor:pointer}
 nav .more>button.on{background:#7b4fa8;color:#fff}
 #moremenu{display:none;position:absolute;right:0;top:110%;background:#fff;border-radius:12px;box-shadow:0 4px 16px #0003;padding:6px;z-index:50;min-width:150px}
 #moremenu.open{display:block}
@@ -81,7 +81,7 @@ button:disabled{opacity:.45;cursor:default}
 <header>
 <h1>💌 現代背景原創OC／CP靈感工具庫</h1>
 <nav id="nav">
-<a href="#welcome">歡迎使用</a><a href="#howto">使用教學</a><a href="#gen">靈感產生器</a><a href="#char">認識角色</a><a href="#drill">短文練習題</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿與自訂詞彙</a><a href="#src">出處資訊</a></span></span>
+<a href="#welcome">歡迎使用</a><a href="#howto">使用教學</a><a href="#gen">靈感產生器</a><a href="#cards">我的靈感卡</a><a href="#map">角色關係圖</a><a href="#char">認識角色</a><a href="#drill">短文練習題</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿與自訂詞彙</a><a href="#src">出處資訊</a></span></span>
 </nav>
 </header>
 <main>
@@ -100,6 +100,8 @@ button:disabled{opacity:.45;cursor:default}
 </div>
 <div class="portals">
 <button class="portal" onclick="location.hash='gen'"><b>🎲 靈感產生器</b><span>一鍵骰出角色、關係與劇情走向，可鎖定喜歡的項目再重骰。</span></button>
+<button class="portal" onclick="location.hash='cards'"><b>💾 我的靈感卡</b><span>收藏骰到的靈感，可命名、加標籤、搜尋，並下載成圖片。</span></button>
+<button class="portal" onclick="location.hash='map'"><b>🕸️ 角色關係圖</b><span>把角色與關係畫成圖，可拖曳排版並下載成圖片。</span></button>
 <button class="portal" onclick="location.hash='char'"><b>🧩 認識角色</b><span>用問題集一步步深入了解你的角色，補齊個性與背景。</span></button>
 <button class="portal" onclick="location.hash='drill'"><b>✍️ 短文練習題</b><span>隨機抽三題短文題目，挑一題來寫就好，適合暖手或卡文時使用。</span></button>
 </div>
@@ -120,17 +122,28 @@ button:disabled{opacity:.45;cursor:default}
 <p><b>關係走向骨架：</b>把相遇、靠近、衝突、低谷、和解排成五個階段，每個階段下方可以寫下自己的想法。</p>
 <p><b>更多設定：</b>最上方的「⚙️ 更多設定」可以開關欄位、設定華語名的年代與風格、篩選題材與套路的類別，以及調整機率。</p></div>
 <div class="card"><h3 style="margin-top:0">抽完之後可以做什麼</h3>
-<p><b>存成靈感卡：</b>存在你自己的瀏覽器裡，可以隨時回來看，也能下載文字或圖片。</p>
+<p><b>存成靈感卡：</b>按「💾 存成靈感卡」，會收進「我的靈感卡」頁，可以隨時回來看，也能下載文字或圖片。</p>
 <p><b>複製結果／下載圖片：</b>把整組設定貼到筆記或傳給朋友。</p>
 <p><b>分享連結或分享碼：</b>把這一組傳給別人，對方打開就能看到一樣的內容。</p>
+<p><b>角色關係圖：</b>到「角色關係圖」頁，按「從目前的產生器帶入角色與關係」，就能一鍵畫出圖。</p>
 <p><b>角色設定表：</b>在「認識角色」頁，可以把抽到的角色帶進去，再回答問題集，寫成完整的角色檔案。</p></div>
+<div class="card"><h3 style="margin-top:0">我的靈感卡怎麼用</h3>
+<p><b>命名與標籤：</b>每張卡可以自己取名，並標上「進行中」「備用」「已完成」，用上方的搜尋與篩選快速找到。</p>
+<p><b>載入與下載：</b>「載入到產生器」會把那張卡放回產生器繼續調整；「下載圖片」「下載文字」可以保存或分享。</p>
+<p><b>帶入關係圖：</b>每張卡都有「帶入關係圖」，直接把那組角色與關係畫出來。</p>
+<p><b>備份：</b>靈感卡只存在這個瀏覽器，建議偶爾按「複製備份碼」貼到筆記裡；要還原時貼回去即可。</p></div>
+<div class="card"><h3 style="margin-top:0">角色關係圖怎麼用</h3>
+<p><b>放入角色：</b>輸入名字按「新增角色」，或按「從目前的產生器帶入角色與關係」。</p>
+<p><b>連線：</b>在「新增連線」選兩位角色、關係與方向（單向、雙向、無箭頭）；關係可以選常用詞，也能自訂。</p>
+<p><b>排版：</b>用滑鼠或手指拖曳角色，改變位置。角色與連線可以在下方清單改名、改顏色或刪除。</p>
+<p><b>下載圖片：</b>按「下載圖片」存成 PNG，可以貼到企劃或分享給朋友。</p></div>
 <div class="card"><h3 style="margin-top:0">認識角色頁怎麼用</h3>
 <p><b>抽問題：</b>每次隨機出五題，按「🎲 重抽」換一批；喜歡的題目可以鎖住，重抽時會保留。</p>
 <p><b>想一想就好：</b>答案不一定要寫進正文，也不一定要全部回答，只是幫你把角色想得更立體。</p>
 <p><b>角色設定表：</b>往下捲到「角色設定表」，在「帶入產生器的角色」選一位，會自動帶入姓名和基本資料；你也可以自己改寫，再按「複製角色設定表」或「下載圖片」。</p>
 <p><b>自己加題目：</b>頁面最下方可以輸入自己的題目（每行一題），加入後會併入抽題池。</p></div>
 <div class="card"><h3 style="margin-top:0">其他頁面</h3>
-<p><b>認識角色：</b>問題集和角色設定表，用法見上一個區塊。</p>
+<p><b>我的靈感卡、角色關係圖、認識角色：</b>用法見上面各區塊。</p>
 <p><b>短文練習題：</b>抽題目寫短文，可以鎖題、重骰；成人向和較沉重的題目需要自己勾選才會出現。</p>
 <p><b>更多 → 投稿與自訂詞彙：</b>投稿詞彙給作者，或把自己的詞彙加進自己的抽籤池。</p>
 <p><b>更多 → 出處資訊：</b>列出製作時閱讀過的參考資料，以及聯絡方式。</p></div>
@@ -168,7 +181,31 @@ button:disabled{opacity:.45;cursor:default}
 <p><button onclick="copyShare('link')">複製分享連結</button> <button onclick="copyShare('code')">複製分享碼</button> <span id="shmsg" class="note"></span></p>
 <p class="note">若連結在你的環境無法直接開啟，請把「分享碼」傳給對方，並請對方貼在下方載入。</p>
 <div class="grid"><input id="shin" placeholder="貼上分享碼或分享連結"><button onclick="loadShareBox()">載入</button></div></div>
-<div class="card"><h3 style="margin-top:0">我的靈感卡</h3><p><button onclick="allCardsTxt()">下載全部（文字）</button> <span class="note">靈感卡存在你這個瀏覽器裡。</span></p><div id="cardsList"></div></div>
+</section>
+
+<section id="cards">
+<h2>我的靈感卡</h2>
+<p class="note">在「靈感產生器」按「💾 存成靈感卡」，就會收在這裡。靈感卡存在你這個瀏覽器裡，最多 60 張；換裝置或清除瀏覽器資料就會消失，重要的建議下載或複製備份。</p>
+<div class="card"><div class="grid"><input id="cq" placeholder="搜尋名稱、角色、套路、背景…" oninput="renderCards()"><select id="ctag" onchange="renderCards()"></select></div>
+<p><button onclick="allCardsTxt()">下載全部（文字）</button> <button onclick="cardsBackup()">複製備份碼</button> <span id="cmsg" class="note"></span></p>
+<details class="fold sub"><summary>用備份碼還原</summary><div class="inner"><textarea id="cbk" rows="3" placeholder="貼上備份碼"></textarea><p><button onclick="cardsRestore()">還原（會加入現有靈感卡）</button></p></div></details></div>
+<div id="cardsList"></div>
+</section>
+
+<section id="map">
+<h2>角色關係圖</h2>
+<p class="note">把角色放進圖裡，用連線標出彼此的關係。可以拖曳角色調整位置，完成後下載成圖片。內容存在你這個瀏覽器裡。</p>
+<div class="card">
+<p><button onclick="mapImport()">從目前的產生器帶入角色與關係</button> <button onclick="mapImg()">下載圖片</button> <button onclick="mapClear()">清空</button> <span id="mapmsg" class="note"></span></p>
+<div class="grid"><input id="mnn" placeholder="新角色名字"><button onclick="mapAddNode()">新增角色</button></div>
+</div>
+<div class="card" style="padding:6px"><svg id="mapsvg" viewBox="0 0 800 520" style="width:100%;height:auto;touch-action:none;user-select:none;-webkit-user-select:none;background:#fff;border-radius:10px;display:block"></svg></div>
+<div class="card"><b>新增連線</b>
+<div class="grid"><label class="lab">從<select id="mfa"></select></label><label class="lab">到<select id="mfb"></select></label></div>
+<div class="grid"><label class="lab">關係<select id="mrl" onchange="$('#mrc').style.display=this.value=='自訂'?'':'none'"></select></label><label class="lab">方向<select id="mdr"><option value="1">單向（從 → 到）</option><option value="2">雙向</option><option value="0">無箭頭</option></select></label></div>
+<input id="mrc" placeholder="自訂關係文字" style="display:none;margin-top:6px">
+<p><button onclick="mapAddEdge()">加入連線</button></p></div>
+<div class="card"><b>角色與連線</b><div id="maplist"></div></div>
 </section>
 
 <section id="drill">
@@ -521,14 +558,71 @@ c.toBlob(b=>res(b),'image/png')})}
 async function genPng(){const b=await cardPng('靈感卡',genLines(G,true));saveFile('靈感卡.png',b)}
 /* ---- 靈感卡 ---- */
 let CARDS=[];try{CARDS=JSON.parse(localStorage.getItem('rwt_cards')||'[]')}catch(e){}
+const CTAGS=['進行中','備用','已完成'];
 const saveCards=()=>{try{localStorage.setItem('rwt_cards',JSON.stringify(CARDS))}catch(e){toast('此環境無法儲存到瀏覽器')}};
-function addCard(){CARDS.unshift({ts:new Date().toLocaleString('zh-TW'),g:JSON.parse(JSON.stringify({pair:G.pair,n:G.n,cast:G.cast,sx:G.sx,rel:G.rel,th:G.th,bg:G.bg,tr:G.tr,mt:G.mt,cf:G.cf,bt:G.bt,notes:G.notes}))});CARDS=CARDS.slice(0,60);saveCards();renderCards();toast('已存成靈感卡')}
-function renderCards(){const b=$('#cardsList');if(!b)return;b.innerHTML=CARDS.length?CARDS.map((c,i)=>`<div class="card"><div class="lab">${esc(c.ts)}</div><div>${esc(PAIRS[c.g.pair]?PAIRS[c.g.pair].label:'')}｜${esc(c.g.tr)}｜${esc(c.g.bg)}</div><p><button onclick="loadCard(${i})">載入</button> <button onclick="cardImg(${i})">下載圖片</button> <button onclick="cardTxt(${i})">下載文字</button> <button onclick="delCard(${i})">刪除</button></p></div>`).join(''):'<p class="note">還沒有靈感卡。按上面的「存成靈感卡」就會出現在這裡。</p>'}
-function loadCard(i){const g=CARDS[i].g;G=JSON.parse(JSON.stringify(g));G.rel=G.rel||[];Object.keys(LK).forEach(k=>delete LK[k]);drawGen();toast('已載入');window.scrollTo(0,0)}
-async function cardImg(i){const b=await cardPng('靈感卡',genLines(CARDS[i].g,true));saveFile('靈感卡.png',b)}
-function cardTxt(i){saveFile('靈感卡.txt',lines2text(genLines(CARDS[i].g,true)))}
+function addCard(){CARDS.unshift({ts:new Date().toLocaleString('zh-TW'),name:'',tag:'',g:JSON.parse(JSON.stringify({pair:G.pair,n:G.n,cast:G.cast,sx:G.sx,rel:G.rel,th:G.th,bg:G.bg,tr:G.tr,mt:G.mt,cf:G.cf,bt:G.bt,notes:G.notes}))});CARDS=CARDS.slice(0,60);saveCards();renderCards();toast('已存成靈感卡，可到「我的靈感卡」查看')}
+function cardNames(g){return g.cast.map((c,i)=>c.nm||role(i)).join('、')}
+function renderCards(){const b=$('#cardsList');if(!b)return;const ts=$('#ctag');if(ts&&!ts.options.length)ts.innerHTML='<option value="">全部標籤</option>'+CTAGS.map(t=>`<option>${t}</option>`).join('')+'<option value="_">未標記</option>';
+const q=(($('#cq')||{}).value||'').trim().toLowerCase(),tg=ts?ts.value:'';
+const rows=CARDS.map((c,i)=>({c,i})).filter(({c})=>{if(tg=='_'&&c.tag)return false;if(tg&&tg!='_'&&c.tag!=tg)return false;if(!q)return true;const hay=((c.name||'')+' '+cardNames(c.g)+' '+c.g.tr+' '+c.g.bg+' '+c.g.th+' '+c.g.mt+' '+c.g.cf+' '+(PAIRS[c.g.pair]?PAIRS[c.g.pair].label:'')).toLowerCase();return hay.includes(q)});
+b.innerHTML=rows.length?rows.map(({c,i})=>`<div class="card"><div class="grid"><input value="${escA(c.name||'')}" placeholder="幫這張靈感卡取個名字" onchange="cardRename(${i},this.value)"><select onchange="cardTag(${i},this.value)"><option value="">未標記</option>${CTAGS.map(t=>`<option${c.tag==t?' selected':''}>${t}</option>`).join('')}</select></div><div class="lab" style="margin-top:6px">${esc(c.ts)}</div><div>${esc(PAIRS[c.g.pair]?PAIRS[c.g.pair].label:'')}｜${esc(cardNames(c.g))}</div><div class="note">${esc(c.g.th||'')}｜${esc(c.g.tr)}｜${esc(c.g.bg)}</div><p><button onclick="loadCard(${i})">載入到產生器</button> <button onclick="cardImg(${i})">下載圖片</button> <button onclick="cardTxt(${i})">下載文字</button> <button onclick="mapImport(${i})">帶入關係圖</button> <button onclick="delCard(${i})">刪除</button></p></div>`).join(''):'<p class="note">'+(CARDS.length?'沒有符合的靈感卡。':'還沒有靈感卡。到「靈感產生器」按「💾 存成靈感卡」就會出現在這裡。')+'</p>'}
+function cardRename(i,v){CARDS[i].name=v.trim();saveCards()}
+function cardTag(i,v){CARDS[i].tag=v;saveCards();if($('#ctag')&&$('#ctag').value)renderCards()}
+function loadCard(i){const g=CARDS[i].g;G=JSON.parse(JSON.stringify(g));G.rel=G.rel||[];Object.keys(LK).forEach(k=>delete LK[k]);drawGen();toast('已載入');location.hash='gen';window.scrollTo(0,0)}
+async function cardImg(i){const c=CARDS[i];const b=await cardPng(c.name||'靈感卡',genLines(c.g,true));saveFile((c.name||'靈感卡')+'.png',b)}
+function cardTxt(i){const c=CARDS[i];saveFile((c.name||'靈感卡')+'.txt',lines2text(genLines(c.g,true)))}
 function delCard(i){if(confirm('刪除這張靈感卡？')){CARDS.splice(i,1);saveCards();renderCards()}}
-function allCardsTxt(){if(!CARDS.length){toast('還沒有靈感卡');return}saveFile('我的靈感卡.txt',CARDS.map((c,i)=>'＝＝ 靈感卡 '+(i+1)+'（'+c.ts+'）＝＝\n'+lines2text(genLines(c.g,true))).join('\n\n'))}
+function allCardsTxt(){if(!CARDS.length){toast('還沒有靈感卡');return}saveFile('我的靈感卡.txt',CARDS.map((c,i)=>'＝＝ 靈感卡 '+(i+1)+(c.name?'：'+c.name:'')+(c.tag?'［'+c.tag+'］':'')+'（'+c.ts+'）＝＝\n'+lines2text(genLines(c.g,true))).join('\n\n'))}
+function cardsBackup(){if(!CARDS.length){toast('還沒有靈感卡');return}copyTxt(b64e(JSON.stringify(CARDS)),'#cmsg','已複製備份碼')}
+function cardsRestore(){const v=($('#cbk').value||'').trim();if(!v)return;try{const a=JSON.parse(b64d(v));if(!Array.isArray(a)||a.some(x=>!x||!x.g||!x.g.cast||!PAIRS[x.g.pair]))throw 0;CARDS=a.concat(CARDS).slice(0,60);saveCards();renderCards();$('#cbk').value='';toast('已還原 '+a.length+' 張')}catch(e){toast('備份碼無法讀取')}}
+/* ---- 角色關係圖 ---- */
+const MAPREL=['暗戀','單戀','互相喜歡','交往中','前任','曖昧','舊識','青梅竹馬','朋友','摯友','同事','上司與下屬','師生','室友','家人','敵對','競爭對手','利用關係','守護','愧疚','秘密共享'];
+const MCOL=['#E7D5F7','#F7D5E3','#D5E8F7','#D5F7E0','#F7EFD5','#F7DDD5'];
+let MAP={nodes:[],edges:[],seq:1};try{const m=JSON.parse(localStorage.getItem('rwt_map')||'null');if(m&&Array.isArray(m.nodes)&&Array.isArray(m.edges))MAP=m}catch(e){}
+const saveMap=()=>{try{localStorage.setItem('rwt_map',JSON.stringify(MAP))}catch(e){}};
+const MR=38;
+function mapNode(id){return MAP.nodes.find(n=>n.id==id)}
+function mapPlace(){const k=MAP.nodes.length,ang=k*2.399-1.57,r=k==0?0:Math.min(200,110+k*14);return{x:Math.round(400+r*1.45*Math.cos(ang)),y:Math.round(260+r*Math.sin(ang))}}
+function mapAddN(name,col){const pl=mapPlace();const n={id:MAP.seq++,n:name,x:pl.x,y:pl.y,c:col||MCOL[MAP.nodes.length%MCOL.length]};MAP.nodes.push(n);return n}
+function mapAddNode(){const v=($('#mnn').value||'').trim();if(!v){toast('請先輸入名字');return}mapAddN(v);$('#mnn').value='';saveMap();renderMap()}
+function mapAddEdge(){const a=+$('#mfa').value,b=+$('#mfb').value;if(!a||!b||a==b){toast('請選兩位不同的角色');return}let t=$('#mrl').value;if(t=='自訂')t=($('#mrc').value||'').trim();if(!t){toast('請輸入關係');return}MAP.edges.push({id:MAP.seq++,a,b,t,d:+$('#mdr').value});saveMap();renderMap()}
+function mapImport(ci){const g=ci==null?G:CARDS[ci].g;const ids=g.cast.map((c,i)=>mapAddN(c.nm||role(i)).id);relList(g).forEach(x=>MAP.edges.push({id:MAP.seq++,a:ids[x.a],b:ids[x.b],t:x.r,d:0}));saveMap();renderMap();toast('已帶入關係圖');if(ci!=null)location.hash='map'}
+function mapClear(){if(MAP.nodes.length&&confirm('清空整張關係圖？')){MAP={nodes:[],edges:[],seq:1};saveMap();renderMap()}}
+function mapDelNode(id){MAP.nodes=MAP.nodes.filter(n=>n.id!=id);MAP.edges=MAP.edges.filter(e=>e.a!=id&&e.b!=id);saveMap();renderMap()}
+function mapDelEdge(id){MAP.edges=MAP.edges.filter(e=>e.id!=id);saveMap();renderMap()}
+function mapRename(id,v){const n=mapNode(id);if(n){n.n=v.trim()||n.n;saveMap();renderMap()}}
+function mapColor(id,v){const n=mapNode(id);if(n){n.c=v;saveMap();renderMap()}}
+function mapGeo(){const cnt={};MAP.edges.forEach(e=>{const k=Math.min(e.a,e.b)+'-'+Math.max(e.a,e.b);(cnt[k]=cnt[k]||[]).push(e)});const out=[];
+MAP.edges.forEach(e=>{const A=mapNode(e.a),B=mapNode(e.b);if(!A||!B)return;const k=Math.min(e.a,e.b)+'-'+Math.max(e.a,e.b),arr=cnt[k],idx=arr.indexOf(e),m=arr.length;
+let dx=B.x-A.x,dy=B.y-A.y;const L=Math.hypot(dx,dy)||1;dx/=L;dy/=L;const sg=e.a<e.b?1:-1;const off=(idx-(m-1)/2)*60*sg;const nx=-dy,ny=dx;
+const C={x:(A.x+B.x)/2+nx*off*2,y:(A.y+B.y)/2+ny*off*2};const un=(P,Q)=>{const l=Math.hypot(Q.x-P.x,Q.y-P.y)||1;return{x:(Q.x-P.x)/l,y:(Q.y-P.y)/l}};
+const u1=un(A,C),u2=un(B,C);const S={x:A.x+u1.x*MR,y:A.y+u1.y*MR},E={x:B.x+u2.x*MR,y:B.y+u2.y*MR};
+const M={x:.25*S.x+.5*C.x+.25*E.x,y:.25*S.y+.5*C.y+.25*E.y};out.push({e,S,E,C,M,tS:{x:S.x-C.x,y:S.y-C.y},tE:{x:E.x-C.x,y:E.y-C.y}})});return out}
+function arrowPts(T,v){const l=Math.hypot(v.x,v.y)||1,ux=v.x/l,uy=v.y/l,px=-uy,py=ux;return[[T.x,T.y],[T.x-ux*16+px*7,T.y-uy*16+py*7],[T.x-ux*16-px*7,T.y-uy*16-py*7]]}
+const mshort=t=>t.length>7?t.slice(0,6)+'…':t;
+function renderMap(keep){const sv=$('#mapsvg');if(!sv)return;const ns=MAP.nodes;
+const opt=ns.map(n=>`<option value="${n.id}">${esc(n.n)}</option>`).join('');const fa=$('#mfa'),fb=$('#mfb');if(fa&&!keep){const va=fa.value,vb=fb.value;fa.innerHTML=opt;fb.innerHTML=opt;if(va)fa.value=va;if(vb)fb.value=vb;if(ns.length>1&&fa.value==fb.value)fb.value=ns.find(n=>n.id!=fa.value).id}
+const rl=$('#mrl');if(rl&&!rl.options.length)rl.innerHTML=MAPREL.map(t=>`<option>${t}</option>`).join('')+'<option>自訂</option>';
+const geo=mapGeo();let h='';
+geo.forEach(g=>{const e=g.e;h+=`<path d="M${g.S.x},${g.S.y} Q${g.C.x},${g.C.y} ${g.E.x},${g.E.y}" fill="none" stroke="#7b4fa8" stroke-width="2.4"/>`;if(e.d==1||e.d==2)h+=`<polygon points="${arrowPts(g.E,{x:g.E.x-g.C.x,y:g.E.y-g.C.y}).map(p=>p.join(',')).join(' ')}" fill="#7b4fa8"/>`;if(e.d==2)h+=`<polygon points="${arrowPts(g.S,{x:g.S.x-g.C.x,y:g.S.y-g.C.y}).map(p=>p.join(',')).join(' ')}" fill="#7b4fa8"/>`;h+=`<text x="${g.M.x}" y="${g.M.y}" text-anchor="middle" dominant-baseline="middle" font-size="15" fill="#3a2a4d" stroke="#fff" stroke-width="5" paint-order="stroke" stroke-linejoin="round">${esc(mshort(e.t))}</text>`});
+ns.forEach(n=>{const fs=n.n.length<=4?17:n.n.length<=6?13:11;h+=`<g data-id="${n.id}" style="cursor:grab"><circle cx="${n.x}" cy="${n.y}" r="${MR}" fill="${n.c}" stroke="#7b4fa8" stroke-width="2.4"/><text x="${n.x}" y="${n.y}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" font-weight="700" fill="#3a2a4d" pointer-events="none">${esc(n.n.length>8?n.n.slice(0,7)+'…':n.n)}</text></g>`});
+if(!ns.length)h+='<text x="400" y="260" text-anchor="middle" font-size="18" fill="#9a8aad">還沒有角色。新增角色，或從產生器帶入。</text>';
+sv.innerHTML=h;
+if(!keep||1){const L=$('#maplist');if(L&&!(keep==2))L.innerHTML=(ns.length?ns.map(n=>`<div class="grid" style="margin:4px 0"><input value="${escA(n.n)}" onchange="mapRename(${n.id},this.value)"><span><input type="color" value="${n.c}" onchange="mapColor(${n.id},this.value)" style="width:44px;padding:0"> <button onclick="mapDelNode(${n.id})">刪除</button></span></div>`).join(''):'<p class="note">還沒有角色。</p>')+(MAP.edges.length?'<hr>'+MAP.edges.map(e=>{const A=mapNode(e.a),B=mapNode(e.b);return A&&B?`<div style="margin:4px 0">${esc(A.n)} ${e.d==2?'↔':e.d==1?'→':'—'} ${esc(B.n)}：${esc(e.t)} <button onclick="mapDelEdge(${e.id})" style="padding:1px 8px">刪除</button></div>`:''}).join(''):'')}}
+let MD=null;
+(function(){const sv=document.getElementById('mapsvg');if(!sv)return;const pt=ev=>{const r=sv.getBoundingClientRect();return{x:(ev.clientX-r.left)*800/r.width,y:(ev.clientY-r.top)*520/r.height}};
+sv.addEventListener('pointerdown',ev=>{const g=ev.target.closest('g[data-id]');if(!g)return;const n=mapNode(g.dataset.id);if(!n)return;const p=pt(ev);MD={n,dx:n.x-p.x,dy:n.y-p.y};sv.setPointerCapture(ev.pointerId);ev.preventDefault()});
+sv.addEventListener('pointermove',ev=>{if(!MD)return;const p=pt(ev);MD.n.x=Math.max(MR,Math.min(800-MR,Math.round(p.x+MD.dx)));MD.n.y=Math.max(MR,Math.min(520-MR,Math.round(p.y+MD.dy)));renderMap(2)});
+const up=()=>{if(MD){MD=null;saveMap()}};sv.addEventListener('pointerup',up);sv.addEventListener('pointercancel',up)})();
+function mapImg(){if(!MAP.nodes.length){toast('還沒有角色');return}const S=2,W=800*S,T=150,H=520*S+T+90,F='"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif';const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+x.fillStyle='#FBF8FE';x.fillRect(0,0,W,H);x.fillStyle='#E7D5F7';x.fillRect(0,0,W,T);x.fillStyle='#3a2a4d';x.font=`700 54px ${F}`;x.textBaseline='middle';x.textAlign='left';x.fillText('角色關係圖',60,T/2);
+x.fillStyle='#fff';x.fillRect(30,T+20,W-60,520*S-40+30);x.save();x.translate(0,T+20);x.scale(S,S);x.translate(0,-10);
+const geo=mapGeo();const tri=(T0,v)=>{const p=arrowPts(T0,v);x.beginPath();x.moveTo(p[0][0],p[0][1]);x.lineTo(p[1][0],p[1][1]);x.lineTo(p[2][0],p[2][1]);x.closePath();x.fillStyle='#7b4fa8';x.fill()};
+x.lineWidth=2.4;x.strokeStyle='#7b4fa8';geo.forEach(g=>{x.beginPath();x.moveTo(g.S.x,g.S.y);x.quadraticCurveTo(g.C.x,g.C.y,g.E.x,g.E.y);x.stroke();if(g.e.d==1||g.e.d==2)tri(g.E,g.tE);if(g.e.d==2)tri(g.S,g.tS);});
+x.textAlign='center';geo.forEach(g=>{x.font=`15px ${F}`;x.lineWidth=5;x.strokeStyle='#fff';x.lineJoin='round';x.strokeText(mshort(g.e.t),g.M.x,g.M.y);x.fillStyle='#3a2a4d';x.fillText(mshort(g.e.t),g.M.x,g.M.y)});
+MAP.nodes.forEach(n=>{x.beginPath();x.arc(n.x,n.y,MR,0,7);x.fillStyle=n.c;x.fill();x.lineWidth=2.4;x.strokeStyle='#7b4fa8';x.stroke();const fs=n.n.length<=4?17:n.n.length<=6?13:11;x.font=`700 ${fs}px ${F}`;x.fillStyle='#3a2a4d';x.fillText(n.n.length>8?n.n.slice(0,7)+'…':n.n,n.x,n.y)});
+x.restore();x.textAlign='left';x.fillStyle='#7b4fa8';x.font=`26px ${F}`;x.fillText('現代背景原創OC／CP靈感工具庫',60,H-45);
+c.toBlob(b=>saveFile('角色關係圖.png',b),'image/png')}
 /* ---- 分享 ---- */
 const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 const b64d=s=>decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))));
@@ -859,7 +953,7 @@ function demoDraw(){const g=$('#demoGrid');if(!g)return;g.innerHTML=DMI.map((d,i
 function demoRoll(i){DMV[i]=DMI[i][1]();demoDraw()}
 function demoLock(i){DML[i]=!DML[i];demoDraw()}
 function demoAll(){DMI.forEach((d,i)=>{if(!DML[i])DMV[i]=d[1]()});demoDraw()}
-function route(){const raw=(location.hash||'#welcome').slice(1),pp=raw.split('~'),hh=pp[0];const id=['welcome','howto','gen','drill','char','submit','src'].includes(hh)?hh:'welcome';document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+id));{const mb=document.getElementById('morebtn');if(mb){mb.classList.toggle('on',id=='submit'||id=='src');mb.setAttribute('aria-expanded','false')}const mm=document.getElementById('moremenu');if(mm)mm.classList.remove('open')}if(pp[1]&&!route.d){route.d=1;loadShare(pp[1])}if(id=='char')csRefresh();window.scrollTo(0,0)}
+function route(){const raw=(location.hash||'#welcome').slice(1),pp=raw.split('~'),hh=pp[0];const id=['welcome','howto','gen','cards','map','drill','char','submit','src'].includes(hh)?hh:'welcome';document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+id));if(id=='cards')renderCards();if(id=='map')renderMap();{const mb=document.getElementById('morebtn');if(mb){mb.classList.toggle('on',id=='submit'||id=='src');mb.setAttribute('aria-expanded','false')}const mm=document.getElementById('moremenu');if(mm)mm.classList.remove('open')}if(pp[1]&&!route.d){route.d=1;loadShare(pp[1])}if(id=='char')csRefresh();window.scrollTo(0,0)}
 $('#addcat').innerHTML=Object.entries(CAT).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
 initGen();rollDrill();rollQ();drawSrc();stat();
 demoAll();(function(){const mb=document.getElementById('morebtn'),mm=document.getElementById('moremenu');mb.addEventListener('click',e=>{e.stopPropagation();const o=mm.classList.toggle('open');mb.setAttribute('aria-expanded',o)});document.addEventListener('click',e=>{if(!mm.contains(e.target)){mm.classList.remove('open');mb.setAttribute('aria-expanded','false')}})})();
