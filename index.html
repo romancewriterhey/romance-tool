@@ -33,6 +33,23 @@ small,.note{color:var(--sub);font-size:.85rem}
 a{color:var(--deep)}
 ul.src{padding-left:1.2em;word-break:break-all}
 .castbox{border-left:4px solid var(--main);padding-left:10px;margin:14px 0}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin:6px 0}
+.cell{border:1px solid var(--line);border-radius:10px;padding:6px 10px;background:var(--card);display:flex;flex-direction:column;gap:3px;min-width:0}
+.cell.wide{grid-column:1/-1}
+.cell .val{font-size:.98rem;font-weight:600;line-height:1.5;word-break:break-word}
+.cell .btns{gap:4px;flex-wrap:wrap}.cell .btns button{padding:1px 8px;font-size:.78rem;border-radius:8px}
+details.fold{border:1px solid var(--line);border-radius:14px;background:var(--card);margin:10px 0;padding:0 14px}
+details.fold>summary{cursor:pointer;padding:10px 0;font-weight:600;color:var(--deep);list-style:none}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::before{content:"▸ "}details.fold[open]>summary::before{content:"▾ "}
+details.fold>.inner{padding-bottom:12px}
+details.fold.cast{border-left:5px solid var(--deep)}
+details.fold.sub{border:0;border-top:1px dashed var(--line);border-radius:0;margin:0;padding:0}
+.nmbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:4px}
+.nmbar input{flex:1;min-width:140px;width:auto}.nmbar select{width:auto}
+.actbar{position:sticky;bottom:8px;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 10px;margin:10px 0;box-shadow:0 2px 10px #0002}
+.actbar p{margin:0}
+details.fold .row .btns button{padding:2px 10px;font-size:.85rem}details.fold .row .btns{gap:4px}
 .castbox>label{display:block;margin-bottom:4px}
 .chip{display:inline-block;margin:2px 4px 2px 0;font-size:.9rem}
 .chipb{margin:3px}
@@ -76,22 +93,31 @@ button:disabled{opacity:.45;cursor:default}
 <p class="note">按「重骰」一次抽滿；喜歡的欄位可以按「鎖住」，重骰時只會換掉沒鎖的。</p>
 <div class="card" id="ctrl">
 <div class="grid"><label class="lab">配對類型<select id="pairsel"></select></label><label class="lab">國籍範圍<select id="natsel"></select></label><label class="lab">年齡範圍<select id="agesel"><option value="all">隨機（18–45 歲）</option><option value="teen">15–17 歲（高中生，限校園向）</option><option value="young">18–25 歲（校園／NA）</option><option value="main">24–35 歲（職場主流）</option><option value="mature">33–50 歲（成熟）</option></select></label></div>
-<div class="grid" style="margin-top:10px"><label class="lab">身心狀態設定（主角）<select id="hlsel" onchange="hlRefresh()"><option value="off">不加入（預設）</option><option value="low">偶爾出現（約兩成有設定，其餘為健全者）</option><option value="half">經常出現（約五成有設定）</option></select></label><label class="lab">依附類型<span style="display:block;margin-top:6px"><label class="chip"><input type="checkbox" id="showat" checked style="width:auto" onchange="drawGen()"> 顯示依附類型</label> <label class="chip"><input type="checkbox" id="showbd" checked style="width:auto" onchange="drawGen()"> 生日／星座</label> <label class="chip"><input type="checkbox" id="showbl" checked style="width:auto" onchange="drawGen()"> 血型</label> <label class="chip"><input type="checkbox" id="showmb" checked style="width:auto" onchange="drawGen()"> MBTI</label></span></label></div>
-<p class="lab" style="margin:10px 0 4px">題材類型（可複選；全不選＝全部混抽）</p><div id="thkts"></div><p class="lab" style="margin:10px 0 4px">故事背景來源（可複選；全不選＝全部混抽）</p><div id="cbkts"></div><p class="lab" style="margin:10px 0 4px">初次相遇類型（可複選；全不選＝全部混抽）</p><div id="mbkts"></div><p class="lab" style="margin:10px 0 4px">套路來源（可複選；全不選＝全部混抽）</p><div id="bkts"></div>
-<p style="margin:8px 0 0"><label class="chip"><input type="checkbox" id="evenw" style="width:auto"> 配對類型用完全平均的機率</label> <label class="chip"><input type="checkbox" id="showid" checked style="width:auto" onchange="drawGen()"> 顯示性別認同與性傾向</label> <label class="chip"><input type="checkbox" id="shownat" checked style="width:auto" onchange="drawGen()"> 顯示國籍</label></p>
-<p class="note">身心狀態（身心障礙、精神疾病、慢性病等）只是靈感提示，不代表角色的全部；請避免把疾病當噱頭、反派標籤或「被愛治好」的情節，建議查閱可靠資料，或請當事人或相關專業者協助審稿。依附類型是常見的人際互動傾向，同樣僅供參考。MBTI 會依抽到的個性大致對應（內向或外向、思考或感受、計畫或隨性），但有些個性本身就帶有反差，仍可能與型別有出入，只當作參考即可，不需要的話可以取消勾選。</p>
-<p class="note">性別認同與性傾向、國籍都是隨機的靈感提示，可以自由改寫；多人配對（Reverse Harem、Harem、Polyamory）會自動多出主角三、四、五。選擇「15–17 歲」時，主角皆為高中生，會抽雙人配對或 Reverse Harem，並使用校園向的設定（不含婚姻、職場、成人情節）。</p>
+<details class="fold" style="margin-bottom:0" ontoggle="OP.moreset=this.open"><summary>⚙️ 更多設定（顯示欄位、名字、篩選、機率）</summary><div class="inner">
+<details class="fold sub"><summary>角色欄位</summary><div class="inner">
+<div class="grid"><label class="lab">身心狀態設定（主角）<select id="hlsel" onchange="hlRefresh()"><option value="off">不加入（預設）</option><option value="low">偶爾出現（約兩成有設定，其餘為健全者）</option><option value="half">經常出現（約五成有設定）</option></select></label></div>
+<p style="margin:8px 0 0"><label class="chip"><input type="checkbox" id="showat" checked style="width:auto" onchange="drawGen()"> 依附類型</label> <label class="chip"><input type="checkbox" id="showbd" checked style="width:auto" onchange="drawGen()"> 生日／星座</label> <label class="chip"><input type="checkbox" id="showbl" checked style="width:auto" onchange="drawGen()"> 血型</label> <label class="chip"><input type="checkbox" id="showmb" checked style="width:auto" onchange="drawGen()"> MBTI</label> <label class="chip"><input type="checkbox" id="showid" checked style="width:auto" onchange="drawGen()"> 性別認同與性傾向</label> <label class="chip"><input type="checkbox" id="shownat" checked style="width:auto" onchange="drawGen()"> 國籍</label></p>
+<p class="note">身心狀態（身心障礙、精神疾病、慢性病等）只是靈感提示，不代表角色的全部；請避免把疾病當噱頭、反派標籤或「被愛治好」的情節，建議查閱可靠資料，或請當事人或相關專業者協助審稿。依附類型是常見的人際互動傾向，同樣僅供參考。MBTI 會依抽到的個性大致對應，但有些個性本身就帶有反差，仍可能與型別有出入，只當作參考即可。</p>
+</div></details>
+<details class="fold sub"><summary>名字產生器設定（華語名）</summary><div class="inner">
+<div class="grid"><label class="lab">年代（僅華語名）<select id="nmera"></select></label><label class="lab">風格（僅華語名）<select id="nmsty"></select></label></div>
+<p class="note">名字產生器在每位主角的區塊裡，可選華語、英語系、日本、韓國等；外語名字會附上中文譯名與意涵（取自一般常見的詞源說法，部分名字的來源有不同講法，寫作需要嚴謹考據時，建議再自行查證）。</p>
+</div></details>
+<details class="fold sub"><summary>故事設定篩選（題材、背景、相遇、套路）</summary><div class="inner">
+<p class="lab" style="margin:6px 0 4px">題材類型（可複選；全不選＝全部混抽）</p><div id="thkts"></div><p class="lab" style="margin:10px 0 4px">故事背景來源（可複選；全不選＝全部混抽）</p><div id="cbkts"></div><p class="lab" style="margin:10px 0 4px">初次相遇類型（可複選；全不選＝全部混抽）</p><div id="mbkts"></div><p class="lab" style="margin:10px 0 4px">套路來源（可複選；全不選＝全部混抽）</p><div id="bkts"></div>
+</div></details>
+<details class="fold sub"><summary>機率與說明</summary><div class="inner">
+<p style="margin:6px 0 0"><label class="chip"><input type="checkbox" id="evenw" style="width:auto"> 配對類型用完全平均的機率</label></p>
+<p class="note">性別認同與性傾向、國籍都是隨機的靈感提示，可以自由改寫；多人配對（Reverse Harem、Harem、Polyamory 等）會自動多出主角三、四、五。選擇「15–17 歲」時，主角皆為高中生，會使用校園向的設定（不含婚姻、職場、成人情節），配對類型則不受限。</p>
+</div></details>
+</div></details>
 </div>
 <div id="slots"></div>
-<p><button class="big" onclick="rollAll()">🎲 重骰（鎖住的會保留）</button> <button onclick="addCard()">💾 存成靈感卡</button> <button onclick="copyResult()">複製結果</button> <button onclick="genPng()">下載圖片</button> <span id="cp" class="note"></span></p>
+<div class="actbar"><p><button class="big" onclick="rollAll()">🎲 重骰（鎖住的會保留）</button> <button onclick="addCard()">💾 存成靈感卡</button> <button onclick="copyResult()">複製結果</button> <button onclick="genPng()">下載圖片</button> <span id="cp" class="note"></span></p></div>
 <div class="card"><h3 style="margin-top:0">分享這一組</h3>
 <p><button onclick="copyShare('link')">複製分享連結</button> <button onclick="copyShare('code')">複製分享碼</button> <span id="shmsg" class="note"></span></p>
 <p class="note">若連結在你的環境無法直接開啟，請把「分享碼」傳給對方，並請對方貼在下方載入。</p>
 <div class="grid"><input id="shin" placeholder="貼上分享碼或分享連結"><button onclick="loadShareBox()">載入</button></div></div>
-<div class="card"><h3 style="margin-top:0">角色名字產生器</h3>
-<div class="grid"><label class="lab">名字類型<select id="nmcult"><option value="zh">華語名（台灣）</option><option value="enzh">華語名＋英文名</option><option value="en">英語系（英／美）</option><option value="jp">日本</option><option value="kr">韓國</option><option value="fr">法國</option><option value="it">義大利</option><option value="es">西班牙</option><option value="de">德國</option></select></label><label class="lab">年代（僅華語名）<select id="nmera"></select></label><label class="lab">性別<select id="nmgen"></select></label><label class="lab">風格（僅華語名）<select id="nmsty"></select></label><label class="lab">套用到<select id="nmto"></select></label></div>
-<p class="note">外語名字會附上中文譯名與名字的意涵，意涵取自一般常見的詞源說法，部分名字的來源有不同講法，若寫作需要嚴謹的考據，建議再自行查證。套用到主角後，意涵會一起記在角色資料裡。</p>
-<p><button onclick="rollNames()">產生 8 個名字</button> <span id="nmmsg" class="note"></span></p><div id="nmout"></div></div>
 <div class="card"><h3 style="margin-top:0">我的靈感卡</h3><p><button onclick="allCardsTxt()">下載全部（文字）</button> <span class="note">靈感卡存在你這個瀏覽器裡。</span></p><div id="cardsList"></div></div>
 <div class="card">
 <h3 style="margin-top:0">我也來加詞彙</h3>
@@ -329,7 +355,7 @@ return a.length?a:Object.values(THEMES).join('、').split('、')}
 
 const LK={};
 function role(i){return ROLE[i]||('主角'+(i+1))}
-function genPair(){let m=($('#pairsel')||{}).value||'all';const teen=isTeen(),okT=k=>!/^(POLY|HAREM|BLP|GLP)$/.test(k);if(teen&&PAIRS[m]&&!okT(m))m='all';if(PAIRS[m])return m;let ks=Object.keys(PAIRS);if(teen)ks=ks.filter(okT);if(m=='duo')ks=ks.filter(k=>PAIRS[k].n==2);if(m=='multi')ks=ks.filter(k=>PAIRS[k].n!=2);if(m=='rom')ks=ks.filter(k=>!PAIRS[k].nocp);if(m=='nocp')ks=ks.filter(k=>PAIRS[k].nocp);const ev=$('#evenw')&&$('#evenw').checked;return wpick(ks.map(k=>[k,ev?1:PAIRS[k].w]))}
+function genPair(){let m=($('#pairsel')||{}).value||'all';const teen=isTeen(),okT=k=>true;if(teen&&PAIRS[m]&&!okT(m))m='all';if(PAIRS[m])return m;let ks=Object.keys(PAIRS);if(teen)ks=ks.filter(okT);if(m=='duo')ks=ks.filter(k=>PAIRS[k].n==2);if(m=='multi')ks=ks.filter(k=>PAIRS[k].n!=2);if(m=='rom')ks=ks.filter(k=>!PAIRS[k].nocp);if(m=='nocp')ks=ks.filter(k=>PAIRS[k].nocp);const ev=$('#evenw')&&$('#evenw').checked;return wpick(ks.map(k=>[k,ev?1:PAIRS[k].w]))}
 function nFor(k){const n=PAIRS[k].n;return n||(Math.random()<.45?4:3)}
 function sexesFor(k,n){const P=PAIRS[k];if(P&&P.sx)return shuf(P.sx.split('').map(c=>c=='M'?'男':'女'));if(k=='BLP'||k=='GLP'){const a=k=='BLP'?'男':'女';return shuf(Array.from({length:n},(_,i)=>i<2?a:Math.random()<.5?'女':'男'))}if(P&&P.nocp)return Array.from({length:n},()=>Math.random()<.5?'女':'男');if(k=='BG')return shuf(['女','男']);if(k=='GB')return['女','男'];if(k=='BL')return['男','男'];if(k=='GL')return['女','女'];if(k[0]=='R'&&k[1]=='H')return['女'].concat(Array(n-1).fill('男'));if(k=='HAREM')return['男','女','女'];return Array.from({length:n},()=>Math.random()<.5?'女':'男')}
 function rollOri(i){const me=G.cast[i].sex,o=G.cast.filter((_,j)=>j!=i).map(c=>c.sex);
@@ -387,7 +413,7 @@ G.sx=sexesFor(G.pair,G.n);
 G.cast.forEach((c,i)=>{if(!LK['c'+i+'.id']){c.sex=G.sx[i];c.gid=wpick(GIDS)}if(!LK['c'+i+'.b']){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}});
 G.cast.forEach((c,i)=>{if(!LK['c'+i+'.id'])c.ori=rollOri(i)});
 G.cast.forEach((c,i)=>{if(!c.age)c.age=rollAge();if(!c.job)c.job=rollJob(c.age);if(!c.t)c.t=traitFor(c.sex,c.age);if(!c.nat)c.nat=rollNat();if(!c.ht)c.ht=rollHt(c.sex);if(!c.bd)c.bd=rollBd(c.ht,c.sex);if(!c.hl&&hlOn())c.hl=rollHl(c.job);if(!c.at)c.at=rollAt();if(!c.bday)c.bday=rollBday();if(!c.blood)c.blood=rollBlood();if(!c.mb)c.mb=mbFor(c.t)})}
-function rollAll(){if(!LK.pair){G.pair=genPair();G.n=nFor(G.pair)}applyPair();
+function rollAll(){Object.keys(NMC).forEach(k=>delete NMC[k]);if(!LK.pair){G.pair=genPair();G.n=nFor(G.pair)}applyPair();
 G.cast.forEach((c,i)=>{const L=k=>LK['c'+i+'.'+k];if(!L('a'))c.age=rollAge();if(!L('j'))c.job=rollJob(c.age);if(!L('t'))c.t=traitFor(c.sex,c.age);if(!L('n'))c.nat=rollNat();if(!L('b')){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}if(!L('h'))c.hl=rollHl(c.job);if(!L('at'))c.at=rollAt();if(!L('x')){c.bday=rollBday();c.blood=rollBlood();c.mb=mbFor(c.t)}});
 if(!LK.rel)G.rel=genRel();if(!LK.th)G.th=pick(poolTh(),1)[0];if(!LK.bg)G.bg=pick(poolC(),1)[0];if(!LK.tr)G.tr=noSrc(pick(trPool(),1)[0]);if(!LK.mt)G.mt=pick(mtPool(),1)[0];if(!LK.cf)G.cf=pick(cfPool(),1)[0];
 if(!LK.bt1)G.bt[1]=pick(nr()?NR_BT1:BT1,1)[0];if(!LK.bt3)G.bt[3]=pick(nr()?NR_BT3:BT3,1)[0];if(!LK.bt4)G.bt[4]=pick(nr()?NR_BT4:BT4,1)[0];drawGen()}
@@ -402,13 +428,18 @@ function tog(k){LK[k]=!LK[k];drawGen()}
 const showId=()=>!$('#showid')||$('#showid').checked,showNat=()=>!$('#shownat')||$('#shownat').checked;
 function idText(c){return'生理'+c.sex+'｜'+c.gid+'｜'+c.ori}
 function row(key,label,val){return`<div class="card row"><div><div class="lab">${label}</div><div class="val">${esc(val||'—')}</div></div><div class="btns"><button onclick="rollKey('${key}')" ${LK[key]?'disabled':''}>重骰</button>${lockBtn(LK[key],`tog('${key}')`)}</div></div>`}
-function drawGen(){let h=row('pair','配對類型',PAIRS[G.pair].label);
-G.cast.forEach((c,i)=>{h+=`<div class="castbox"><label class="lab">${role(i)}　姓名（可自填，或用名字產生器）<input value="${escA(c.nm)}" oninput="G.cast[${i}].nm=this.value;G.cast[${i}].nmn=''" placeholder="尚未命名"></label>`+(c.nmn?`<div class="note" style="margin:0 0 6px">名字意涵：${esc(c.nmn)}</div>`:'')+row('c'+i+'.t','人物屬性',c.t)+row('c'+i+'.j','職業',c.job)+row('c'+i+'.a','年齡',c.age?c.age+' 歲':'')+row('c'+i+'.b','身高與體型',c.ht?c.ht+' cm｜'+c.bd:'')+(hlOn()?row('c'+i+'.h','身心狀態（請尊重書寫）',c.hl):'')+(atOn()?row('c'+i+'.at','依附類型',c.at):'')+(xOn()?row('c'+i+'.x','生日／血型／MBTI',xText(c)):'')+(showId()?row('c'+i+'.id','性別與性傾向',idText(c)):'')+(showNat()?row('c'+i+'.n','國籍',c.nat):'')+'</div>'});
-h+=relBlock();h+=row('th','隨機題材',G.th)+row('bg','故事背景',G.bg)+row('tr','套路／Trope',noSrc(G.tr))+row('mt','初次相遇',G.mt)+row('cf','最大衝突線',G.cf);
-h+='<div class="card"><b>關係走向骨架</b><p class="note">相遇與衝突取自上面抽到的結果，其餘三拍可重骰、鎖住；下方欄位可自己寫下想法。</p>';
+function cell(key,label,val,wide){return`<div class="cell${wide?' wide':''}"><div class="lab">${label}</div><div class="val">${esc(val||'—')}</div><div class="btns"><button onclick="rollKey('${key}')" ${LK[key]?'disabled':''}>🎲 重骰</button>${lockBtn(LK[key],`tog('${key}')`)}</div></div>`}
+function fold(id,cls,title,inner,def){const o=OP[id]===undefined?def:OP[id];return`<details class="fold ${cls}" ${o?'open':''} ontoggle="OP['${id}']=this.open"><summary>${title}</summary><div class="inner">${inner}</div></details>`}
+function drawGen(){let h=fold('rel0','','配對與人物關係',`<div class="cgrid">${cell('pair','配對類型',PAIRS[G.pair].label,1)}</div>`+relBlock(),true);
+G.cast.forEach((c,i)=>{const cands=(NMC[i]||[]).map((r,k)=>`<div style="margin:3px 0"><button class="chipb" onclick="useCharName(${i},${k})">${esc(r[0])}</button>${r[1]?`<span class="note">　意涵：${esc(r[1])}</span>`:''}</div>`).join('');
+const ttl=esc(role(i))+(c.nm?'｜'+esc(c.nm.split('（')[0]):'')+(c.age?'｜'+c.age+' 歲':'')+(c.job?'｜'+esc(c.job):'');
+const inner=`<div class="nmbar"><input value="${escA(c.nm)}" oninput="G.cast[${i}].nm=this.value;G.cast[${i}].nmn=''" placeholder="姓名（可自填，或用名字產生器）"><select onchange="NMCU[${i}]=this.value" title="名字類型">${NMCO.replace('value="'+(NMCU[i]||'zh')+'"','value="'+(NMCU[i]||'zh')+'" selected')}</select><button onclick="rollCharNames(${i})">🎲 骰名字</button></div>`+(c.nmn?`<div class="note" style="margin:0 0 6px">名字意涵：${esc(c.nmn)}</div>`:'')+(cands?`<div style="margin:4px 0 8px">${cands}<div class="note">點一下名字即可套用。</div></div>`:'')+`<div class="cgrid">`+cell('c'+i+'.t','人物屬性',c.t,1)+cell('c'+i+'.j','職業',c.job)+cell('c'+i+'.a','年齡',c.age?c.age+' 歲':'')+cell('c'+i+'.b','身高與體型',c.ht?c.ht+' cm｜'+c.bd:'')+(hlOn()?cell('c'+i+'.h','身心狀態（請尊重書寫）',c.hl):'')+(atOn()?cell('c'+i+'.at','依附類型',c.at):'')+(xOn()?cell('c'+i+'.x','生日／血型／MBTI',xText(c)):'')+(showId()?cell('c'+i+'.id','性別與性傾向',idText(c)):'')+(showNat()?cell('c'+i+'.n','國籍',c.nat):'')+'</div>';
+h+=fold('c'+i,'cast',ttl,inner,true)});
+h+=fold('story','','故事設定',`<div class="cgrid">`+cell('th','隨機題材',G.th)+cell('bg','故事背景',G.bg)+cell('tr','套路／Trope',noSrc(G.tr),1)+cell('mt','初次相遇',G.mt,1)+cell('cf','最大衝突線',G.cf,1)+'</div>',true);
+let hb='<p class="note">相遇與衝突取自上面抽到的結果，其餘三拍可重骰、鎖住；下方欄位可自己寫下想法。</p>';
 const bs=[G.mt,G.bt[1],G.cf,G.bt[3],G.bt[4]],keys=[null,'bt1',null,'bt3','bt4'];
-bs.forEach((t,i)=>{h+=`<div class="beat"><div class="row"><div><span class="tag">${i+1}　${BEATN[i]}</span>${esc(t||'—')}</div>${keys[i]?`<div class="btns"><button onclick="rollKey('${keys[i]}')" ${LK[keys[i]]?'disabled':''}>重骰</button>${lockBtn(LK[keys[i]],`tog('${keys[i]}')`)}</div>`:''}</div><textarea rows="2" placeholder="我的想法……" oninput="G.notes[${i}]=this.value">${esc(G.notes[i]||'')}</textarea></div>`});
-h+='</div>';$('#slots').innerHTML=h;csRefresh()}
+bs.forEach((t,i)=>{hb+=`<div class="beat"><div class="row"><div><span class="tag">${i+1}　${BEATN[i]}</span>${esc(t||'—')}</div>${keys[i]?`<div class="btns"><button onclick="rollKey('${keys[i]}')" ${LK[keys[i]]?'disabled':''}>重骰</button>${lockBtn(LK[keys[i]],`tog('${keys[i]}')`)}</div>`:''}</div><textarea rows="2" placeholder="我的想法……" oninput="G.notes[${i}]=this.value">${esc(G.notes[i]||'')}</textarea></div>`});
+h+=fold('beats','','關係走向骨架（五拍）',hb,false);$('#slots').innerHTML=h;csRefresh()}
 function genLines(g,withNotes){g=g||G;const L=['##配對類型','　'+PAIRS[g.pair].label,'##角色'];
 g.cast.forEach((c,i)=>{L.push(role(i)+'：'+(c.nm?c.nm+'　':'')+c.t);if(c.nmn)L.push('　名字意涵：'+c.nmn);if(c.job)L.push('　職業：'+c.job);if(c.age)L.push('　年齡：'+c.age+' 歲');if(c.ht)L.push('　身高與體型：'+c.ht+' cm｜'+c.bd);if(c.hl)L.push('　身心狀態：'+c.hl);if(c.at&&atOn())L.push('　依附類型：'+c.at);if(xText(c))L.push('　生日／血型／MBTI：'+xText(c));if(showId())L.push('　'+idText(c));if(showNat())L.push('　國籍：'+c.nat)});
 {const ag=g.cast.map(c=>c.age).filter(Boolean);if(ag.length>1){L.push('　年齡差：'+(Math.max(...ag)-Math.min(...ag))+' 歲')}}
@@ -719,7 +750,8 @@ Becker|貝克|麵包師
 Hoffmann|霍夫曼|莊園管理者`}};
 
 Object.keys(NMX).forEach(c=>Object.keys(NMX[c]).forEach(k=>{NMX[c][k]=NMX[c][k].split('\n').filter(Boolean).map(l=>l.split('|'))}));
-let NAMES=[],NMEAN=[];
+const NMCU={},NMC={},OP={};
+const NMCO='<option value="zh">華語名（台灣）</option><option value="enzh">華語名＋英文名</option><option value="en">英語系（英／美）</option><option value="jp">日本</option><option value="kr">韓國</option><option value="fr">法國</option><option value="it">義大利</option><option value="es">西班牙</option><option value="de">德國</option>';
 function genName2(cul,gender){
 const g=gender=='mix'?(Math.random()<.5?'女':'男'):gender;
 if(cul=='zh')return[genName($('#nmera').value,gender,$('#nmsty').value),''];
@@ -730,13 +762,11 @@ const sn=pick(D.S,1)[0];
 if(cul=='jp')return[sn[0]+f[0]+'（'+sn[1]+' '+f[1]+'／'+sn[2]+' '+f[2]+'）',f[0]+'：'+f[3]+'；'+sn[0]+'：'+sn[3]];
 if(cul=='kr')return[sn[0]+f[0]+'（'+sn[1]+f[1]+'／'+sn[2]+' '+f[2]+'）',f[0]+'：'+f[3]+'；'+sn[0]+'：'+sn[3]+'（漢字為常見寫法之一，同音可對應不同漢字）'];
 return[f[0]+' '+sn[0]+'（'+f[1]+'・'+sn[1]+'）',f[0]+'：'+f[2]+'；'+sn[0]+'：'+sn[2]]}
-function rollNames(){const cul=($('#nmcult')||{}).value||'zh';NAMES=[];NMEAN=[];for(let i=0;i<8;i++){const r=genName2(cul,$('#nmgen').value);NAMES.push(r[0]);NMEAN.push(r[1])}drawNames()}
-function drawNames(){$('#nmout').innerHTML=NAMES.map((n,i)=>`<div style="margin:6px 0"><button class="chipb" onclick="useName(${i})">${esc(n)}</button>${NMEAN[i]?`<div class="note" style="margin:2px 0 0 4px">意涵：${esc(NMEAN[i])}</div>`:''}</div>`).join('')}
-function useName(i){const t=+$('#nmto').value;if(t>=0&&G.cast[t]){G.cast[t].nm=NAMES[i];G.cast[t].nmn=NMEAN[i]||'';drawGen();toast('已套用到'+role(t))}else{copyTxt(NAMES[i]+(NMEAN[i]?'\n意涵：'+NMEAN[i]:''),'#nmmsg','已複製')}}
-function nmTargets(){const s=$('#nmto');if(!s)return;const v=s.value;s.innerHTML='<option value="-1">只複製，不套用</option>'+G.cast.map((c,i)=>`<option value="${i}">套用到${role(i)}</option>`).join('');if(v&&s.querySelector(`[value="${v}"]`))s.value=v}
+function rollCharNames(i){const c=G.cast[i];if(!c)return;const cul=NMCU[i]||'zh';NMC[i]=Array.from({length:6},()=>genName2(cul,c.sex||'mix'));drawGen()}
+function useCharName(i,k){const c=G.cast[i],r=(NMC[i]||[])[k];if(!c||!r)return;c.nm=r[0];c.nmn=r[1]||'';drawGen();toast('已套用到'+role(i))}
 /* ---- 角色設定表 ---- */
 const qA=['','','','',''];
-function csRefresh(){nmTargets();const s=$('#csWho');if(!s)return;const v=s.value;s.innerHTML='<option value="-1">手動輸入</option>'+G.cast.map((c,i)=>`<option value="${i}">${role(i)}${c.nm?'（'+esc(c.nm)+'）':''}</option>`).join('');if(v&&s.querySelector(`[value="${v}"]`))s.value=v}
+function csRefresh(){const s=$('#csWho');if(!s)return;const v=s.value;s.innerHTML='<option value="-1">手動輸入</option>'+G.cast.map((c,i)=>`<option value="${i}">${role(i)}${c.nm?'（'+esc(c.nm)+'）':''}</option>`).join('');if(v&&s.querySelector(`[value="${v}"]`))s.value=v}
 function csFill(){const i=+$('#csWho').value,c=G.cast[i];if(!c)return;$('#csName').value=c.nm||'';$('#csInfo').value=(c.nmn?['名字意涵：'+c.nmn]:[]).concat(['人物屬性：'+c.t].concat(c.job?['職業：'+c.job]:[],c.age?['年齡：'+c.age+' 歲']:[],c.ht?['身高與體型：'+c.ht+' cm｜'+c.bd]:[],c.hl?['身心狀態：'+c.hl]:[],c.at&&atOn()?['依附類型：'+c.at]:[],xText(c)?['生日／血型／MBTI：'+xText(c)]:[],showId()?[idText(c)]:[],showNat()?['國籍：'+c.nat]:[])).join('\n')}
 function csLines(){const L=['##'+($('#csName').value||'未命名角色')+'　角色設定表'];const info=$('#csInfo').value.trim();if(info){L.push('##基本資料');info.split('\n').forEach(x=>L.push(x))}
 L.push('##深入認識');qD.forEach((x,i)=>{const j=x.indexOf('|');L.push('Q：'+(j>0?x.slice(j+1):x));L.push('A：'+(qA[i]||'（尚未填寫）'))});return L}
@@ -752,9 +782,8 @@ $('#bkts').innerHTML=Object.keys(BKT).map(k=>`<label class="chip"><input type="c
 $('#cbkts').innerHTML=CITY_B.map(([k])=>`<label class="chip"><input type="checkbox" value="${escA(k)}" style="width:auto"> ${esc(k)}</label>`).join(' ');$('#mbkts').innerHTML=MEET_B.map(([k])=>`<label class="chip"><input type="checkbox" value="${escA(k)}" style="width:auto"> ${esc(k)}</label>`).join(' ');
 $('#sbcat').innerHTML=Object.entries(CAT).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+'<option value="p">短文練習題</option><option value="q">角色問題</option><option value="nm">名字</option><option value="o">其他</option>';
 $('#nmera').innerHTML='<option value="1960">1960 年代出生</option><option value="1970">1970 年代出生</option><option value="1980" selected>1980 年代出生</option><option value="1990">1990 年代出生</option><option value="2000">2000 年代出生</option><option value="2010">2010 年代出生</option>';
-$('#nmgen').innerHTML='<option value="mix">不限</option><option value="女">女性名</option><option value="男">男性名</option><option value="neu">中性名</option>';
 $('#nmsty').innerHTML='<option value="auto">依年代自動</option><option value="trad">傳統</option><option value="mod">現代</option><option value="lit">文藝</option>';
-rollNames();rollAll();renderCards()}
+rollAll();renderCards()}
 
 function stat(){$('#stat').textContent='目前詞庫：'+Object.keys(CAT).map(k=>CAT[k]+' '+pool(k).length).join('｜')}
 function addWords(){const k=$('#addcat').value,v=$('#addtxt').value.split(/[、\n]/).map(x=>x.trim()).filter(Boolean);if(!v.length)return;U[k]=(U[k]||[]).concat(v.filter(x=>!pool(k).includes(x)));save();$('#addtxt').value='';$('#addmsg').textContent='已加入 '+v.length+' 個';stat()}
