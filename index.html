@@ -65,6 +65,7 @@ button:disabled{opacity:.45;cursor:default}
 <p>主打提供創作現代背景之言情小說／浪漫愛情／羅曼史創作者使用。</p>
 <p>靈感統合／產生器的詞彙與題庫內容，來自網路資源、難以考證作者的 30 題／50 題寫作練習……等，以及工具作者本人所提供，並由 Claude 做統整分析後得出的結果。</p>
 <p>創作者可以自由運用靈感統合／產生器，抽（骰）到的內容都可以用於您作品的創作基礎、腦力激盪，若您想要擴寫也沒有問題；但如果可以的話，請連結回這個工具庫網址，方便更多人認識和使用。</p>
+<p>關於資料來源：本工具在製作時，參考了許多創作者分享的文章與整理（詳見「出處資訊」）。除了既有作品的劇情梗（例如九〇年代台灣連續劇「花系列」）有另外查證之外，其餘多是言情創作裡大家熟悉的人物設定與劇情元素，這裡只是把它們整理成容易抽取的詞條，內容皆經過重新整理與改寫，並非直接複製貼上他人的文字。謝謝所有曾經公開分享創作經驗、整理資料的作者們。</p>
 <p>若有任何問題與建議，請洽 <a href="https://www.plurk.com/romancewritertool" target="_blank" rel="noopener">https://www.plurk.com/romancewritertool</a>。</p>
 </div>
 <p><button class="big" onclick="location.hash='gen'">開始骰靈感</button></p>
@@ -76,7 +77,7 @@ button:disabled{opacity:.45;cursor:default}
 <div class="card" id="ctrl">
 <div class="grid"><label class="lab">配對類型<select id="pairsel"></select></label><label class="lab">國籍範圍<select id="natsel"></select></label><label class="lab">年齡範圍<select id="agesel"><option value="all">隨機（18–45 歲）</option><option value="teen">15–17 歲（高中生，限校園向）</option><option value="young">18–25 歲（校園／NA）</option><option value="main">24–35 歲（職場主流）</option><option value="mature">33–50 歲（成熟）</option></select></label></div>
 <div class="grid" style="margin-top:10px"><label class="lab">身心狀態設定（主角）<select id="hlsel" onchange="hlRefresh()"><option value="off">不加入（預設）</option><option value="low">偶爾出現（約兩成有設定，其餘為健全者）</option><option value="half">經常出現（約五成有設定）</option></select></label><label class="lab">依附類型<span style="display:block;margin-top:6px"><label class="chip"><input type="checkbox" id="showat" checked style="width:auto" onchange="drawGen()"> 顯示依附類型</label></span></label></div>
-<p class="lab" style="margin:10px 0 4px">故事背景來源（可複選；全不選＝全部混抽）</p><div id="cbkts"></div><p class="lab" style="margin:10px 0 4px">初次相遇類型（可複選；全不選＝全部混抽）</p><div id="mbkts"></div><p class="lab" style="margin:10px 0 4px">套路來源（可複選；全不選＝全部混抽）</p><div id="bkts"></div>
+<p class="lab" style="margin:10px 0 4px">題材類型（可複選；全不選＝全部混抽）</p><div id="thkts"></div><p class="lab" style="margin:10px 0 4px">故事背景來源（可複選；全不選＝全部混抽）</p><div id="cbkts"></div><p class="lab" style="margin:10px 0 4px">初次相遇類型（可複選；全不選＝全部混抽）</p><div id="mbkts"></div><p class="lab" style="margin:10px 0 4px">套路來源（可複選；全不選＝全部混抽）</p><div id="bkts"></div>
 <p style="margin:8px 0 0"><label class="chip"><input type="checkbox" id="evenw" style="width:auto"> 配對類型用完全平均的機率</label> <label class="chip"><input type="checkbox" id="showid" checked style="width:auto" onchange="drawGen()"> 顯示性別認同與性傾向</label> <label class="chip"><input type="checkbox" id="shownat" checked style="width:auto" onchange="drawGen()"> 顯示國籍</label></p>
 <p class="note">身心狀態（身心障礙、精神疾病、慢性病等）只是靈感提示，不代表角色的全部；請避免把疾病當噱頭、反派標籤或「被愛治好」的情節，建議查閱可靠資料，或請當事人或相關專業者協助審稿。依附類型是常見的人際互動傾向，同樣僅供參考。</p>
 <p class="note">性別認同與性傾向、國籍都是隨機的靈感提示，可以自由改寫；多人配對（Reverse Harem、Harem、Polyamory）會自動多出主角三、四、五。選擇「15–17 歲」時，主角皆為高中生，會抽雙人配對或 Reverse Harem，並使用校園向的設定（不含婚姻、職場、成人情節）。</p>
@@ -129,10 +130,9 @@ button:disabled{opacity:.45;cursor:default}
 <section id="src">
 <h2>出處資訊</h2>
 <p class="note">以下為本工具製作期間，製作者閱讀過的參考資料。</p>
-<div class="card"><b>聯絡製作者</b><p class="note">本工具庫整理的是網路上公開資料中的短詞彙、題目標題與概念關鍵字，並依來源逐一標示，不轉載引用原文內容。部分作者無法考證；若您是原作者或權利人，希望調整來源標註方式或移除相關內容，請至 <a href="https://www.plurk.com/romancewritertool" target="_blank" rel="noopener">https://www.plurk.com/romancewritertool</a> 聯絡，我會盡快處理。</p></div>
 <p class="note">其中，既有作品的劇情梗（例如九〇年代台灣連續劇「花系列」）已另外查證確認；其餘多為言情創作中大眾熟知、常見的人物設定與劇情編排元素，這裡只是整理成方便抽取的詞條。</p>
-<p class="note">工具中的內容皆經過整理與改寫，並非直接複製貼上他人的內容。感謝所有分享過創作經驗、整理過資料的作者們。若您認為某個來源或詞條的標示有疏漏或不妥，歡迎透過上方「聯絡製作者」的方式告訴我，我會盡快處理。</p>
-<div id="srcs"></div><div class="card"><b>認識角色問題集</b><p class="note">認識角色問題集的內容皆為此工具作者本人所發想的原創內容（但因為不想再連回個人的資訊頁面、想維持一定程度的匿名性，故不在此附上原本的 Google 文件；若需身分的證明，未來也可以自證）。</p></div>
+<p class="note">工具中的內容皆經過整理與改寫，並非直接複製貼上他人的內容。感謝所有分享過創作經驗、整理過資料的作者們。若您認為某個來源或詞條的標示有疏漏或不妥，歡迎透過頁面最下方「聯絡製作者」的方式告訴我，我會盡快處理。</p>
+<div id="srcs"></div><div class="card"><b>認識角色問題集</b><p class="note">認識角色問題集的內容皆為此工具作者本人所發想的原創內容（但因為不想再連回個人的資訊頁面、想維持一定程度的匿名性，故不在此附上原本的 Google 文件；若需身分的證明，未來也可以自證）。</p></div><div class="card"><b>聯絡製作者</b><p class="note">本工具庫整理的是網路上公開資料中的短詞彙、題目標題與概念關鍵字，並依來源逐一標示，不轉載引用原文內容。部分作者無法考證；若您是原作者或權利人，希望調整來源標註方式或移除相關內容，請至 <a href="https://www.plurk.com/romancewritertool" target="_blank" rel="noopener">https://www.plurk.com/romancewritertool</a> 聯絡，我會盡快處理。</p></div>
 </section>
 </main>
 
@@ -288,7 +288,13 @@ const BT1=S('被迫一起完成一件事、第一次看見對方不設防的一�
 const BT3=S('其中一人選擇離開、祕密被揭穿、說出了無法收回的話、發現對方一直有所隱瞞、外界壓力逼到極限、事業與感情只能二選一、獨自度過失去的夜晚、被最信任的人背叛、舊傷復發、誤會到了最深的時候');
 const BT4=S('其中一人主動走向對方、一場遲來的坦白、用具體行動證明心意、在初遇的地方重逢、一起面對曾經逃避的問題、做出不再逃避的選擇、家人或朋友的推一把、把話說開後的沉默與擁抱、重新定義彼此的關係、有人終於願意道歉');
 const BEATN=['相遇','靠近','衝突','低谷','和解'];
-let G={pair:'BG',n:2,cast:[],sx:[],rel:[],bg:'',tr:'',mt:'',cf:'',bt:{1:'',3:'',4:''},notes:['','','','','']};
+let G={pair:'BG',n:2,cast:[],sx:[],rel:[],th:'',bg:'',tr:'',mt:'',cf:'',bt:{1:'',3:'',4:''},notes:['','','','','']};
+const THEMES={"校園與成長": "校園愛情、貴族學校、黑暗學院風、成長小說、社團青春、畢業季、轉學生、大學生活、留學生活、青春疼痛、追夢青春", "都會與職場": "都會愛情、職場戀愛、創業奮鬥、演藝圈、電競圈、出版與文字工作、醫療現場、法律與司法、美食與餐飲、設計與藝術圈", "階層與權力": "豪門、上流社會風波、家族企業、財團繼承、世家聯姻、黑幫、警匪對峙、政商關係", "氛圍與風格": "溫馨日常、療癒小品、祕密集會、懸疑愛情、暗戀群像、重逢與回憶、相依為命、鄉鎮生活、異國生活、重新出發、家庭倫理、友情與愛情交織"};
+const TH_SCHOOL=/校園愛情|貴族學校|黑暗學院風|社團青春|畢業季|轉學生/,TH_TEEN=/校園愛情|貴族學校|黑暗學院風|成長小說|社團青春|畢業季|轉學生|青春疼痛|追夢青春|溫馨日常|療癒小品|祕密集會|懸疑愛情|暗戀群像|重逢與回憶|相依為命|家庭倫理|友情與愛情交織/;
+function poolTh(){const sel=[...document.querySelectorAll('#thkts input:checked')].map(x=>x.value);let a=[].concat(...(sel.length?sel:Object.keys(THEMES)).map(k=>THEMES[k].split('、')));
+if(isTeen())a=a.filter(x=>TH_TEEN.test(x));else{const ag=G.cast.map(c=>c.age).filter(Boolean);if(ag.length&&Math.max(...ag)>25)a=a.filter(x=>!TH_SCHOOL.test(x))}
+return a.length?a:Object.values(THEMES).join('、').split('、')}
+
 const LK={};
 function role(i){return ROLE[i]||('主角'+(i+1))}
 function genPair(){let m=($('#pairsel')||{}).value||'all';const teen=isTeen(),okT=k=>PAIRS[k].n==2||(k[0]=='R'&&k[1]=='H');if(teen&&PAIRS[m]&&!okT(m))m='all';if(PAIRS[m])return m;let ks=Object.keys(PAIRS);if(teen)ks=ks.filter(okT);if(m=='duo')ks=ks.filter(k=>PAIRS[k].n==2);if(m=='multi')ks=ks.filter(k=>PAIRS[k].n!=2);const ev=$('#evenw')&&$('#evenw').checked;return wpick(ks.map(k=>[k,ev?1:PAIRS[k].w]))}
@@ -340,11 +346,11 @@ G.cast.forEach((c,i)=>{if(!LK['c'+i+'.id'])c.ori=rollOri(i)});
 G.cast.forEach((c,i)=>{if(!c.age)c.age=rollAge();if(!c.job)c.job=rollJob(c.age);if(!c.t)c.t=traitFor(c.sex,c.age);if(!c.nat)c.nat=rollNat();if(!c.ht)c.ht=rollHt(c.sex);if(!c.bd)c.bd=rollBd(c.ht,c.sex);if(!c.hl&&hlOn())c.hl=rollHl(c.job);if(!c.at)c.at=rollAt()})}
 function rollAll(){if(!LK.pair){G.pair=genPair();G.n=nFor(G.pair)}applyPair();
 G.cast.forEach((c,i)=>{const L=k=>LK['c'+i+'.'+k];if(!L('a'))c.age=rollAge();if(!L('j'))c.job=rollJob(c.age);if(!L('t'))c.t=traitFor(c.sex,c.age);if(!L('n'))c.nat=rollNat();if(!L('b')){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}if(!L('h'))c.hl=rollHl(c.job);if(!L('at'))c.at=rollAt()});
-if(!LK.rel)G.rel=genRel();if(!LK.bg)G.bg=pick(poolC(),1)[0];if(!LK.tr)G.tr=noSrc(pick(poolT(),1)[0]);if(!LK.mt)G.mt=pick(poolM(),1)[0];if(!LK.cf)G.cf=pick(cfPool(),1)[0];
+if(!LK.rel)G.rel=genRel();if(!LK.th)G.th=pick(poolTh(),1)[0];if(!LK.bg)G.bg=pick(poolC(),1)[0];if(!LK.tr)G.tr=noSrc(pick(poolT(),1)[0]);if(!LK.mt)G.mt=pick(poolM(),1)[0];if(!LK.cf)G.cf=pick(cfPool(),1)[0];
 if(!LK.bt1)G.bt[1]=pick(BT1,1)[0];if(!LK.bt3)G.bt[3]=pick(BT3,1)[0];if(!LK.bt4)G.bt[4]=pick(BT4,1)[0];drawGen()}
 function rollKey(k){if(LK[k])return;
 if(k=='pair'){G.pair=genPair();G.n=nFor(G.pair);applyPair();if(!LK.rel)G.rel=genRel()}else if(k=='rel')G.rel=genRel();
-else if(k=='bg')G.bg=pick(poolC(),1)[0];else if(k=='tr')G.tr=noSrc(pick(poolT(),1)[0]);else if(k=='mt')G.mt=pick(poolM(),1)[0];else if(k=='cf')G.cf=pick(cfPool(),1)[0];
+else if(k=='th')G.th=pick(poolTh(),1)[0];else if(k=='bg')G.bg=pick(poolC(),1)[0];else if(k=='tr')G.tr=noSrc(pick(poolT(),1)[0]);else if(k=='mt')G.mt=pick(poolM(),1)[0];else if(k=='cf')G.cf=pick(cfPool(),1)[0];
 else if(k=='bt1')G.bt[1]=pick(BT1,1)[0];else if(k=='bt3')G.bt[3]=pick(BT3,1)[0];else if(k=='bt4')G.bt[4]=pick(BT4,1)[0];
 else{const m=/^c(\d+)\.(t|id|n|a|j|b|h|at)$/.exec(k);if(m){const i=+m[1],c=G.cast[i];if(!c)return;
 if(m[2]=='t')c.t=traitFor(c.sex,c.age);else if(m[2]=='n')c.nat=rollNat();else if(m[2]=='a'){c.age=rollAge();const L=k=>LK['c'+i+'.'+k];if(!L('j')&&!jobOK(c.job,c.age))c.job=rollJob(c.age);if(!L('t')&&!c.t.split('、').every(x=>traitOK(x,c.age)))c.t=traitFor(c.sex,c.age)}else if(m[2]=='j'){c.job=rollJob(c.age);if(!LK['c'+i+'.h']&&!hlJobOK(c.hl,c.job))c.hl=rollHl(c.job)}else if(m[2]=='b'){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}else if(m[2]=='h')c.hl=rollHl(c.job);else if(m[2]=='at')c.at=rollAt();else{c.sex=G.sx[i]||c.sex;c.gid=wpick(GIDS);c.ori=rollOri(i);if(!LK['c'+i+'.b']){c.ht=rollHt(c.sex);c.bd=rollBd(c.ht,c.sex)}}}}
@@ -355,7 +361,7 @@ function idText(c){return'生理'+c.sex+'｜'+c.gid+'｜'+c.ori}
 function row(key,label,val){return`<div class="card row"><div><div class="lab">${label}</div><div class="val">${esc(val||'—')}</div></div><div class="btns"><button onclick="rollKey('${key}')" ${LK[key]?'disabled':''}>重骰</button>${lockBtn(LK[key],`tog('${key}')`)}</div></div>`}
 function drawGen(){let h=row('pair','配對類型',PAIRS[G.pair].label);
 G.cast.forEach((c,i)=>{h+=`<div class="castbox"><label class="lab">${role(i)}　姓名（可自填，或用名字產生器）<input value="${escA(c.nm)}" oninput="G.cast[${i}].nm=this.value;G.cast[${i}].nmn=''" placeholder="尚未命名"></label>`+(c.nmn?`<div class="note" style="margin:0 0 6px">名字意涵：${esc(c.nmn)}</div>`:'')+row('c'+i+'.t','人物屬性',c.t)+row('c'+i+'.j','職業',c.job)+row('c'+i+'.a','年齡',c.age?c.age+' 歲':'')+row('c'+i+'.b','身高與體型',c.ht?c.ht+' cm｜'+c.bd:'')+(hlOn()?row('c'+i+'.h','身心狀態（請尊重書寫）',c.hl):'')+(atOn()?row('c'+i+'.at','依附類型',c.at):'')+(showId()?row('c'+i+'.id','性別與性傾向',idText(c)):'')+(showNat()?row('c'+i+'.n','國籍',c.nat):'')+'</div>'});
-h+=relBlock();h+=row('bg','故事背景',G.bg)+row('tr','套路／Trope',noSrc(G.tr))+row('mt','初次相遇',G.mt)+row('cf','最大衝突線',G.cf);
+h+=relBlock();h+=row('th','隨機題材',G.th)+row('bg','故事背景',G.bg)+row('tr','套路／Trope',noSrc(G.tr))+row('mt','初次相遇',G.mt)+row('cf','最大衝突線',G.cf);
 h+='<div class="card"><b>關係走向骨架</b><p class="note">相遇與衝突取自上面抽到的結果，其餘三拍可重骰、鎖住；下方欄位可自己寫下想法。</p>';
 const bs=[G.mt,G.bt[1],G.cf,G.bt[3],G.bt[4]],keys=[null,'bt1',null,'bt3','bt4'];
 bs.forEach((t,i)=>{h+=`<div class="beat"><div class="row"><div><span class="tag">${i+1}　${BEATN[i]}</span>${esc(t||'—')}</div>${keys[i]?`<div class="btns"><button onclick="rollKey('${keys[i]}')" ${LK[keys[i]]?'disabled':''}>重骰</button>${lockBtn(LK[keys[i]],`tog('${keys[i]}')`)}</div>`:''}</div><textarea rows="2" placeholder="我的想法……" oninput="G.notes[${i}]=this.value">${esc(G.notes[i]||'')}</textarea></div>`});
@@ -364,7 +370,7 @@ function genLines(g,withNotes){g=g||G;const L=['##配對類型','　'+PAIRS[g.pa
 g.cast.forEach((c,i)=>{L.push(role(i)+'：'+(c.nm?c.nm+'　':'')+c.t);if(c.nmn)L.push('　名字意涵：'+c.nmn);if(c.job)L.push('　職業：'+c.job);if(c.age)L.push('　年齡：'+c.age+' 歲');if(c.ht)L.push('　身高與體型：'+c.ht+' cm｜'+c.bd);if(c.hl)L.push('　身心狀態：'+c.hl);if(c.at&&atOn())L.push('　依附類型：'+c.at);if(showId())L.push('　'+idText(c));if(showNat())L.push('　國籍：'+c.nat)});
 {const ag=g.cast.map(c=>c.age).filter(Boolean);if(ag.length>1){L.push('　年齡差：'+(Math.max(...ag)-Math.min(...ag))+' 歲')}}
 {const rl=relList(g);if(rl.length){L.push('##人物關係');rl.forEach(x=>L.push(edgeText(x)))}}
-L.push('##故事設定','背景：'+g.bg,'套路：'+noSrc(g.tr),'初次相遇：'+g.mt,'最大衝突線：'+g.cf,'##關係走向骨架');
+L.push('##故事設定',...(g.th?['題材：'+g.th]:[]),'背景：'+g.bg,'套路：'+noSrc(g.tr),'初次相遇：'+g.mt,'最大衝突線：'+g.cf,'##關係走向骨架');
 [g.mt,g.bt[1],g.cf,g.bt[3],g.bt[4]].forEach((t,i)=>{L.push((i+1)+'　'+BEATN[i]+'：'+t);if(withNotes&&g.notes&&g.notes[i])L.push('　我的想法：'+g.notes[i])});return L}
 const lines2text=L=>L.map(x=>x.replace(/^##/,'【')+(x.startsWith('##')?'】':'')).join('\n');
 function copyResult(){copyTxt(lines2text(genLines(G,true)),'#cp','已複製')}
@@ -388,7 +394,7 @@ async function genPng(){const b=await cardPng('靈感卡',genLines(G,true));save
 /* ---- 靈感卡 ---- */
 let CARDS=[];try{CARDS=JSON.parse(localStorage.getItem('rwt_cards')||'[]')}catch(e){}
 const saveCards=()=>{try{localStorage.setItem('rwt_cards',JSON.stringify(CARDS))}catch(e){toast('此環境無法儲存到瀏覽器')}};
-function addCard(){CARDS.unshift({ts:new Date().toLocaleString('zh-TW'),g:JSON.parse(JSON.stringify({pair:G.pair,n:G.n,cast:G.cast,sx:G.sx,rel:G.rel,bg:G.bg,tr:G.tr,mt:G.mt,cf:G.cf,bt:G.bt,notes:G.notes}))});CARDS=CARDS.slice(0,60);saveCards();renderCards();toast('已存成靈感卡')}
+function addCard(){CARDS.unshift({ts:new Date().toLocaleString('zh-TW'),g:JSON.parse(JSON.stringify({pair:G.pair,n:G.n,cast:G.cast,sx:G.sx,rel:G.rel,th:G.th,bg:G.bg,tr:G.tr,mt:G.mt,cf:G.cf,bt:G.bt,notes:G.notes}))});CARDS=CARDS.slice(0,60);saveCards();renderCards();toast('已存成靈感卡')}
 function renderCards(){const b=$('#cardsList');if(!b)return;b.innerHTML=CARDS.length?CARDS.map((c,i)=>`<div class="card"><div class="lab">${esc(c.ts)}</div><div>${esc(PAIRS[c.g.pair]?PAIRS[c.g.pair].label:'')}｜${esc(c.g.tr)}｜${esc(c.g.bg)}</div><p><button onclick="loadCard(${i})">載入</button> <button onclick="cardImg(${i})">下載圖片</button> <button onclick="cardTxt(${i})">下載文字</button> <button onclick="delCard(${i})">刪除</button></p></div>`).join(''):'<p class="note">還沒有靈感卡。按上面的「存成靈感卡」就會出現在這裡。</p>'}
 function loadCard(i){const g=CARDS[i].g;G=JSON.parse(JSON.stringify(g));G.rel=G.rel||[];Object.keys(LK).forEach(k=>delete LK[k]);drawGen();toast('已載入');window.scrollTo(0,0)}
 async function cardImg(i){const b=await cardPng('靈感卡',genLines(CARDS[i].g,true));saveFile('靈感卡.png',b)}
@@ -398,11 +404,11 @@ function allCardsTxt(){if(!CARDS.length){toast('還沒有靈感卡');return}save
 /* ---- 分享 ---- */
 const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 const b64d=s=>decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))));
-function shareCode(){return b64e(JSON.stringify({p:G.pair,c:G.cast.map(c=>[c.nm,c.sex,c.gid,c.ori,c.nat,c.t,c.age,c.job,c.ht,c.bd,c.hl||'',c.at||'',c.nmn||'']),b:[G.bg,G.tr,G.mt,G.cf,G.bt[1],G.bt[3],G.bt[4]],n:G.notes,r:G.rel.map(e=>[e.a,e.b,e.r,e.s])}))}
+function shareCode(){return b64e(JSON.stringify({p:G.pair,c:G.cast.map(c=>[c.nm,c.sex,c.gid,c.ori,c.nat,c.t,c.age,c.job,c.ht,c.bd,c.hl||'',c.at||'',c.nmn||'']),th:G.th,b:[G.bg,G.tr,G.mt,G.cf,G.bt[1],G.bt[3],G.bt[4]],n:G.notes,r:G.rel.map(e=>[e.a,e.b,e.r,e.s])}))}
 function shareLink(){const base=/^https?:/.test(location.protocol)?location.href.split('#')[0]:'';return base+'#gen~'+shareCode()}
 function loadShare(code){try{code=String(code).trim();const m=code.indexOf('~');if(m>=0)code=code.slice(m+1);const o=JSON.parse(b64d(code));if(!PAIRS[o.p]||!Array.isArray(o.c)||o.c.length<2||o.c.length>6)throw 0;
 const s=x=>String(x==null?'':x).slice(0,300);
-G={pair:o.p,n:o.c.length,sx:[],rel:Array.isArray(o.r)?o.r.slice(0,20).map(a=>({a:+a[0]||0,b:+a[1]||0,r:s(a[2]),s:s(a[3])})):[],cast:o.c.map(a=>({nm:s(a[0]),sex:s(a[1]),gid:s(a[2]),ori:s(a[3]),nat:s(a[4]),t:s(a[5]),age:+a[6]||0,job:s(a[7]),ht:+a[8]||0,bd:s(a[9]),hl:s(a[10]),at:s(a[11]),nmn:s(a[12])})),bg:s(o.b[0]),tr:noSrc(s(o.b[1])),mt:s(o.b[2]),cf:s(o.b[3]),bt:{1:s(o.b[4]),3:s(o.b[5]),4:s(o.b[6])},notes:(o.n||[]).slice(0,5).map(s)};
+G={pair:o.p,n:o.c.length,sx:[],rel:Array.isArray(o.r)?o.r.slice(0,20).map(a=>({a:+a[0]||0,b:+a[1]||0,r:s(a[2]),s:s(a[3])})):[],cast:o.c.map(a=>({nm:s(a[0]),sex:s(a[1]),gid:s(a[2]),ori:s(a[3]),nat:s(a[4]),t:s(a[5]),age:+a[6]||0,job:s(a[7]),ht:+a[8]||0,bd:s(a[9]),hl:s(a[10]),at:s(a[11]),nmn:s(a[12])})),th:s(o.th),bg:s(o.b[0]),tr:noSrc(s(o.b[1])),mt:s(o.b[2]),cf:s(o.b[3]),bt:{1:s(o.b[4]),3:s(o.b[5]),4:s(o.b[6])},notes:(o.n||[]).slice(0,5).map(s)};
 while(G.notes.length<5)G.notes.push('');G.sx=G.cast.map(c=>c.sex);Object.keys(LK).forEach(k=>delete LK[k]);if(G.cast.some(c=>c.hl)&&!hlOn())$('#hlsel').value='half';if(G.cast.some(c=>c.at)&&$('#showat'))$('#showat').checked=true;drawGen();toast('已載入分享內容');return true}catch(e){toast('分享碼無法讀取，請確認是否完整貼上');return false}}
 function copyShare(kind){copyTxt(kind=='code'?shareCode():shareLink(),'#shmsg','已複製')}
 function loadShareBox(){if(loadShare($('#shin').value))$('#shin').value=''}
@@ -698,6 +704,7 @@ function copySubmit(){const t=$('#sbtxt').value.trim();if(!t)return;const c=$('#
 function initGen(){
 $('#pairsel').innerHTML='<option value="all">隨機（全部類型）</option><option value="duo">隨機（僅雙人）</option><option value="multi">隨機（僅多人）</option>'+Object.entries(PAIRS).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('');
 $('#natsel').innerHTML='<option value="all">隨機（全世界，台灣機率較高）</option><option value="tw">僅台灣</option><option value="asia">台灣為主＋亞洲</option><option value="west">歐美與大洋洲</option><option value="global">不含台灣</option>';
+$('#thkts').innerHTML=Object.keys(THEMES).map(k=>`<label class="chip"><input type="checkbox" value="${escA(k)}" style="width:auto"> ${esc(k)}</label>`).join(' ');
 $('#bkts').innerHTML=Object.keys(BKT).map(k=>`<label class="chip"><input type="checkbox" value="${escA(k)}" style="width:auto"> ${esc(k)}</label>`).join(' ');
 $('#cbkts').innerHTML=CITY_B.map(([k])=>`<label class="chip"><input type="checkbox" value="${escA(k)}" style="width:auto"> ${esc(k)}</label>`).join(' ');$('#mbkts').innerHTML=MEET_B.map(([k])=>`<label class="chip"><input type="checkbox" value="${escA(k)}" style="width:auto"> ${esc(k)}</label>`).join(' ');
 $('#sbcat').innerHTML=Object.entries(CAT).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+'<option value="p">短文練習題</option><option value="q">角色問題</option><option value="nm">名字</option><option value="o">其他</option>';
