@@ -81,7 +81,7 @@ button:disabled{opacity:.45;cursor:default}
 <header>
 <h1>💌 現代背景原創OC／CP靈感工具庫</h1>
 <nav id="nav">
-<a href="#welcome">歡迎使用</a><a href="#howto">使用教學</a><a href="#gen">靈感產生器</a><a href="#cards">我的靈感卡</a><a href="#map">角色關係圖</a><a href="#char">認識角色</a><a href="#drill">短文練習題</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿與自訂詞彙</a><a href="#src">出處資訊</a></span></span>
+<a href="#welcome">歡迎使用</a><a href="#howto">使用教學</a><a href="#gen">靈感產生器</a><a href="#cards">我的靈感卡</a><a href="#map">角色關係圖</a><a href="#char">認識角色</a><a href="#drill">短文練習題</a><span class="more"><button type="button" id="morebtn" aria-expanded="false">更多 ▾</button><span id="moremenu"><a href="#submit">投稿給作者</a><a href="#src">出處資訊</a></span></span>
 </nav>
 </header>
 <main>
@@ -120,6 +120,7 @@ button:disabled{opacity:.45;cursor:default}
 <p><b>每位主角：</b>一人一個可收合的區塊，有人物屬性、職業、年齡、身高體型、身心狀態、依附類型、生日血型 MBTI、性別與性傾向、國籍。區塊最上方可以直接輸入名字，或選名字類型（華語、英語系、日本、韓國等）後按「🎲 骰名字」，點一下就套用，外語名字還會附上意涵。</p>
 <p><b>故事設定：</b>題材、故事背景、套路、初次相遇、最大衝突線。</p>
 <p><b>關係走向骨架：</b>把相遇、靠近、衝突、低谷、和解排成五個階段，每個階段下方可以寫下自己的想法。</p>
+<p><b>我也來加詞彙：</b>在產生器最下方，可以新增自己的詞彙，立刻加入你的抽籤池；只存在你自己的瀏覽器，不會傳給任何人。</p>
 <p><b>更多設定：</b>最上方的「⚙️ 更多設定」可以開關欄位、設定華語名的年代與風格、篩選題材與套路的類別，以及調整機率。</p></div>
 <div class="card"><h3 style="margin-top:0">抽完之後可以做什麼</h3>
 <p><b>存成靈感卡：</b>按「💾 存成靈感卡」，會收進「我的靈感卡」頁，可以隨時回來看，也能下載文字或圖片。</p>
@@ -145,7 +146,7 @@ button:disabled{opacity:.45;cursor:default}
 <div class="card"><h3 style="margin-top:0">其他頁面</h3>
 <p><b>我的靈感卡、角色關係圖、認識角色：</b>用法見上面各區塊。</p>
 <p><b>短文練習題：</b>抽題目寫短文，可以鎖題、重骰；成人向和較沉重的題目需要自己勾選才會出現。</p>
-<p><b>更多 → 投稿與自訂詞彙：</b>投稿詞彙給作者，或把自己的詞彙加進自己的抽籤池。</p>
+<p><b>更多 → 投稿給作者：</b>想讓你的詞彙被收進公開題庫，可以在這裡投稿。</p>
 <p><b>更多 → 出處資訊：</b>列出製作時閱讀過的參考資料，以及聯絡方式。</p></div>
 <div class="card"><h3 style="margin-top:0">小提醒</h3>
 <p>隨機結果只是靈感，不一定處處合理，歡迎自己改寫、挑選或重骰；不想看到的欄位，可以在「更多設定」裡關掉。</p>
@@ -181,6 +182,13 @@ button:disabled{opacity:.45;cursor:default}
 <p><button onclick="copyShare('link')">複製分享連結</button> <button onclick="copyShare('code')">複製分享碼</button> <span id="shmsg" class="note"></span></p>
 <p class="note">若連結在你的環境無法直接開啟，請把「分享碼」傳給對方，並請對方貼在下方載入。</p>
 <div class="grid"><input id="shin" placeholder="貼上分享碼或分享連結"><button onclick="loadShareBox()">載入</button></div></div>
+<div class="card">
+<h3 style="margin-top:0">我也來加詞彙</h3>
+<p class="note">新增的詞彙會存在你自己的瀏覽器，並立刻加入你的抽籤池。想讓更多人用到，請按「複製我的新增內容」，再傳到作者的噗浪。</p>
+<div class="grid"><select id="addcat"></select><input id="addtxt" placeholder="輸入關鍵詞（可用頓號或換行一次加多個）"></div>
+<p><button onclick="addWords()">加入</button> <button onclick="copyMine()">複製我的新增內容</button> <button onclick="clearMine()">清空我的新增</button> <span id="addmsg" class="note"></span></p>
+<div id="stat" class="note"></div>
+</div>
 </section>
 
 <section id="cards">
@@ -230,19 +238,10 @@ button:disabled{opacity:.45;cursor:default}
 </section>
 
 <section id="submit">
-<h2>投稿與自訂詞彙</h2>
-<p class="note">這一頁有兩件事：「投稿給作者」讓你的詞彙有機會被收進公開題庫；「我也來加詞彙」只存在你自己的瀏覽器，立刻加入你的抽籤池。</p>
-<h3>投稿給作者</h3>
+<h2>投稿給作者</h2>
 <div class="card"><p class="note">想讓你的詞彙被收進公開題庫嗎？寫在下面，按按鈕會複製內容並開啟作者噗浪，貼在留言就可以。作者會審核後加入。</p>
 <div class="grid"><select id="sbcat"></select><input id="sbtxt" placeholder="詞彙或題目（可用頓號分隔多個）"></div>
 <p><a class="btnlike" href="https://www.plurk.com/romancewritertool" target="_blank" rel="noopener" onclick="copySubmit()">複製並前往作者噗浪</a> <span id="sbmsg" class="note"></span></p></div>
-<h3>我也來加詞彙</h3>
-<div class="card">
-<p class="note">新增的詞彙會存在你自己的瀏覽器，並立刻加入你的抽籤池。想讓更多人用到，請按「複製我的新增內容」，再傳到作者的噗浪。</p>
-<div class="grid"><select id="addcat"></select><input id="addtxt" placeholder="輸入關鍵詞（可用頓號或換行一次加多個）"></div>
-<p><button onclick="addWords()">加入</button> <button onclick="copyMine()">複製我的新增內容</button> <button onclick="clearMine()">清空我的新增</button> <span id="addmsg" class="note"></span></p>
-<div id="stat" class="note"></div>
-</div>
 </section>
 <section id="src">
 <h2>出處資訊</h2>
